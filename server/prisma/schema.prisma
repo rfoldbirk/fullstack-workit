@@ -1,0 +1,194 @@
+generator client {
+  provider = "prisma-client"
+  output   = "./generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model admin {
+  user_id Int   @id
+  users   users @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model coach {
+  user_id       Int             @id
+  price_dkk     Int
+  max_clients   Int?            @default(20)
+  users         users           @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user_to_coach user_to_coach[]
+}
+
+model comment {
+  id        Int     @id @default(autoincrement())
+  owner     Int?
+  attach_id Int?
+  msg       String? @db.VarChar(256)
+  users     users?  @relation(fields: [owner], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model exercise {
+  id                 Int                  @id @default(autoincrement())
+  name               String               @db.VarChar(30)
+  description        String               @db.VarChar(120)
+  equipment          equipment_type
+  owner_id           Int?
+  users              users?               @relation(fields: [owner_id], references: [id], onUpdate: NoAction)
+  exercise_order     exercise_order[]
+  exercise_to_muscle exercise_to_muscle[]
+}
+
+model exercise_log {
+  id                Int            @id @default(autoincrement())
+  exercise_order_id Int
+  reps              Int
+  kg                Float
+  exercise_order    exercise_order @relation(fields: [exercise_order_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model exercise_order {
+  id           Int            @id @default(autoincrement())
+  program_id   Int
+  exercise_id  Int
+  order_nr     Int
+  exercise_log exercise_log[]
+  exercise     exercise       @relation(fields: [exercise_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  program      program        @relation(fields: [program_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([program_id, exercise_id, order_nr])
+}
+
+model exercise_to_muscle {
+  exercise_id   Int
+  muscle_grp_id Int
+  exercise      exercise     @relation(fields: [exercise_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  muscle_group  muscle_group @relation(fields: [muscle_grp_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([exercise_id, muscle_grp_id])
+}
+
+model muscle_group {
+  id                 Int                  @id @default(autoincrement())
+  name               String               @db.VarChar(30)
+  exercise_to_muscle exercise_to_muscle[]
+}
+
+model password {
+  hash         String    @db.VarChar(256)
+  user_id      Int       @unique
+  last_updated DateTime? @default(now()) @db.Timestamp(6)
+  users        users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([hash, user_id])
+}
+
+model program {
+  id                 Int              @id @default(autoincrement())
+  name               String           @db.VarChar(120)
+  date               DateTime?        @default(now()) @db.Timestamp(6)
+  description        String           @db.VarChar(500)
+  accent_gradient_id String?          @db.VarChar(32)
+  exercise_order     exercise_order[]
+  program_log        program_log[]
+  users_program      users_program?
+}
+
+model program_log {
+  program_id Int
+  user_id    Int
+  date       DateTime @default(now()) @db.Timestamp(6)
+  program    program  @relation(fields: [program_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users      users    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([program_id, user_id, date])
+}
+
+model token {
+  hash    String    @id @db.VarChar(256)
+  user_id Int
+  expires DateTime? @default(dbgenerated("(now() + '1 day'::interval)")) @db.Timestamp(6)
+  users   users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model user_to_coach {
+  user_id  Int   @id
+  coach_id Int
+  coach    coach @relation(fields: [coach_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction)
+  users    users @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([user_id, coach_id])
+}
+
+model users {
+  id            Int             @id @default(autoincrement())
+  name          String          @db.VarChar(30)
+  date_of_birth DateTime?       @db.Date
+  weight_kg     Float?
+  height_cm     Float?
+  email         String          @unique @db.VarChar(120)
+  gender        gender_type?
+  picture       String?         @db.VarChar(120)
+  admin         admin?
+  coach         coach?
+  comment       comment[]
+  exercise      exercise[]
+  password      password?
+  program_log   program_log[]
+  token         token[]
+  user_to_coach user_to_coach?
+  users_program users_program[]
+  weight_logs   weight_logs[]
+}
+
+model users_program {
+  program_id Int     @id
+  user_id    Int
+  program    program @relation(fields: [program_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users      users   @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@unique([program_id, user_id])
+}
+
+model weight_logs {
+  user_id   Int
+  timestamp DateTime @default(now()) @db.Date
+  weight    Float?
+  users     users    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([user_id, timestamp])
+}
+
+enum Equipment {
+  None
+  Barbell
+  Dumbbell
+  Kettlebell
+  Machine
+  Plate
+  Resistance_Band
+  Suspension_Band
+  Other
+}
+
+enum Gender {
+  male
+  female
+}
+
+enum equipment_type {
+  None
+  Barbell
+  Dumbbell
+  Kettlebell
+  Machine
+  Plate
+  Resistance_Band @map("Resistance Band")
+  Suspension_Band @map("Suspension Band")
+  Other
+}
+
+enum gender_type {
+  male
+  female
+}
