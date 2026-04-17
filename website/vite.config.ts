@@ -2,4 +2,4 @@ import tailwindcss from '@tailwindcss/vite';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 
-export default defineConfig({ preview: { port: 3000 }, server: { port: 3000 }, plugins: [tailwindcss(), sveltekit()] });
+export default defineConfig({ preview: { port: 3000, allowedHosts: ["goworkit.tech"] }, server: { port: 3000 }, plugins: [tailwindcss(), sveltekit()] });
