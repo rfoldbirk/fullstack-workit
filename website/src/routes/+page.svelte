@@ -1,8 +1,25 @@
-<script>
-  import { Button } from "$lib/components/ui/button/index.js";
+<script lang="ts">
+  import { onMount } from "svelte";
+  import { goto } from "$app/navigation";
+
+  onMount(async () => {
+    try {
+      const response = await fetch("/api/me", {
+        credentials: "include",
+      });
+      if (!response.ok) {
+        throw new Error("Not authenticated");
+      }
+
+      goto("/dashboard");
+    } catch {
+      goto("/signin");
+    }
+  });
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
-
-<Button>Click me</Button>
+<div
+  style="display: flex; align-items: center; justify-content: center; height: 100vh;"
+>
+  <p>Loading...</p>
+</div>
