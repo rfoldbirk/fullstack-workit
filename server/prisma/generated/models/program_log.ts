@@ -27,61 +27,77 @@ export type AggregateProgram_log = {
 }
 
 export type Program_logAvgAggregateOutputType = {
-  program_id: number | null
   user_id: number | null
+  id: number | null
+  template_id: number | null
 }
 
 export type Program_logSumAggregateOutputType = {
-  program_id: number | null
   user_id: number | null
+  id: number | null
+  template_id: number | null
 }
 
 export type Program_logMinAggregateOutputType = {
-  program_id: number | null
   user_id: number | null
   date: Date | null
+  id: number | null
+  note: string | null
+  template_id: number | null
 }
 
 export type Program_logMaxAggregateOutputType = {
-  program_id: number | null
   user_id: number | null
   date: Date | null
+  id: number | null
+  note: string | null
+  template_id: number | null
 }
 
 export type Program_logCountAggregateOutputType = {
-  program_id: number
   user_id: number
   date: number
+  id: number
+  note: number
+  template_id: number
   _all: number
 }
 
 
 export type Program_logAvgAggregateInputType = {
-  program_id?: true
   user_id?: true
+  id?: true
+  template_id?: true
 }
 
 export type Program_logSumAggregateInputType = {
-  program_id?: true
   user_id?: true
+  id?: true
+  template_id?: true
 }
 
 export type Program_logMinAggregateInputType = {
-  program_id?: true
   user_id?: true
   date?: true
+  id?: true
+  note?: true
+  template_id?: true
 }
 
 export type Program_logMaxAggregateInputType = {
-  program_id?: true
   user_id?: true
   date?: true
+  id?: true
+  note?: true
+  template_id?: true
 }
 
 export type Program_logCountAggregateInputType = {
-  program_id?: true
   user_id?: true
   date?: true
+  id?: true
+  note?: true
+  template_id?: true
   _all?: true
 }
 
@@ -172,9 +188,11 @@ export type program_logGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 export type Program_logGroupByOutputType = {
-  program_id: number
   user_id: number
   date: Date
+  id: number
+  note: string | null
+  template_id: number
   _count: Program_logCountAggregateOutputType | null
   _avg: Program_logAvgAggregateOutputType | null
   _sum: Program_logSumAggregateOutputType | null
@@ -201,37 +219,47 @@ export type program_logWhereInput = {
   AND?: Prisma.program_logWhereInput | Prisma.program_logWhereInput[]
   OR?: Prisma.program_logWhereInput[]
   NOT?: Prisma.program_logWhereInput | Prisma.program_logWhereInput[]
-  program_id?: Prisma.IntFilter<"program_log"> | number
   user_id?: Prisma.IntFilter<"program_log"> | number
   date?: Prisma.DateTimeFilter<"program_log"> | Date | string
-  program?: Prisma.XOR<Prisma.ProgramScalarRelationFilter, Prisma.programWhereInput>
-  users?: Prisma.XOR<Prisma.UsersScalarRelationFilter, Prisma.usersWhereInput>
+  id?: Prisma.IntFilter<"program_log"> | number
+  note?: Prisma.StringNullableFilter<"program_log"> | string | null
+  template_id?: Prisma.IntFilter<"program_log"> | number
+  exercise_log?: Prisma.Exercise_logListRelationFilter
+  template?: Prisma.XOR<Prisma.Program_templateScalarRelationFilter, Prisma.program_templateWhereInput>
+  user?: Prisma.XOR<Prisma.UsersScalarRelationFilter, Prisma.usersWhereInput>
 }
 
 export type program_logOrderByWithRelationInput = {
-  program_id?: Prisma.SortOrder
   user_id?: Prisma.SortOrder
   date?: Prisma.SortOrder
-  program?: Prisma.programOrderByWithRelationInput
-  users?: Prisma.usersOrderByWithRelationInput
+  id?: Prisma.SortOrder
+  note?: Prisma.SortOrderInput | Prisma.SortOrder
+  template_id?: Prisma.SortOrder
+  exercise_log?: Prisma.exercise_logOrderByRelationAggregateInput
+  template?: Prisma.program_templateOrderByWithRelationInput
+  user?: Prisma.usersOrderByWithRelationInput
 }
 
 export type program_logWhereUniqueInput = Prisma.AtLeast<{
-  program_id_user_id_date?: Prisma.program_logProgram_idUser_idDateCompoundUniqueInput
+  id?: number
   AND?: Prisma.program_logWhereInput | Prisma.program_logWhereInput[]
   OR?: Prisma.program_logWhereInput[]
   NOT?: Prisma.program_logWhereInput | Prisma.program_logWhereInput[]
-  program_id?: Prisma.IntFilter<"program_log"> | number
   user_id?: Prisma.IntFilter<"program_log"> | number
   date?: Prisma.DateTimeFilter<"program_log"> | Date | string
-  program?: Prisma.XOR<Prisma.ProgramScalarRelationFilter, Prisma.programWhereInput>
-  users?: Prisma.XOR<Prisma.UsersScalarRelationFilter, Prisma.usersWhereInput>
-}, "program_id_user_id_date">
+  note?: Prisma.StringNullableFilter<"program_log"> | string | null
+  template_id?: Prisma.IntFilter<"program_log"> | number
+  exercise_log?: Prisma.Exercise_logListRelationFilter
+  template?: Prisma.XOR<Prisma.Program_templateScalarRelationFilter, Prisma.program_templateWhereInput>
+  user?: Prisma.XOR<Prisma.UsersScalarRelationFilter, Prisma.usersWhereInput>
+}, "id">
 
 export type program_logOrderByWithAggregationInput = {
-  program_id?: Prisma.SortOrder
   user_id?: Prisma.SortOrder
   date?: Prisma.SortOrder
+  id?: Prisma.SortOrder
+  note?: Prisma.SortOrderInput | Prisma.SortOrder
+  template_id?: Prisma.SortOrder
   _count?: Prisma.program_logCountOrderByAggregateInput
   _avg?: Prisma.program_logAvgOrderByAggregateInput
   _max?: Prisma.program_logMaxOrderByAggregateInput
@@ -243,49 +271,66 @@ export type program_logScalarWhereWithAggregatesInput = {
   AND?: Prisma.program_logScalarWhereWithAggregatesInput | Prisma.program_logScalarWhereWithAggregatesInput[]
   OR?: Prisma.program_logScalarWhereWithAggregatesInput[]
   NOT?: Prisma.program_logScalarWhereWithAggregatesInput | Prisma.program_logScalarWhereWithAggregatesInput[]
-  program_id?: Prisma.IntWithAggregatesFilter<"program_log"> | number
   user_id?: Prisma.IntWithAggregatesFilter<"program_log"> | number
   date?: Prisma.DateTimeWithAggregatesFilter<"program_log"> | Date | string
+  id?: Prisma.IntWithAggregatesFilter<"program_log"> | number
+  note?: Prisma.StringNullableWithAggregatesFilter<"program_log"> | string | null
+  template_id?: Prisma.IntWithAggregatesFilter<"program_log"> | number
 }
 
 export type program_logCreateInput = {
   date?: Date | string
-  program: Prisma.programCreateNestedOneWithoutProgram_logInput
-  users: Prisma.usersCreateNestedOneWithoutProgram_logInput
+  note?: string | null
+  exercise_log?: Prisma.exercise_logCreateNestedManyWithoutProgram_logInput
+  template: Prisma.program_templateCreateNestedOneWithoutProgram_logInput
+  user: Prisma.usersCreateNestedOneWithoutProgram_logInput
 }
 
 export type program_logUncheckedCreateInput = {
-  program_id: number
   user_id: number
   date?: Date | string
+  id?: number
+  note?: string | null
+  template_id: number
+  exercise_log?: Prisma.exercise_logUncheckedCreateNestedManyWithoutProgram_logInput
 }
 
 export type program_logUpdateInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  program?: Prisma.programUpdateOneRequiredWithoutProgram_logNestedInput
-  users?: Prisma.usersUpdateOneRequiredWithoutProgram_logNestedInput
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  exercise_log?: Prisma.exercise_logUpdateManyWithoutProgram_logNestedInput
+  template?: Prisma.program_templateUpdateOneRequiredWithoutProgram_logNestedInput
+  user?: Prisma.usersUpdateOneRequiredWithoutProgram_logNestedInput
 }
 
 export type program_logUncheckedUpdateInput = {
-  program_id?: Prisma.IntFieldUpdateOperationsInput | number
   user_id?: Prisma.IntFieldUpdateOperationsInput | number
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  template_id?: Prisma.IntFieldUpdateOperationsInput | number
+  exercise_log?: Prisma.exercise_logUncheckedUpdateManyWithoutProgram_logNestedInput
 }
 
 export type program_logCreateManyInput = {
-  program_id: number
   user_id: number
   date?: Date | string
+  id?: number
+  note?: string | null
+  template_id: number
 }
 
 export type program_logUpdateManyMutationInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type program_logUncheckedUpdateManyInput = {
-  program_id?: Prisma.IntFieldUpdateOperationsInput | number
   user_id?: Prisma.IntFieldUpdateOperationsInput | number
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  template_id?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type Program_logListRelationFilter = {
@@ -298,305 +343,442 @@ export type program_logOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type program_logProgram_idUser_idDateCompoundUniqueInput = {
-  program_id: number
-  user_id: number
-  date: Date | string
-}
-
 export type program_logCountOrderByAggregateInput = {
-  program_id?: Prisma.SortOrder
   user_id?: Prisma.SortOrder
   date?: Prisma.SortOrder
+  id?: Prisma.SortOrder
+  note?: Prisma.SortOrder
+  template_id?: Prisma.SortOrder
 }
 
 export type program_logAvgOrderByAggregateInput = {
-  program_id?: Prisma.SortOrder
   user_id?: Prisma.SortOrder
+  id?: Prisma.SortOrder
+  template_id?: Prisma.SortOrder
 }
 
 export type program_logMaxOrderByAggregateInput = {
-  program_id?: Prisma.SortOrder
   user_id?: Prisma.SortOrder
   date?: Prisma.SortOrder
+  id?: Prisma.SortOrder
+  note?: Prisma.SortOrder
+  template_id?: Prisma.SortOrder
 }
 
 export type program_logMinOrderByAggregateInput = {
-  program_id?: Prisma.SortOrder
   user_id?: Prisma.SortOrder
   date?: Prisma.SortOrder
+  id?: Prisma.SortOrder
+  note?: Prisma.SortOrder
+  template_id?: Prisma.SortOrder
 }
 
 export type program_logSumOrderByAggregateInput = {
-  program_id?: Prisma.SortOrder
   user_id?: Prisma.SortOrder
+  id?: Prisma.SortOrder
+  template_id?: Prisma.SortOrder
 }
 
-export type program_logCreateNestedManyWithoutProgramInput = {
-  create?: Prisma.XOR<Prisma.program_logCreateWithoutProgramInput, Prisma.program_logUncheckedCreateWithoutProgramInput> | Prisma.program_logCreateWithoutProgramInput[] | Prisma.program_logUncheckedCreateWithoutProgramInput[]
-  connectOrCreate?: Prisma.program_logCreateOrConnectWithoutProgramInput | Prisma.program_logCreateOrConnectWithoutProgramInput[]
-  createMany?: Prisma.program_logCreateManyProgramInputEnvelope
+export type Program_logScalarRelationFilter = {
+  is?: Prisma.program_logWhereInput
+  isNot?: Prisma.program_logWhereInput
+}
+
+export type program_logCreateNestedManyWithoutTemplateInput = {
+  create?: Prisma.XOR<Prisma.program_logCreateWithoutTemplateInput, Prisma.program_logUncheckedCreateWithoutTemplateInput> | Prisma.program_logCreateWithoutTemplateInput[] | Prisma.program_logUncheckedCreateWithoutTemplateInput[]
+  connectOrCreate?: Prisma.program_logCreateOrConnectWithoutTemplateInput | Prisma.program_logCreateOrConnectWithoutTemplateInput[]
+  createMany?: Prisma.program_logCreateManyTemplateInputEnvelope
   connect?: Prisma.program_logWhereUniqueInput | Prisma.program_logWhereUniqueInput[]
 }
 
-export type program_logUncheckedCreateNestedManyWithoutProgramInput = {
-  create?: Prisma.XOR<Prisma.program_logCreateWithoutProgramInput, Prisma.program_logUncheckedCreateWithoutProgramInput> | Prisma.program_logCreateWithoutProgramInput[] | Prisma.program_logUncheckedCreateWithoutProgramInput[]
-  connectOrCreate?: Prisma.program_logCreateOrConnectWithoutProgramInput | Prisma.program_logCreateOrConnectWithoutProgramInput[]
-  createMany?: Prisma.program_logCreateManyProgramInputEnvelope
+export type program_logUncheckedCreateNestedManyWithoutTemplateInput = {
+  create?: Prisma.XOR<Prisma.program_logCreateWithoutTemplateInput, Prisma.program_logUncheckedCreateWithoutTemplateInput> | Prisma.program_logCreateWithoutTemplateInput[] | Prisma.program_logUncheckedCreateWithoutTemplateInput[]
+  connectOrCreate?: Prisma.program_logCreateOrConnectWithoutTemplateInput | Prisma.program_logCreateOrConnectWithoutTemplateInput[]
+  createMany?: Prisma.program_logCreateManyTemplateInputEnvelope
   connect?: Prisma.program_logWhereUniqueInput | Prisma.program_logWhereUniqueInput[]
 }
 
-export type program_logUpdateManyWithoutProgramNestedInput = {
-  create?: Prisma.XOR<Prisma.program_logCreateWithoutProgramInput, Prisma.program_logUncheckedCreateWithoutProgramInput> | Prisma.program_logCreateWithoutProgramInput[] | Prisma.program_logUncheckedCreateWithoutProgramInput[]
-  connectOrCreate?: Prisma.program_logCreateOrConnectWithoutProgramInput | Prisma.program_logCreateOrConnectWithoutProgramInput[]
-  upsert?: Prisma.program_logUpsertWithWhereUniqueWithoutProgramInput | Prisma.program_logUpsertWithWhereUniqueWithoutProgramInput[]
-  createMany?: Prisma.program_logCreateManyProgramInputEnvelope
+export type program_logUpdateManyWithoutTemplateNestedInput = {
+  create?: Prisma.XOR<Prisma.program_logCreateWithoutTemplateInput, Prisma.program_logUncheckedCreateWithoutTemplateInput> | Prisma.program_logCreateWithoutTemplateInput[] | Prisma.program_logUncheckedCreateWithoutTemplateInput[]
+  connectOrCreate?: Prisma.program_logCreateOrConnectWithoutTemplateInput | Prisma.program_logCreateOrConnectWithoutTemplateInput[]
+  upsert?: Prisma.program_logUpsertWithWhereUniqueWithoutTemplateInput | Prisma.program_logUpsertWithWhereUniqueWithoutTemplateInput[]
+  createMany?: Prisma.program_logCreateManyTemplateInputEnvelope
   set?: Prisma.program_logWhereUniqueInput | Prisma.program_logWhereUniqueInput[]
   disconnect?: Prisma.program_logWhereUniqueInput | Prisma.program_logWhereUniqueInput[]
   delete?: Prisma.program_logWhereUniqueInput | Prisma.program_logWhereUniqueInput[]
   connect?: Prisma.program_logWhereUniqueInput | Prisma.program_logWhereUniqueInput[]
-  update?: Prisma.program_logUpdateWithWhereUniqueWithoutProgramInput | Prisma.program_logUpdateWithWhereUniqueWithoutProgramInput[]
-  updateMany?: Prisma.program_logUpdateManyWithWhereWithoutProgramInput | Prisma.program_logUpdateManyWithWhereWithoutProgramInput[]
+  update?: Prisma.program_logUpdateWithWhereUniqueWithoutTemplateInput | Prisma.program_logUpdateWithWhereUniqueWithoutTemplateInput[]
+  updateMany?: Prisma.program_logUpdateManyWithWhereWithoutTemplateInput | Prisma.program_logUpdateManyWithWhereWithoutTemplateInput[]
   deleteMany?: Prisma.program_logScalarWhereInput | Prisma.program_logScalarWhereInput[]
 }
 
-export type program_logUncheckedUpdateManyWithoutProgramNestedInput = {
-  create?: Prisma.XOR<Prisma.program_logCreateWithoutProgramInput, Prisma.program_logUncheckedCreateWithoutProgramInput> | Prisma.program_logCreateWithoutProgramInput[] | Prisma.program_logUncheckedCreateWithoutProgramInput[]
-  connectOrCreate?: Prisma.program_logCreateOrConnectWithoutProgramInput | Prisma.program_logCreateOrConnectWithoutProgramInput[]
-  upsert?: Prisma.program_logUpsertWithWhereUniqueWithoutProgramInput | Prisma.program_logUpsertWithWhereUniqueWithoutProgramInput[]
-  createMany?: Prisma.program_logCreateManyProgramInputEnvelope
+export type program_logUncheckedUpdateManyWithoutTemplateNestedInput = {
+  create?: Prisma.XOR<Prisma.program_logCreateWithoutTemplateInput, Prisma.program_logUncheckedCreateWithoutTemplateInput> | Prisma.program_logCreateWithoutTemplateInput[] | Prisma.program_logUncheckedCreateWithoutTemplateInput[]
+  connectOrCreate?: Prisma.program_logCreateOrConnectWithoutTemplateInput | Prisma.program_logCreateOrConnectWithoutTemplateInput[]
+  upsert?: Prisma.program_logUpsertWithWhereUniqueWithoutTemplateInput | Prisma.program_logUpsertWithWhereUniqueWithoutTemplateInput[]
+  createMany?: Prisma.program_logCreateManyTemplateInputEnvelope
   set?: Prisma.program_logWhereUniqueInput | Prisma.program_logWhereUniqueInput[]
   disconnect?: Prisma.program_logWhereUniqueInput | Prisma.program_logWhereUniqueInput[]
   delete?: Prisma.program_logWhereUniqueInput | Prisma.program_logWhereUniqueInput[]
   connect?: Prisma.program_logWhereUniqueInput | Prisma.program_logWhereUniqueInput[]
-  update?: Prisma.program_logUpdateWithWhereUniqueWithoutProgramInput | Prisma.program_logUpdateWithWhereUniqueWithoutProgramInput[]
-  updateMany?: Prisma.program_logUpdateManyWithWhereWithoutProgramInput | Prisma.program_logUpdateManyWithWhereWithoutProgramInput[]
+  update?: Prisma.program_logUpdateWithWhereUniqueWithoutTemplateInput | Prisma.program_logUpdateWithWhereUniqueWithoutTemplateInput[]
+  updateMany?: Prisma.program_logUpdateManyWithWhereWithoutTemplateInput | Prisma.program_logUpdateManyWithWhereWithoutTemplateInput[]
   deleteMany?: Prisma.program_logScalarWhereInput | Prisma.program_logScalarWhereInput[]
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
+export type program_logCreateNestedOneWithoutExercise_logInput = {
+  create?: Prisma.XOR<Prisma.program_logCreateWithoutExercise_logInput, Prisma.program_logUncheckedCreateWithoutExercise_logInput>
+  connectOrCreate?: Prisma.program_logCreateOrConnectWithoutExercise_logInput
+  connect?: Prisma.program_logWhereUniqueInput
 }
 
-export type program_logCreateNestedManyWithoutUsersInput = {
-  create?: Prisma.XOR<Prisma.program_logCreateWithoutUsersInput, Prisma.program_logUncheckedCreateWithoutUsersInput> | Prisma.program_logCreateWithoutUsersInput[] | Prisma.program_logUncheckedCreateWithoutUsersInput[]
-  connectOrCreate?: Prisma.program_logCreateOrConnectWithoutUsersInput | Prisma.program_logCreateOrConnectWithoutUsersInput[]
-  createMany?: Prisma.program_logCreateManyUsersInputEnvelope
+export type program_logUpdateOneRequiredWithoutExercise_logNestedInput = {
+  create?: Prisma.XOR<Prisma.program_logCreateWithoutExercise_logInput, Prisma.program_logUncheckedCreateWithoutExercise_logInput>
+  connectOrCreate?: Prisma.program_logCreateOrConnectWithoutExercise_logInput
+  upsert?: Prisma.program_logUpsertWithoutExercise_logInput
+  connect?: Prisma.program_logWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.program_logUpdateToOneWithWhereWithoutExercise_logInput, Prisma.program_logUpdateWithoutExercise_logInput>, Prisma.program_logUncheckedUpdateWithoutExercise_logInput>
+}
+
+export type program_logCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.program_logCreateWithoutUserInput, Prisma.program_logUncheckedCreateWithoutUserInput> | Prisma.program_logCreateWithoutUserInput[] | Prisma.program_logUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.program_logCreateOrConnectWithoutUserInput | Prisma.program_logCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.program_logCreateManyUserInputEnvelope
   connect?: Prisma.program_logWhereUniqueInput | Prisma.program_logWhereUniqueInput[]
 }
 
-export type program_logUncheckedCreateNestedManyWithoutUsersInput = {
-  create?: Prisma.XOR<Prisma.program_logCreateWithoutUsersInput, Prisma.program_logUncheckedCreateWithoutUsersInput> | Prisma.program_logCreateWithoutUsersInput[] | Prisma.program_logUncheckedCreateWithoutUsersInput[]
-  connectOrCreate?: Prisma.program_logCreateOrConnectWithoutUsersInput | Prisma.program_logCreateOrConnectWithoutUsersInput[]
-  createMany?: Prisma.program_logCreateManyUsersInputEnvelope
+export type program_logUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.program_logCreateWithoutUserInput, Prisma.program_logUncheckedCreateWithoutUserInput> | Prisma.program_logCreateWithoutUserInput[] | Prisma.program_logUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.program_logCreateOrConnectWithoutUserInput | Prisma.program_logCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.program_logCreateManyUserInputEnvelope
   connect?: Prisma.program_logWhereUniqueInput | Prisma.program_logWhereUniqueInput[]
 }
 
-export type program_logUpdateManyWithoutUsersNestedInput = {
-  create?: Prisma.XOR<Prisma.program_logCreateWithoutUsersInput, Prisma.program_logUncheckedCreateWithoutUsersInput> | Prisma.program_logCreateWithoutUsersInput[] | Prisma.program_logUncheckedCreateWithoutUsersInput[]
-  connectOrCreate?: Prisma.program_logCreateOrConnectWithoutUsersInput | Prisma.program_logCreateOrConnectWithoutUsersInput[]
-  upsert?: Prisma.program_logUpsertWithWhereUniqueWithoutUsersInput | Prisma.program_logUpsertWithWhereUniqueWithoutUsersInput[]
-  createMany?: Prisma.program_logCreateManyUsersInputEnvelope
+export type program_logUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.program_logCreateWithoutUserInput, Prisma.program_logUncheckedCreateWithoutUserInput> | Prisma.program_logCreateWithoutUserInput[] | Prisma.program_logUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.program_logCreateOrConnectWithoutUserInput | Prisma.program_logCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.program_logUpsertWithWhereUniqueWithoutUserInput | Prisma.program_logUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.program_logCreateManyUserInputEnvelope
   set?: Prisma.program_logWhereUniqueInput | Prisma.program_logWhereUniqueInput[]
   disconnect?: Prisma.program_logWhereUniqueInput | Prisma.program_logWhereUniqueInput[]
   delete?: Prisma.program_logWhereUniqueInput | Prisma.program_logWhereUniqueInput[]
   connect?: Prisma.program_logWhereUniqueInput | Prisma.program_logWhereUniqueInput[]
-  update?: Prisma.program_logUpdateWithWhereUniqueWithoutUsersInput | Prisma.program_logUpdateWithWhereUniqueWithoutUsersInput[]
-  updateMany?: Prisma.program_logUpdateManyWithWhereWithoutUsersInput | Prisma.program_logUpdateManyWithWhereWithoutUsersInput[]
+  update?: Prisma.program_logUpdateWithWhereUniqueWithoutUserInput | Prisma.program_logUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.program_logUpdateManyWithWhereWithoutUserInput | Prisma.program_logUpdateManyWithWhereWithoutUserInput[]
   deleteMany?: Prisma.program_logScalarWhereInput | Prisma.program_logScalarWhereInput[]
 }
 
-export type program_logUncheckedUpdateManyWithoutUsersNestedInput = {
-  create?: Prisma.XOR<Prisma.program_logCreateWithoutUsersInput, Prisma.program_logUncheckedCreateWithoutUsersInput> | Prisma.program_logCreateWithoutUsersInput[] | Prisma.program_logUncheckedCreateWithoutUsersInput[]
-  connectOrCreate?: Prisma.program_logCreateOrConnectWithoutUsersInput | Prisma.program_logCreateOrConnectWithoutUsersInput[]
-  upsert?: Prisma.program_logUpsertWithWhereUniqueWithoutUsersInput | Prisma.program_logUpsertWithWhereUniqueWithoutUsersInput[]
-  createMany?: Prisma.program_logCreateManyUsersInputEnvelope
+export type program_logUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.program_logCreateWithoutUserInput, Prisma.program_logUncheckedCreateWithoutUserInput> | Prisma.program_logCreateWithoutUserInput[] | Prisma.program_logUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.program_logCreateOrConnectWithoutUserInput | Prisma.program_logCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.program_logUpsertWithWhereUniqueWithoutUserInput | Prisma.program_logUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.program_logCreateManyUserInputEnvelope
   set?: Prisma.program_logWhereUniqueInput | Prisma.program_logWhereUniqueInput[]
   disconnect?: Prisma.program_logWhereUniqueInput | Prisma.program_logWhereUniqueInput[]
   delete?: Prisma.program_logWhereUniqueInput | Prisma.program_logWhereUniqueInput[]
   connect?: Prisma.program_logWhereUniqueInput | Prisma.program_logWhereUniqueInput[]
-  update?: Prisma.program_logUpdateWithWhereUniqueWithoutUsersInput | Prisma.program_logUpdateWithWhereUniqueWithoutUsersInput[]
-  updateMany?: Prisma.program_logUpdateManyWithWhereWithoutUsersInput | Prisma.program_logUpdateManyWithWhereWithoutUsersInput[]
+  update?: Prisma.program_logUpdateWithWhereUniqueWithoutUserInput | Prisma.program_logUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.program_logUpdateManyWithWhereWithoutUserInput | Prisma.program_logUpdateManyWithWhereWithoutUserInput[]
   deleteMany?: Prisma.program_logScalarWhereInput | Prisma.program_logScalarWhereInput[]
 }
 
-export type program_logCreateWithoutProgramInput = {
+export type program_logCreateWithoutTemplateInput = {
   date?: Date | string
-  users: Prisma.usersCreateNestedOneWithoutProgram_logInput
+  note?: string | null
+  exercise_log?: Prisma.exercise_logCreateNestedManyWithoutProgram_logInput
+  user: Prisma.usersCreateNestedOneWithoutProgram_logInput
 }
 
-export type program_logUncheckedCreateWithoutProgramInput = {
+export type program_logUncheckedCreateWithoutTemplateInput = {
   user_id: number
   date?: Date | string
+  id?: number
+  note?: string | null
+  exercise_log?: Prisma.exercise_logUncheckedCreateNestedManyWithoutProgram_logInput
 }
 
-export type program_logCreateOrConnectWithoutProgramInput = {
+export type program_logCreateOrConnectWithoutTemplateInput = {
   where: Prisma.program_logWhereUniqueInput
-  create: Prisma.XOR<Prisma.program_logCreateWithoutProgramInput, Prisma.program_logUncheckedCreateWithoutProgramInput>
+  create: Prisma.XOR<Prisma.program_logCreateWithoutTemplateInput, Prisma.program_logUncheckedCreateWithoutTemplateInput>
 }
 
-export type program_logCreateManyProgramInputEnvelope = {
-  data: Prisma.program_logCreateManyProgramInput | Prisma.program_logCreateManyProgramInput[]
+export type program_logCreateManyTemplateInputEnvelope = {
+  data: Prisma.program_logCreateManyTemplateInput | Prisma.program_logCreateManyTemplateInput[]
   skipDuplicates?: boolean
 }
 
-export type program_logUpsertWithWhereUniqueWithoutProgramInput = {
+export type program_logUpsertWithWhereUniqueWithoutTemplateInput = {
   where: Prisma.program_logWhereUniqueInput
-  update: Prisma.XOR<Prisma.program_logUpdateWithoutProgramInput, Prisma.program_logUncheckedUpdateWithoutProgramInput>
-  create: Prisma.XOR<Prisma.program_logCreateWithoutProgramInput, Prisma.program_logUncheckedCreateWithoutProgramInput>
+  update: Prisma.XOR<Prisma.program_logUpdateWithoutTemplateInput, Prisma.program_logUncheckedUpdateWithoutTemplateInput>
+  create: Prisma.XOR<Prisma.program_logCreateWithoutTemplateInput, Prisma.program_logUncheckedCreateWithoutTemplateInput>
 }
 
-export type program_logUpdateWithWhereUniqueWithoutProgramInput = {
+export type program_logUpdateWithWhereUniqueWithoutTemplateInput = {
   where: Prisma.program_logWhereUniqueInput
-  data: Prisma.XOR<Prisma.program_logUpdateWithoutProgramInput, Prisma.program_logUncheckedUpdateWithoutProgramInput>
+  data: Prisma.XOR<Prisma.program_logUpdateWithoutTemplateInput, Prisma.program_logUncheckedUpdateWithoutTemplateInput>
 }
 
-export type program_logUpdateManyWithWhereWithoutProgramInput = {
+export type program_logUpdateManyWithWhereWithoutTemplateInput = {
   where: Prisma.program_logScalarWhereInput
-  data: Prisma.XOR<Prisma.program_logUpdateManyMutationInput, Prisma.program_logUncheckedUpdateManyWithoutProgramInput>
+  data: Prisma.XOR<Prisma.program_logUpdateManyMutationInput, Prisma.program_logUncheckedUpdateManyWithoutTemplateInput>
 }
 
 export type program_logScalarWhereInput = {
   AND?: Prisma.program_logScalarWhereInput | Prisma.program_logScalarWhereInput[]
   OR?: Prisma.program_logScalarWhereInput[]
   NOT?: Prisma.program_logScalarWhereInput | Prisma.program_logScalarWhereInput[]
-  program_id?: Prisma.IntFilter<"program_log"> | number
   user_id?: Prisma.IntFilter<"program_log"> | number
   date?: Prisma.DateTimeFilter<"program_log"> | Date | string
+  id?: Prisma.IntFilter<"program_log"> | number
+  note?: Prisma.StringNullableFilter<"program_log"> | string | null
+  template_id?: Prisma.IntFilter<"program_log"> | number
 }
 
-export type program_logCreateWithoutUsersInput = {
+export type program_logCreateWithoutExercise_logInput = {
   date?: Date | string
-  program: Prisma.programCreateNestedOneWithoutProgram_logInput
+  note?: string | null
+  template: Prisma.program_templateCreateNestedOneWithoutProgram_logInput
+  user: Prisma.usersCreateNestedOneWithoutProgram_logInput
 }
 
-export type program_logUncheckedCreateWithoutUsersInput = {
-  program_id: number
+export type program_logUncheckedCreateWithoutExercise_logInput = {
+  user_id: number
   date?: Date | string
+  id?: number
+  note?: string | null
+  template_id: number
 }
 
-export type program_logCreateOrConnectWithoutUsersInput = {
+export type program_logCreateOrConnectWithoutExercise_logInput = {
   where: Prisma.program_logWhereUniqueInput
-  create: Prisma.XOR<Prisma.program_logCreateWithoutUsersInput, Prisma.program_logUncheckedCreateWithoutUsersInput>
+  create: Prisma.XOR<Prisma.program_logCreateWithoutExercise_logInput, Prisma.program_logUncheckedCreateWithoutExercise_logInput>
 }
 
-export type program_logCreateManyUsersInputEnvelope = {
-  data: Prisma.program_logCreateManyUsersInput | Prisma.program_logCreateManyUsersInput[]
+export type program_logUpsertWithoutExercise_logInput = {
+  update: Prisma.XOR<Prisma.program_logUpdateWithoutExercise_logInput, Prisma.program_logUncheckedUpdateWithoutExercise_logInput>
+  create: Prisma.XOR<Prisma.program_logCreateWithoutExercise_logInput, Prisma.program_logUncheckedCreateWithoutExercise_logInput>
+  where?: Prisma.program_logWhereInput
+}
+
+export type program_logUpdateToOneWithWhereWithoutExercise_logInput = {
+  where?: Prisma.program_logWhereInput
+  data: Prisma.XOR<Prisma.program_logUpdateWithoutExercise_logInput, Prisma.program_logUncheckedUpdateWithoutExercise_logInput>
+}
+
+export type program_logUpdateWithoutExercise_logInput = {
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  template?: Prisma.program_templateUpdateOneRequiredWithoutProgram_logNestedInput
+  user?: Prisma.usersUpdateOneRequiredWithoutProgram_logNestedInput
+}
+
+export type program_logUncheckedUpdateWithoutExercise_logInput = {
+  user_id?: Prisma.IntFieldUpdateOperationsInput | number
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  template_id?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type program_logCreateWithoutUserInput = {
+  date?: Date | string
+  note?: string | null
+  exercise_log?: Prisma.exercise_logCreateNestedManyWithoutProgram_logInput
+  template: Prisma.program_templateCreateNestedOneWithoutProgram_logInput
+}
+
+export type program_logUncheckedCreateWithoutUserInput = {
+  date?: Date | string
+  id?: number
+  note?: string | null
+  template_id: number
+  exercise_log?: Prisma.exercise_logUncheckedCreateNestedManyWithoutProgram_logInput
+}
+
+export type program_logCreateOrConnectWithoutUserInput = {
+  where: Prisma.program_logWhereUniqueInput
+  create: Prisma.XOR<Prisma.program_logCreateWithoutUserInput, Prisma.program_logUncheckedCreateWithoutUserInput>
+}
+
+export type program_logCreateManyUserInputEnvelope = {
+  data: Prisma.program_logCreateManyUserInput | Prisma.program_logCreateManyUserInput[]
   skipDuplicates?: boolean
 }
 
-export type program_logUpsertWithWhereUniqueWithoutUsersInput = {
+export type program_logUpsertWithWhereUniqueWithoutUserInput = {
   where: Prisma.program_logWhereUniqueInput
-  update: Prisma.XOR<Prisma.program_logUpdateWithoutUsersInput, Prisma.program_logUncheckedUpdateWithoutUsersInput>
-  create: Prisma.XOR<Prisma.program_logCreateWithoutUsersInput, Prisma.program_logUncheckedCreateWithoutUsersInput>
+  update: Prisma.XOR<Prisma.program_logUpdateWithoutUserInput, Prisma.program_logUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.program_logCreateWithoutUserInput, Prisma.program_logUncheckedCreateWithoutUserInput>
 }
 
-export type program_logUpdateWithWhereUniqueWithoutUsersInput = {
+export type program_logUpdateWithWhereUniqueWithoutUserInput = {
   where: Prisma.program_logWhereUniqueInput
-  data: Prisma.XOR<Prisma.program_logUpdateWithoutUsersInput, Prisma.program_logUncheckedUpdateWithoutUsersInput>
+  data: Prisma.XOR<Prisma.program_logUpdateWithoutUserInput, Prisma.program_logUncheckedUpdateWithoutUserInput>
 }
 
-export type program_logUpdateManyWithWhereWithoutUsersInput = {
+export type program_logUpdateManyWithWhereWithoutUserInput = {
   where: Prisma.program_logScalarWhereInput
-  data: Prisma.XOR<Prisma.program_logUpdateManyMutationInput, Prisma.program_logUncheckedUpdateManyWithoutUsersInput>
+  data: Prisma.XOR<Prisma.program_logUpdateManyMutationInput, Prisma.program_logUncheckedUpdateManyWithoutUserInput>
 }
 
-export type program_logCreateManyProgramInput = {
+export type program_logCreateManyTemplateInput = {
   user_id: number
   date?: Date | string
+  id?: number
+  note?: string | null
 }
 
-export type program_logUpdateWithoutProgramInput = {
+export type program_logUpdateWithoutTemplateInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  users?: Prisma.usersUpdateOneRequiredWithoutProgram_logNestedInput
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  exercise_log?: Prisma.exercise_logUpdateManyWithoutProgram_logNestedInput
+  user?: Prisma.usersUpdateOneRequiredWithoutProgram_logNestedInput
 }
 
-export type program_logUncheckedUpdateWithoutProgramInput = {
+export type program_logUncheckedUpdateWithoutTemplateInput = {
   user_id?: Prisma.IntFieldUpdateOperationsInput | number
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  exercise_log?: Prisma.exercise_logUncheckedUpdateManyWithoutProgram_logNestedInput
 }
 
-export type program_logUncheckedUpdateManyWithoutProgramInput = {
+export type program_logUncheckedUpdateManyWithoutTemplateInput = {
   user_id?: Prisma.IntFieldUpdateOperationsInput | number
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
-export type program_logCreateManyUsersInput = {
-  program_id: number
+export type program_logCreateManyUserInput = {
   date?: Date | string
+  id?: number
+  note?: string | null
+  template_id: number
 }
 
-export type program_logUpdateWithoutUsersInput = {
+export type program_logUpdateWithoutUserInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  program?: Prisma.programUpdateOneRequiredWithoutProgram_logNestedInput
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  exercise_log?: Prisma.exercise_logUpdateManyWithoutProgram_logNestedInput
+  template?: Prisma.program_templateUpdateOneRequiredWithoutProgram_logNestedInput
 }
 
-export type program_logUncheckedUpdateWithoutUsersInput = {
-  program_id?: Prisma.IntFieldUpdateOperationsInput | number
+export type program_logUncheckedUpdateWithoutUserInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  template_id?: Prisma.IntFieldUpdateOperationsInput | number
+  exercise_log?: Prisma.exercise_logUncheckedUpdateManyWithoutProgram_logNestedInput
 }
 
-export type program_logUncheckedUpdateManyWithoutUsersInput = {
-  program_id?: Prisma.IntFieldUpdateOperationsInput | number
+export type program_logUncheckedUpdateManyWithoutUserInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  template_id?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
+
+/**
+ * Count Type Program_logCountOutputType
+ */
+
+export type Program_logCountOutputType = {
+  exercise_log: number
+}
+
+export type Program_logCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  exercise_log?: boolean | Program_logCountOutputTypeCountExercise_logArgs
+}
+
+/**
+ * Program_logCountOutputType without action
+ */
+export type Program_logCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Program_logCountOutputType
+   */
+  select?: Prisma.Program_logCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * Program_logCountOutputType without action
+ */
+export type Program_logCountOutputTypeCountExercise_logArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.exercise_logWhereInput
+}
 
 
 export type program_logSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  program_id?: boolean
   user_id?: boolean
   date?: boolean
-  program?: boolean | Prisma.programDefaultArgs<ExtArgs>
-  users?: boolean | Prisma.usersDefaultArgs<ExtArgs>
+  id?: boolean
+  note?: boolean
+  template_id?: boolean
+  exercise_log?: boolean | Prisma.program_log$exercise_logArgs<ExtArgs>
+  template?: boolean | Prisma.program_templateDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.usersDefaultArgs<ExtArgs>
+  _count?: boolean | Prisma.Program_logCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["program_log"]>
 
 export type program_logSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  program_id?: boolean
   user_id?: boolean
   date?: boolean
-  program?: boolean | Prisma.programDefaultArgs<ExtArgs>
-  users?: boolean | Prisma.usersDefaultArgs<ExtArgs>
+  id?: boolean
+  note?: boolean
+  template_id?: boolean
+  template?: boolean | Prisma.program_templateDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.usersDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["program_log"]>
 
 export type program_logSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  program_id?: boolean
   user_id?: boolean
   date?: boolean
-  program?: boolean | Prisma.programDefaultArgs<ExtArgs>
-  users?: boolean | Prisma.usersDefaultArgs<ExtArgs>
+  id?: boolean
+  note?: boolean
+  template_id?: boolean
+  template?: boolean | Prisma.program_templateDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.usersDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["program_log"]>
 
 export type program_logSelectScalar = {
-  program_id?: boolean
   user_id?: boolean
   date?: boolean
+  id?: boolean
+  note?: boolean
+  template_id?: boolean
 }
 
-export type program_logOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"program_id" | "user_id" | "date", ExtArgs["result"]["program_log"]>
+export type program_logOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"user_id" | "date" | "id" | "note" | "template_id", ExtArgs["result"]["program_log"]>
 export type program_logInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  program?: boolean | Prisma.programDefaultArgs<ExtArgs>
-  users?: boolean | Prisma.usersDefaultArgs<ExtArgs>
+  exercise_log?: boolean | Prisma.program_log$exercise_logArgs<ExtArgs>
+  template?: boolean | Prisma.program_templateDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.usersDefaultArgs<ExtArgs>
+  _count?: boolean | Prisma.Program_logCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type program_logIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  program?: boolean | Prisma.programDefaultArgs<ExtArgs>
-  users?: boolean | Prisma.usersDefaultArgs<ExtArgs>
+  template?: boolean | Prisma.program_templateDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.usersDefaultArgs<ExtArgs>
 }
 export type program_logIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  program?: boolean | Prisma.programDefaultArgs<ExtArgs>
-  users?: boolean | Prisma.usersDefaultArgs<ExtArgs>
+  template?: boolean | Prisma.program_templateDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.usersDefaultArgs<ExtArgs>
 }
 
 export type $program_logPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "program_log"
   objects: {
-    program: Prisma.$programPayload<ExtArgs>
-    users: Prisma.$usersPayload<ExtArgs>
+    exercise_log: Prisma.$exercise_logPayload<ExtArgs>[]
+    template: Prisma.$program_templatePayload<ExtArgs>
+    user: Prisma.$usersPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    program_id: number
     user_id: number
     date: Date
+    id: number
+    note: string | null
+    template_id: number
   }, ExtArgs["result"]["program_log"]>
   composites: {}
 }
@@ -680,8 +862,8 @@ export interface program_logDelegate<ExtArgs extends runtime.Types.Extensions.In
    * // Get first 10 Program_logs
    * const program_logs = await prisma.program_log.findMany({ take: 10 })
    * 
-   * // Only select the `program_id`
-   * const program_logWithProgram_idOnly = await prisma.program_log.findMany({ select: { program_id: true } })
+   * // Only select the `user_id`
+   * const program_logWithUser_idOnly = await prisma.program_log.findMany({ select: { user_id: true } })
    * 
    */
   findMany<T extends program_logFindManyArgs>(args?: Prisma.SelectSubset<T, program_logFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$program_logPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -725,9 +907,9 @@ export interface program_logDelegate<ExtArgs extends runtime.Types.Extensions.In
    *   ]
    * })
    * 
-   * // Create many Program_logs and only return the `program_id`
-   * const program_logWithProgram_idOnly = await prisma.program_log.createManyAndReturn({
-   *   select: { program_id: true },
+   * // Create many Program_logs and only return the `user_id`
+   * const program_logWithUser_idOnly = await prisma.program_log.createManyAndReturn({
+   *   select: { user_id: true },
    *   data: [
    *     // ... provide data here
    *   ]
@@ -816,9 +998,9 @@ export interface program_logDelegate<ExtArgs extends runtime.Types.Extensions.In
    *   ]
    * })
    * 
-   * // Update zero or more Program_logs and only return the `program_id`
-   * const program_logWithProgram_idOnly = await prisma.program_log.updateManyAndReturn({
-   *   select: { program_id: true },
+   * // Update zero or more Program_logs and only return the `user_id`
+   * const program_logWithUser_idOnly = await prisma.program_log.updateManyAndReturn({
+   *   select: { user_id: true },
    *   where: {
    *     // ... provide filter here
    *   },
@@ -991,8 +1173,9 @@ readonly fields: program_logFieldRefs;
  */
 export interface Prisma__program_logClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  program<T extends Prisma.programDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.programDefaultArgs<ExtArgs>>): Prisma.Prisma__programClient<runtime.Types.Result.GetResult<Prisma.$programPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  users<T extends Prisma.usersDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.usersDefaultArgs<ExtArgs>>): Prisma.Prisma__usersClient<runtime.Types.Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  exercise_log<T extends Prisma.program_log$exercise_logArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.program_log$exercise_logArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$exercise_logPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  template<T extends Prisma.program_templateDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.program_templateDefaultArgs<ExtArgs>>): Prisma.Prisma__program_templateClient<runtime.Types.Result.GetResult<Prisma.$program_templatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.usersDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.usersDefaultArgs<ExtArgs>>): Prisma.Prisma__usersClient<runtime.Types.Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1022,9 +1205,11 @@ export interface Prisma__program_logClient<T, Null = never, ExtArgs extends runt
  * Fields of the program_log model
  */
 export interface program_logFieldRefs {
-  readonly program_id: Prisma.FieldRef<"program_log", 'Int'>
   readonly user_id: Prisma.FieldRef<"program_log", 'Int'>
   readonly date: Prisma.FieldRef<"program_log", 'DateTime'>
+  readonly id: Prisma.FieldRef<"program_log", 'Int'>
+  readonly note: Prisma.FieldRef<"program_log", 'String'>
+  readonly template_id: Prisma.FieldRef<"program_log", 'Int'>
 }
     
 
@@ -1418,6 +1603,30 @@ export type program_logDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Limit how many program_logs to delete.
    */
   limit?: number
+}
+
+/**
+ * program_log.exercise_log
+ */
+export type program_log$exercise_logArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the exercise_log
+   */
+  select?: Prisma.exercise_logSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the exercise_log
+   */
+  omit?: Prisma.exercise_logOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.exercise_logInclude<ExtArgs> | null
+  where?: Prisma.exercise_logWhereInput
+  orderBy?: Prisma.exercise_logOrderByWithRelationInput | Prisma.exercise_logOrderByWithRelationInput[]
+  cursor?: Prisma.exercise_logWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Exercise_logScalarFieldEnum | Prisma.Exercise_logScalarFieldEnum[]
 }
 
 /**

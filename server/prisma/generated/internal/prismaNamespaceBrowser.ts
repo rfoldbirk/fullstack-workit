@@ -55,17 +55,17 @@ export const ModelName = {
   coach: 'coach',
   comment: 'comment',
   exercise: 'exercise',
-  exercise_log: 'exercise_log',
-  exercise_order: 'exercise_order',
   exercise_to_muscle: 'exercise_to_muscle',
   muscle_group: 'muscle_group',
   password: 'password',
-  program: 'program',
+  program_template: 'program_template',
+  program_template_exercise: 'program_template_exercise',
+  user_program_template: 'user_program_template',
   program_log: 'program_log',
+  exercise_log: 'exercise_log',
   token: 'token',
   user_to_coach: 'user_to_coach',
   users: 'users',
-  users_program: 'users_program',
   weight_logs: 'weight_logs'
 } as const
 
@@ -115,31 +115,10 @@ export const ExerciseScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
-  equipment: 'equipment',
-  owner_id: 'owner_id'
+  equipment: 'equipment'
 } as const
 
 export type ExerciseScalarFieldEnum = (typeof ExerciseScalarFieldEnum)[keyof typeof ExerciseScalarFieldEnum]
-
-
-export const Exercise_logScalarFieldEnum = {
-  id: 'id',
-  exercise_order_id: 'exercise_order_id',
-  reps: 'reps',
-  kg: 'kg'
-} as const
-
-export type Exercise_logScalarFieldEnum = (typeof Exercise_logScalarFieldEnum)[keyof typeof Exercise_logScalarFieldEnum]
-
-
-export const Exercise_orderScalarFieldEnum = {
-  id: 'id',
-  program_id: 'program_id',
-  exercise_id: 'exercise_id',
-  order_nr: 'order_nr'
-} as const
-
-export type Exercise_orderScalarFieldEnum = (typeof Exercise_orderScalarFieldEnum)[keyof typeof Exercise_orderScalarFieldEnum]
 
 
 export const Exercise_to_muscleScalarFieldEnum = {
@@ -167,24 +146,58 @@ export const PasswordScalarFieldEnum = {
 export type PasswordScalarFieldEnum = (typeof PasswordScalarFieldEnum)[keyof typeof PasswordScalarFieldEnum]
 
 
-export const ProgramScalarFieldEnum = {
+export const Program_templateScalarFieldEnum = {
   id: 'id',
+  coach_id: 'coach_id',
   name: 'name',
-  date: 'date',
   description: 'description',
-  accent_gradient_id: 'accent_gradient_id'
+  created_at: 'created_at'
 } as const
 
-export type ProgramScalarFieldEnum = (typeof ProgramScalarFieldEnum)[keyof typeof ProgramScalarFieldEnum]
+export type Program_templateScalarFieldEnum = (typeof Program_templateScalarFieldEnum)[keyof typeof Program_templateScalarFieldEnum]
+
+
+export const Program_template_exerciseScalarFieldEnum = {
+  id: 'id',
+  template_id: 'template_id',
+  exercise_id: 'exercise_id',
+  order_nr: 'order_nr'
+} as const
+
+export type Program_template_exerciseScalarFieldEnum = (typeof Program_template_exerciseScalarFieldEnum)[keyof typeof Program_template_exerciseScalarFieldEnum]
+
+
+export const User_program_templateScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  template_id: 'template_id',
+  assigned_at: 'assigned_at'
+} as const
+
+export type User_program_templateScalarFieldEnum = (typeof User_program_templateScalarFieldEnum)[keyof typeof User_program_templateScalarFieldEnum]
 
 
 export const Program_logScalarFieldEnum = {
-  program_id: 'program_id',
   user_id: 'user_id',
-  date: 'date'
+  date: 'date',
+  id: 'id',
+  note: 'note',
+  template_id: 'template_id'
 } as const
 
 export type Program_logScalarFieldEnum = (typeof Program_logScalarFieldEnum)[keyof typeof Program_logScalarFieldEnum]
+
+
+export const Exercise_logScalarFieldEnum = {
+  id: 'id',
+  reps: 'reps',
+  kg: 'kg',
+  exercise_id: 'exercise_id',
+  program_log_id: 'program_log_id',
+  set_nr: 'set_nr'
+} as const
+
+export type Exercise_logScalarFieldEnum = (typeof Exercise_logScalarFieldEnum)[keyof typeof Exercise_logScalarFieldEnum]
 
 
 export const TokenScalarFieldEnum = {
@@ -216,14 +229,6 @@ export const UsersScalarFieldEnum = {
 } as const
 
 export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
-
-
-export const Users_programScalarFieldEnum = {
-  program_id: 'program_id',
-  user_id: 'user_id'
-} as const
-
-export type Users_programScalarFieldEnum = (typeof Users_programScalarFieldEnum)[keyof typeof Users_programScalarFieldEnum]
 
 
 export const Weight_logsScalarFieldEnum = {

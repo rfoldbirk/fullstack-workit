@@ -60,16 +60,6 @@ export type comment = Prisma.commentModel
  */
 export type exercise = Prisma.exerciseModel
 /**
- * Model exercise_log
- * 
- */
-export type exercise_log = Prisma.exercise_logModel
-/**
- * Model exercise_order
- * 
- */
-export type exercise_order = Prisma.exercise_orderModel
-/**
  * Model exercise_to_muscle
  * 
  */
@@ -85,15 +75,30 @@ export type muscle_group = Prisma.muscle_groupModel
  */
 export type password = Prisma.passwordModel
 /**
- * Model program
+ * Model program_template
  * 
  */
-export type program = Prisma.programModel
+export type program_template = Prisma.program_templateModel
+/**
+ * Model program_template_exercise
+ * 
+ */
+export type program_template_exercise = Prisma.program_template_exerciseModel
+/**
+ * Model user_program_template
+ * 
+ */
+export type user_program_template = Prisma.user_program_templateModel
 /**
  * Model program_log
  * 
  */
 export type program_log = Prisma.program_logModel
+/**
+ * Model exercise_log
+ * 
+ */
+export type exercise_log = Prisma.exercise_logModel
 /**
  * Model token
  * 
@@ -109,11 +114,6 @@ export type user_to_coach = Prisma.user_to_coachModel
  * 
  */
 export type users = Prisma.usersModel
-/**
- * Model users_program
- * 
- */
-export type users_program = Prisma.users_programModel
 /**
  * Model weight_logs
  * 

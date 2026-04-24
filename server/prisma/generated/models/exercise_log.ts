@@ -28,74 +28,94 @@ export type AggregateExercise_log = {
 
 export type Exercise_logAvgAggregateOutputType = {
   id: number | null
-  exercise_order_id: number | null
   reps: number | null
   kg: number | null
+  exercise_id: number | null
+  program_log_id: number | null
+  set_nr: number | null
 }
 
 export type Exercise_logSumAggregateOutputType = {
   id: number | null
-  exercise_order_id: number | null
   reps: number | null
   kg: number | null
+  exercise_id: number | null
+  program_log_id: number | null
+  set_nr: number | null
 }
 
 export type Exercise_logMinAggregateOutputType = {
   id: number | null
-  exercise_order_id: number | null
   reps: number | null
   kg: number | null
+  exercise_id: number | null
+  program_log_id: number | null
+  set_nr: number | null
 }
 
 export type Exercise_logMaxAggregateOutputType = {
   id: number | null
-  exercise_order_id: number | null
   reps: number | null
   kg: number | null
+  exercise_id: number | null
+  program_log_id: number | null
+  set_nr: number | null
 }
 
 export type Exercise_logCountAggregateOutputType = {
   id: number
-  exercise_order_id: number
   reps: number
   kg: number
+  exercise_id: number
+  program_log_id: number
+  set_nr: number
   _all: number
 }
 
 
 export type Exercise_logAvgAggregateInputType = {
   id?: true
-  exercise_order_id?: true
   reps?: true
   kg?: true
+  exercise_id?: true
+  program_log_id?: true
+  set_nr?: true
 }
 
 export type Exercise_logSumAggregateInputType = {
   id?: true
-  exercise_order_id?: true
   reps?: true
   kg?: true
+  exercise_id?: true
+  program_log_id?: true
+  set_nr?: true
 }
 
 export type Exercise_logMinAggregateInputType = {
   id?: true
-  exercise_order_id?: true
   reps?: true
   kg?: true
+  exercise_id?: true
+  program_log_id?: true
+  set_nr?: true
 }
 
 export type Exercise_logMaxAggregateInputType = {
   id?: true
-  exercise_order_id?: true
   reps?: true
   kg?: true
+  exercise_id?: true
+  program_log_id?: true
+  set_nr?: true
 }
 
 export type Exercise_logCountAggregateInputType = {
   id?: true
-  exercise_order_id?: true
   reps?: true
   kg?: true
+  exercise_id?: true
+  program_log_id?: true
+  set_nr?: true
   _all?: true
 }
 
@@ -187,9 +207,11 @@ export type exercise_logGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 
 export type Exercise_logGroupByOutputType = {
   id: number
-  exercise_order_id: number
   reps: number
   kg: number
+  exercise_id: number
+  program_log_id: number
+  set_nr: number
   _count: Exercise_logCountAggregateOutputType | null
   _avg: Exercise_logAvgAggregateOutputType | null
   _sum: Exercise_logSumAggregateOutputType | null
@@ -217,36 +239,48 @@ export type exercise_logWhereInput = {
   OR?: Prisma.exercise_logWhereInput[]
   NOT?: Prisma.exercise_logWhereInput | Prisma.exercise_logWhereInput[]
   id?: Prisma.IntFilter<"exercise_log"> | number
-  exercise_order_id?: Prisma.IntFilter<"exercise_log"> | number
   reps?: Prisma.IntFilter<"exercise_log"> | number
   kg?: Prisma.FloatFilter<"exercise_log"> | number
-  exercise_order?: Prisma.XOR<Prisma.Exercise_orderScalarRelationFilter, Prisma.exercise_orderWhereInput>
+  exercise_id?: Prisma.IntFilter<"exercise_log"> | number
+  program_log_id?: Prisma.IntFilter<"exercise_log"> | number
+  set_nr?: Prisma.IntFilter<"exercise_log"> | number
+  exercise?: Prisma.XOR<Prisma.ExerciseScalarRelationFilter, Prisma.exerciseWhereInput>
+  program_log?: Prisma.XOR<Prisma.Program_logScalarRelationFilter, Prisma.program_logWhereInput>
 }
 
 export type exercise_logOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  exercise_order_id?: Prisma.SortOrder
   reps?: Prisma.SortOrder
   kg?: Prisma.SortOrder
-  exercise_order?: Prisma.exercise_orderOrderByWithRelationInput
+  exercise_id?: Prisma.SortOrder
+  program_log_id?: Prisma.SortOrder
+  set_nr?: Prisma.SortOrder
+  exercise?: Prisma.exerciseOrderByWithRelationInput
+  program_log?: Prisma.program_logOrderByWithRelationInput
 }
 
 export type exercise_logWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  program_log_id_exercise_id_set_nr?: Prisma.exercise_logProgram_log_idExercise_idSet_nrCompoundUniqueInput
   AND?: Prisma.exercise_logWhereInput | Prisma.exercise_logWhereInput[]
   OR?: Prisma.exercise_logWhereInput[]
   NOT?: Prisma.exercise_logWhereInput | Prisma.exercise_logWhereInput[]
-  exercise_order_id?: Prisma.IntFilter<"exercise_log"> | number
   reps?: Prisma.IntFilter<"exercise_log"> | number
   kg?: Prisma.FloatFilter<"exercise_log"> | number
-  exercise_order?: Prisma.XOR<Prisma.Exercise_orderScalarRelationFilter, Prisma.exercise_orderWhereInput>
-}, "id">
+  exercise_id?: Prisma.IntFilter<"exercise_log"> | number
+  program_log_id?: Prisma.IntFilter<"exercise_log"> | number
+  set_nr?: Prisma.IntFilter<"exercise_log"> | number
+  exercise?: Prisma.XOR<Prisma.ExerciseScalarRelationFilter, Prisma.exerciseWhereInput>
+  program_log?: Prisma.XOR<Prisma.Program_logScalarRelationFilter, Prisma.program_logWhereInput>
+}, "id" | "program_log_id_exercise_id_set_nr">
 
 export type exercise_logOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  exercise_order_id?: Prisma.SortOrder
   reps?: Prisma.SortOrder
   kg?: Prisma.SortOrder
+  exercise_id?: Prisma.SortOrder
+  program_log_id?: Prisma.SortOrder
+  set_nr?: Prisma.SortOrder
   _count?: Prisma.exercise_logCountOrderByAggregateInput
   _avg?: Prisma.exercise_logAvgOrderByAggregateInput
   _max?: Prisma.exercise_logMaxOrderByAggregateInput
@@ -259,89 +293,69 @@ export type exercise_logScalarWhereWithAggregatesInput = {
   OR?: Prisma.exercise_logScalarWhereWithAggregatesInput[]
   NOT?: Prisma.exercise_logScalarWhereWithAggregatesInput | Prisma.exercise_logScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"exercise_log"> | number
-  exercise_order_id?: Prisma.IntWithAggregatesFilter<"exercise_log"> | number
   reps?: Prisma.IntWithAggregatesFilter<"exercise_log"> | number
   kg?: Prisma.FloatWithAggregatesFilter<"exercise_log"> | number
+  exercise_id?: Prisma.IntWithAggregatesFilter<"exercise_log"> | number
+  program_log_id?: Prisma.IntWithAggregatesFilter<"exercise_log"> | number
+  set_nr?: Prisma.IntWithAggregatesFilter<"exercise_log"> | number
 }
 
 export type exercise_logCreateInput = {
   reps: number
   kg: number
-  exercise_order: Prisma.exercise_orderCreateNestedOneWithoutExercise_logInput
+  set_nr: number
+  exercise: Prisma.exerciseCreateNestedOneWithoutExercise_logInput
+  program_log: Prisma.program_logCreateNestedOneWithoutExercise_logInput
 }
 
 export type exercise_logUncheckedCreateInput = {
   id?: number
-  exercise_order_id: number
   reps: number
   kg: number
+  exercise_id: number
+  program_log_id: number
+  set_nr: number
 }
 
 export type exercise_logUpdateInput = {
   reps?: Prisma.IntFieldUpdateOperationsInput | number
   kg?: Prisma.FloatFieldUpdateOperationsInput | number
-  exercise_order?: Prisma.exercise_orderUpdateOneRequiredWithoutExercise_logNestedInput
+  set_nr?: Prisma.IntFieldUpdateOperationsInput | number
+  exercise?: Prisma.exerciseUpdateOneRequiredWithoutExercise_logNestedInput
+  program_log?: Prisma.program_logUpdateOneRequiredWithoutExercise_logNestedInput
 }
 
 export type exercise_logUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  exercise_order_id?: Prisma.IntFieldUpdateOperationsInput | number
   reps?: Prisma.IntFieldUpdateOperationsInput | number
   kg?: Prisma.FloatFieldUpdateOperationsInput | number
+  exercise_id?: Prisma.IntFieldUpdateOperationsInput | number
+  program_log_id?: Prisma.IntFieldUpdateOperationsInput | number
+  set_nr?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type exercise_logCreateManyInput = {
   id?: number
-  exercise_order_id: number
   reps: number
   kg: number
+  exercise_id: number
+  program_log_id: number
+  set_nr: number
 }
 
 export type exercise_logUpdateManyMutationInput = {
   reps?: Prisma.IntFieldUpdateOperationsInput | number
   kg?: Prisma.FloatFieldUpdateOperationsInput | number
+  set_nr?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type exercise_logUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  exercise_order_id?: Prisma.IntFieldUpdateOperationsInput | number
   reps?: Prisma.IntFieldUpdateOperationsInput | number
   kg?: Prisma.FloatFieldUpdateOperationsInput | number
-}
-
-export type exercise_logCountOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  exercise_order_id?: Prisma.SortOrder
-  reps?: Prisma.SortOrder
-  kg?: Prisma.SortOrder
-}
-
-export type exercise_logAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  exercise_order_id?: Prisma.SortOrder
-  reps?: Prisma.SortOrder
-  kg?: Prisma.SortOrder
-}
-
-export type exercise_logMaxOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  exercise_order_id?: Prisma.SortOrder
-  reps?: Prisma.SortOrder
-  kg?: Prisma.SortOrder
-}
-
-export type exercise_logMinOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  exercise_order_id?: Prisma.SortOrder
-  reps?: Prisma.SortOrder
-  kg?: Prisma.SortOrder
-}
-
-export type exercise_logSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  exercise_order_id?: Prisma.SortOrder
-  reps?: Prisma.SortOrder
-  kg?: Prisma.SortOrder
+  exercise_id?: Prisma.IntFieldUpdateOperationsInput | number
+  program_log_id?: Prisma.IntFieldUpdateOperationsInput | number
+  set_nr?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type Exercise_logListRelationFilter = {
@@ -354,6 +368,141 @@ export type exercise_logOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type exercise_logProgram_log_idExercise_idSet_nrCompoundUniqueInput = {
+  program_log_id: number
+  exercise_id: number
+  set_nr: number
+}
+
+export type exercise_logCountOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  reps?: Prisma.SortOrder
+  kg?: Prisma.SortOrder
+  exercise_id?: Prisma.SortOrder
+  program_log_id?: Prisma.SortOrder
+  set_nr?: Prisma.SortOrder
+}
+
+export type exercise_logAvgOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  reps?: Prisma.SortOrder
+  kg?: Prisma.SortOrder
+  exercise_id?: Prisma.SortOrder
+  program_log_id?: Prisma.SortOrder
+  set_nr?: Prisma.SortOrder
+}
+
+export type exercise_logMaxOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  reps?: Prisma.SortOrder
+  kg?: Prisma.SortOrder
+  exercise_id?: Prisma.SortOrder
+  program_log_id?: Prisma.SortOrder
+  set_nr?: Prisma.SortOrder
+}
+
+export type exercise_logMinOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  reps?: Prisma.SortOrder
+  kg?: Prisma.SortOrder
+  exercise_id?: Prisma.SortOrder
+  program_log_id?: Prisma.SortOrder
+  set_nr?: Prisma.SortOrder
+}
+
+export type exercise_logSumOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  reps?: Prisma.SortOrder
+  kg?: Prisma.SortOrder
+  exercise_id?: Prisma.SortOrder
+  program_log_id?: Prisma.SortOrder
+  set_nr?: Prisma.SortOrder
+}
+
+export type exercise_logCreateNestedManyWithoutExerciseInput = {
+  create?: Prisma.XOR<Prisma.exercise_logCreateWithoutExerciseInput, Prisma.exercise_logUncheckedCreateWithoutExerciseInput> | Prisma.exercise_logCreateWithoutExerciseInput[] | Prisma.exercise_logUncheckedCreateWithoutExerciseInput[]
+  connectOrCreate?: Prisma.exercise_logCreateOrConnectWithoutExerciseInput | Prisma.exercise_logCreateOrConnectWithoutExerciseInput[]
+  createMany?: Prisma.exercise_logCreateManyExerciseInputEnvelope
+  connect?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
+}
+
+export type exercise_logUncheckedCreateNestedManyWithoutExerciseInput = {
+  create?: Prisma.XOR<Prisma.exercise_logCreateWithoutExerciseInput, Prisma.exercise_logUncheckedCreateWithoutExerciseInput> | Prisma.exercise_logCreateWithoutExerciseInput[] | Prisma.exercise_logUncheckedCreateWithoutExerciseInput[]
+  connectOrCreate?: Prisma.exercise_logCreateOrConnectWithoutExerciseInput | Prisma.exercise_logCreateOrConnectWithoutExerciseInput[]
+  createMany?: Prisma.exercise_logCreateManyExerciseInputEnvelope
+  connect?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
+}
+
+export type exercise_logUpdateManyWithoutExerciseNestedInput = {
+  create?: Prisma.XOR<Prisma.exercise_logCreateWithoutExerciseInput, Prisma.exercise_logUncheckedCreateWithoutExerciseInput> | Prisma.exercise_logCreateWithoutExerciseInput[] | Prisma.exercise_logUncheckedCreateWithoutExerciseInput[]
+  connectOrCreate?: Prisma.exercise_logCreateOrConnectWithoutExerciseInput | Prisma.exercise_logCreateOrConnectWithoutExerciseInput[]
+  upsert?: Prisma.exercise_logUpsertWithWhereUniqueWithoutExerciseInput | Prisma.exercise_logUpsertWithWhereUniqueWithoutExerciseInput[]
+  createMany?: Prisma.exercise_logCreateManyExerciseInputEnvelope
+  set?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
+  disconnect?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
+  delete?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
+  connect?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
+  update?: Prisma.exercise_logUpdateWithWhereUniqueWithoutExerciseInput | Prisma.exercise_logUpdateWithWhereUniqueWithoutExerciseInput[]
+  updateMany?: Prisma.exercise_logUpdateManyWithWhereWithoutExerciseInput | Prisma.exercise_logUpdateManyWithWhereWithoutExerciseInput[]
+  deleteMany?: Prisma.exercise_logScalarWhereInput | Prisma.exercise_logScalarWhereInput[]
+}
+
+export type exercise_logUncheckedUpdateManyWithoutExerciseNestedInput = {
+  create?: Prisma.XOR<Prisma.exercise_logCreateWithoutExerciseInput, Prisma.exercise_logUncheckedCreateWithoutExerciseInput> | Prisma.exercise_logCreateWithoutExerciseInput[] | Prisma.exercise_logUncheckedCreateWithoutExerciseInput[]
+  connectOrCreate?: Prisma.exercise_logCreateOrConnectWithoutExerciseInput | Prisma.exercise_logCreateOrConnectWithoutExerciseInput[]
+  upsert?: Prisma.exercise_logUpsertWithWhereUniqueWithoutExerciseInput | Prisma.exercise_logUpsertWithWhereUniqueWithoutExerciseInput[]
+  createMany?: Prisma.exercise_logCreateManyExerciseInputEnvelope
+  set?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
+  disconnect?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
+  delete?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
+  connect?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
+  update?: Prisma.exercise_logUpdateWithWhereUniqueWithoutExerciseInput | Prisma.exercise_logUpdateWithWhereUniqueWithoutExerciseInput[]
+  updateMany?: Prisma.exercise_logUpdateManyWithWhereWithoutExerciseInput | Prisma.exercise_logUpdateManyWithWhereWithoutExerciseInput[]
+  deleteMany?: Prisma.exercise_logScalarWhereInput | Prisma.exercise_logScalarWhereInput[]
+}
+
+export type exercise_logCreateNestedManyWithoutProgram_logInput = {
+  create?: Prisma.XOR<Prisma.exercise_logCreateWithoutProgram_logInput, Prisma.exercise_logUncheckedCreateWithoutProgram_logInput> | Prisma.exercise_logCreateWithoutProgram_logInput[] | Prisma.exercise_logUncheckedCreateWithoutProgram_logInput[]
+  connectOrCreate?: Prisma.exercise_logCreateOrConnectWithoutProgram_logInput | Prisma.exercise_logCreateOrConnectWithoutProgram_logInput[]
+  createMany?: Prisma.exercise_logCreateManyProgram_logInputEnvelope
+  connect?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
+}
+
+export type exercise_logUncheckedCreateNestedManyWithoutProgram_logInput = {
+  create?: Prisma.XOR<Prisma.exercise_logCreateWithoutProgram_logInput, Prisma.exercise_logUncheckedCreateWithoutProgram_logInput> | Prisma.exercise_logCreateWithoutProgram_logInput[] | Prisma.exercise_logUncheckedCreateWithoutProgram_logInput[]
+  connectOrCreate?: Prisma.exercise_logCreateOrConnectWithoutProgram_logInput | Prisma.exercise_logCreateOrConnectWithoutProgram_logInput[]
+  createMany?: Prisma.exercise_logCreateManyProgram_logInputEnvelope
+  connect?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
+}
+
+export type exercise_logUpdateManyWithoutProgram_logNestedInput = {
+  create?: Prisma.XOR<Prisma.exercise_logCreateWithoutProgram_logInput, Prisma.exercise_logUncheckedCreateWithoutProgram_logInput> | Prisma.exercise_logCreateWithoutProgram_logInput[] | Prisma.exercise_logUncheckedCreateWithoutProgram_logInput[]
+  connectOrCreate?: Prisma.exercise_logCreateOrConnectWithoutProgram_logInput | Prisma.exercise_logCreateOrConnectWithoutProgram_logInput[]
+  upsert?: Prisma.exercise_logUpsertWithWhereUniqueWithoutProgram_logInput | Prisma.exercise_logUpsertWithWhereUniqueWithoutProgram_logInput[]
+  createMany?: Prisma.exercise_logCreateManyProgram_logInputEnvelope
+  set?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
+  disconnect?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
+  delete?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
+  connect?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
+  update?: Prisma.exercise_logUpdateWithWhereUniqueWithoutProgram_logInput | Prisma.exercise_logUpdateWithWhereUniqueWithoutProgram_logInput[]
+  updateMany?: Prisma.exercise_logUpdateManyWithWhereWithoutProgram_logInput | Prisma.exercise_logUpdateManyWithWhereWithoutProgram_logInput[]
+  deleteMany?: Prisma.exercise_logScalarWhereInput | Prisma.exercise_logScalarWhereInput[]
+}
+
+export type exercise_logUncheckedUpdateManyWithoutProgram_logNestedInput = {
+  create?: Prisma.XOR<Prisma.exercise_logCreateWithoutProgram_logInput, Prisma.exercise_logUncheckedCreateWithoutProgram_logInput> | Prisma.exercise_logCreateWithoutProgram_logInput[] | Prisma.exercise_logUncheckedCreateWithoutProgram_logInput[]
+  connectOrCreate?: Prisma.exercise_logCreateOrConnectWithoutProgram_logInput | Prisma.exercise_logCreateOrConnectWithoutProgram_logInput[]
+  upsert?: Prisma.exercise_logUpsertWithWhereUniqueWithoutProgram_logInput | Prisma.exercise_logUpsertWithWhereUniqueWithoutProgram_logInput[]
+  createMany?: Prisma.exercise_logCreateManyProgram_logInputEnvelope
+  set?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
+  disconnect?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
+  delete?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
+  connect?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
+  update?: Prisma.exercise_logUpdateWithWhereUniqueWithoutProgram_logInput | Prisma.exercise_logUpdateWithWhereUniqueWithoutProgram_logInput[]
+  updateMany?: Prisma.exercise_logUpdateManyWithWhereWithoutProgram_logInput | Prisma.exercise_logUpdateManyWithWhereWithoutProgram_logInput[]
+  deleteMany?: Prisma.exercise_logScalarWhereInput | Prisma.exercise_logScalarWhereInput[]
+}
+
 export type FloatFieldUpdateOperationsInput = {
   set?: number
   increment?: number
@@ -362,83 +511,45 @@ export type FloatFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type exercise_logCreateNestedManyWithoutExercise_orderInput = {
-  create?: Prisma.XOR<Prisma.exercise_logCreateWithoutExercise_orderInput, Prisma.exercise_logUncheckedCreateWithoutExercise_orderInput> | Prisma.exercise_logCreateWithoutExercise_orderInput[] | Prisma.exercise_logUncheckedCreateWithoutExercise_orderInput[]
-  connectOrCreate?: Prisma.exercise_logCreateOrConnectWithoutExercise_orderInput | Prisma.exercise_logCreateOrConnectWithoutExercise_orderInput[]
-  createMany?: Prisma.exercise_logCreateManyExercise_orderInputEnvelope
-  connect?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
-}
-
-export type exercise_logUncheckedCreateNestedManyWithoutExercise_orderInput = {
-  create?: Prisma.XOR<Prisma.exercise_logCreateWithoutExercise_orderInput, Prisma.exercise_logUncheckedCreateWithoutExercise_orderInput> | Prisma.exercise_logCreateWithoutExercise_orderInput[] | Prisma.exercise_logUncheckedCreateWithoutExercise_orderInput[]
-  connectOrCreate?: Prisma.exercise_logCreateOrConnectWithoutExercise_orderInput | Prisma.exercise_logCreateOrConnectWithoutExercise_orderInput[]
-  createMany?: Prisma.exercise_logCreateManyExercise_orderInputEnvelope
-  connect?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
-}
-
-export type exercise_logUpdateManyWithoutExercise_orderNestedInput = {
-  create?: Prisma.XOR<Prisma.exercise_logCreateWithoutExercise_orderInput, Prisma.exercise_logUncheckedCreateWithoutExercise_orderInput> | Prisma.exercise_logCreateWithoutExercise_orderInput[] | Prisma.exercise_logUncheckedCreateWithoutExercise_orderInput[]
-  connectOrCreate?: Prisma.exercise_logCreateOrConnectWithoutExercise_orderInput | Prisma.exercise_logCreateOrConnectWithoutExercise_orderInput[]
-  upsert?: Prisma.exercise_logUpsertWithWhereUniqueWithoutExercise_orderInput | Prisma.exercise_logUpsertWithWhereUniqueWithoutExercise_orderInput[]
-  createMany?: Prisma.exercise_logCreateManyExercise_orderInputEnvelope
-  set?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
-  disconnect?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
-  delete?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
-  connect?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
-  update?: Prisma.exercise_logUpdateWithWhereUniqueWithoutExercise_orderInput | Prisma.exercise_logUpdateWithWhereUniqueWithoutExercise_orderInput[]
-  updateMany?: Prisma.exercise_logUpdateManyWithWhereWithoutExercise_orderInput | Prisma.exercise_logUpdateManyWithWhereWithoutExercise_orderInput[]
-  deleteMany?: Prisma.exercise_logScalarWhereInput | Prisma.exercise_logScalarWhereInput[]
-}
-
-export type exercise_logUncheckedUpdateManyWithoutExercise_orderNestedInput = {
-  create?: Prisma.XOR<Prisma.exercise_logCreateWithoutExercise_orderInput, Prisma.exercise_logUncheckedCreateWithoutExercise_orderInput> | Prisma.exercise_logCreateWithoutExercise_orderInput[] | Prisma.exercise_logUncheckedCreateWithoutExercise_orderInput[]
-  connectOrCreate?: Prisma.exercise_logCreateOrConnectWithoutExercise_orderInput | Prisma.exercise_logCreateOrConnectWithoutExercise_orderInput[]
-  upsert?: Prisma.exercise_logUpsertWithWhereUniqueWithoutExercise_orderInput | Prisma.exercise_logUpsertWithWhereUniqueWithoutExercise_orderInput[]
-  createMany?: Prisma.exercise_logCreateManyExercise_orderInputEnvelope
-  set?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
-  disconnect?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
-  delete?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
-  connect?: Prisma.exercise_logWhereUniqueInput | Prisma.exercise_logWhereUniqueInput[]
-  update?: Prisma.exercise_logUpdateWithWhereUniqueWithoutExercise_orderInput | Prisma.exercise_logUpdateWithWhereUniqueWithoutExercise_orderInput[]
-  updateMany?: Prisma.exercise_logUpdateManyWithWhereWithoutExercise_orderInput | Prisma.exercise_logUpdateManyWithWhereWithoutExercise_orderInput[]
-  deleteMany?: Prisma.exercise_logScalarWhereInput | Prisma.exercise_logScalarWhereInput[]
-}
-
-export type exercise_logCreateWithoutExercise_orderInput = {
+export type exercise_logCreateWithoutExerciseInput = {
   reps: number
   kg: number
+  set_nr: number
+  program_log: Prisma.program_logCreateNestedOneWithoutExercise_logInput
 }
 
-export type exercise_logUncheckedCreateWithoutExercise_orderInput = {
+export type exercise_logUncheckedCreateWithoutExerciseInput = {
   id?: number
   reps: number
   kg: number
+  program_log_id: number
+  set_nr: number
 }
 
-export type exercise_logCreateOrConnectWithoutExercise_orderInput = {
+export type exercise_logCreateOrConnectWithoutExerciseInput = {
   where: Prisma.exercise_logWhereUniqueInput
-  create: Prisma.XOR<Prisma.exercise_logCreateWithoutExercise_orderInput, Prisma.exercise_logUncheckedCreateWithoutExercise_orderInput>
+  create: Prisma.XOR<Prisma.exercise_logCreateWithoutExerciseInput, Prisma.exercise_logUncheckedCreateWithoutExerciseInput>
 }
 
-export type exercise_logCreateManyExercise_orderInputEnvelope = {
-  data: Prisma.exercise_logCreateManyExercise_orderInput | Prisma.exercise_logCreateManyExercise_orderInput[]
+export type exercise_logCreateManyExerciseInputEnvelope = {
+  data: Prisma.exercise_logCreateManyExerciseInput | Prisma.exercise_logCreateManyExerciseInput[]
   skipDuplicates?: boolean
 }
 
-export type exercise_logUpsertWithWhereUniqueWithoutExercise_orderInput = {
+export type exercise_logUpsertWithWhereUniqueWithoutExerciseInput = {
   where: Prisma.exercise_logWhereUniqueInput
-  update: Prisma.XOR<Prisma.exercise_logUpdateWithoutExercise_orderInput, Prisma.exercise_logUncheckedUpdateWithoutExercise_orderInput>
-  create: Prisma.XOR<Prisma.exercise_logCreateWithoutExercise_orderInput, Prisma.exercise_logUncheckedCreateWithoutExercise_orderInput>
+  update: Prisma.XOR<Prisma.exercise_logUpdateWithoutExerciseInput, Prisma.exercise_logUncheckedUpdateWithoutExerciseInput>
+  create: Prisma.XOR<Prisma.exercise_logCreateWithoutExerciseInput, Prisma.exercise_logUncheckedCreateWithoutExerciseInput>
 }
 
-export type exercise_logUpdateWithWhereUniqueWithoutExercise_orderInput = {
+export type exercise_logUpdateWithWhereUniqueWithoutExerciseInput = {
   where: Prisma.exercise_logWhereUniqueInput
-  data: Prisma.XOR<Prisma.exercise_logUpdateWithoutExercise_orderInput, Prisma.exercise_logUncheckedUpdateWithoutExercise_orderInput>
+  data: Prisma.XOR<Prisma.exercise_logUpdateWithoutExerciseInput, Prisma.exercise_logUncheckedUpdateWithoutExerciseInput>
 }
 
-export type exercise_logUpdateManyWithWhereWithoutExercise_orderInput = {
+export type exercise_logUpdateManyWithWhereWithoutExerciseInput = {
   where: Prisma.exercise_logScalarWhereInput
-  data: Prisma.XOR<Prisma.exercise_logUpdateManyMutationInput, Prisma.exercise_logUncheckedUpdateManyWithoutExercise_orderInput>
+  data: Prisma.XOR<Prisma.exercise_logUpdateManyMutationInput, Prisma.exercise_logUncheckedUpdateManyWithoutExerciseInput>
 }
 
 export type exercise_logScalarWhereInput = {
@@ -446,88 +557,187 @@ export type exercise_logScalarWhereInput = {
   OR?: Prisma.exercise_logScalarWhereInput[]
   NOT?: Prisma.exercise_logScalarWhereInput | Prisma.exercise_logScalarWhereInput[]
   id?: Prisma.IntFilter<"exercise_log"> | number
-  exercise_order_id?: Prisma.IntFilter<"exercise_log"> | number
   reps?: Prisma.IntFilter<"exercise_log"> | number
   kg?: Prisma.FloatFilter<"exercise_log"> | number
+  exercise_id?: Prisma.IntFilter<"exercise_log"> | number
+  program_log_id?: Prisma.IntFilter<"exercise_log"> | number
+  set_nr?: Prisma.IntFilter<"exercise_log"> | number
 }
 
-export type exercise_logCreateManyExercise_orderInput = {
+export type exercise_logCreateWithoutProgram_logInput = {
+  reps: number
+  kg: number
+  set_nr: number
+  exercise: Prisma.exerciseCreateNestedOneWithoutExercise_logInput
+}
+
+export type exercise_logUncheckedCreateWithoutProgram_logInput = {
   id?: number
   reps: number
   kg: number
+  exercise_id: number
+  set_nr: number
 }
 
-export type exercise_logUpdateWithoutExercise_orderInput = {
+export type exercise_logCreateOrConnectWithoutProgram_logInput = {
+  where: Prisma.exercise_logWhereUniqueInput
+  create: Prisma.XOR<Prisma.exercise_logCreateWithoutProgram_logInput, Prisma.exercise_logUncheckedCreateWithoutProgram_logInput>
+}
+
+export type exercise_logCreateManyProgram_logInputEnvelope = {
+  data: Prisma.exercise_logCreateManyProgram_logInput | Prisma.exercise_logCreateManyProgram_logInput[]
+  skipDuplicates?: boolean
+}
+
+export type exercise_logUpsertWithWhereUniqueWithoutProgram_logInput = {
+  where: Prisma.exercise_logWhereUniqueInput
+  update: Prisma.XOR<Prisma.exercise_logUpdateWithoutProgram_logInput, Prisma.exercise_logUncheckedUpdateWithoutProgram_logInput>
+  create: Prisma.XOR<Prisma.exercise_logCreateWithoutProgram_logInput, Prisma.exercise_logUncheckedCreateWithoutProgram_logInput>
+}
+
+export type exercise_logUpdateWithWhereUniqueWithoutProgram_logInput = {
+  where: Prisma.exercise_logWhereUniqueInput
+  data: Prisma.XOR<Prisma.exercise_logUpdateWithoutProgram_logInput, Prisma.exercise_logUncheckedUpdateWithoutProgram_logInput>
+}
+
+export type exercise_logUpdateManyWithWhereWithoutProgram_logInput = {
+  where: Prisma.exercise_logScalarWhereInput
+  data: Prisma.XOR<Prisma.exercise_logUpdateManyMutationInput, Prisma.exercise_logUncheckedUpdateManyWithoutProgram_logInput>
+}
+
+export type exercise_logCreateManyExerciseInput = {
+  id?: number
+  reps: number
+  kg: number
+  program_log_id: number
+  set_nr: number
+}
+
+export type exercise_logUpdateWithoutExerciseInput = {
   reps?: Prisma.IntFieldUpdateOperationsInput | number
   kg?: Prisma.FloatFieldUpdateOperationsInput | number
+  set_nr?: Prisma.IntFieldUpdateOperationsInput | number
+  program_log?: Prisma.program_logUpdateOneRequiredWithoutExercise_logNestedInput
 }
 
-export type exercise_logUncheckedUpdateWithoutExercise_orderInput = {
+export type exercise_logUncheckedUpdateWithoutExerciseInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   reps?: Prisma.IntFieldUpdateOperationsInput | number
   kg?: Prisma.FloatFieldUpdateOperationsInput | number
+  program_log_id?: Prisma.IntFieldUpdateOperationsInput | number
+  set_nr?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
-export type exercise_logUncheckedUpdateManyWithoutExercise_orderInput = {
+export type exercise_logUncheckedUpdateManyWithoutExerciseInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   reps?: Prisma.IntFieldUpdateOperationsInput | number
   kg?: Prisma.FloatFieldUpdateOperationsInput | number
+  program_log_id?: Prisma.IntFieldUpdateOperationsInput | number
+  set_nr?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type exercise_logCreateManyProgram_logInput = {
+  id?: number
+  reps: number
+  kg: number
+  exercise_id: number
+  set_nr: number
+}
+
+export type exercise_logUpdateWithoutProgram_logInput = {
+  reps?: Prisma.IntFieldUpdateOperationsInput | number
+  kg?: Prisma.FloatFieldUpdateOperationsInput | number
+  set_nr?: Prisma.IntFieldUpdateOperationsInput | number
+  exercise?: Prisma.exerciseUpdateOneRequiredWithoutExercise_logNestedInput
+}
+
+export type exercise_logUncheckedUpdateWithoutProgram_logInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  reps?: Prisma.IntFieldUpdateOperationsInput | number
+  kg?: Prisma.FloatFieldUpdateOperationsInput | number
+  exercise_id?: Prisma.IntFieldUpdateOperationsInput | number
+  set_nr?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type exercise_logUncheckedUpdateManyWithoutProgram_logInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  reps?: Prisma.IntFieldUpdateOperationsInput | number
+  kg?: Prisma.FloatFieldUpdateOperationsInput | number
+  exercise_id?: Prisma.IntFieldUpdateOperationsInput | number
+  set_nr?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
 
 export type exercise_logSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  exercise_order_id?: boolean
   reps?: boolean
   kg?: boolean
-  exercise_order?: boolean | Prisma.exercise_orderDefaultArgs<ExtArgs>
+  exercise_id?: boolean
+  program_log_id?: boolean
+  set_nr?: boolean
+  exercise?: boolean | Prisma.exerciseDefaultArgs<ExtArgs>
+  program_log?: boolean | Prisma.program_logDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["exercise_log"]>
 
 export type exercise_logSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  exercise_order_id?: boolean
   reps?: boolean
   kg?: boolean
-  exercise_order?: boolean | Prisma.exercise_orderDefaultArgs<ExtArgs>
+  exercise_id?: boolean
+  program_log_id?: boolean
+  set_nr?: boolean
+  exercise?: boolean | Prisma.exerciseDefaultArgs<ExtArgs>
+  program_log?: boolean | Prisma.program_logDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["exercise_log"]>
 
 export type exercise_logSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  exercise_order_id?: boolean
   reps?: boolean
   kg?: boolean
-  exercise_order?: boolean | Prisma.exercise_orderDefaultArgs<ExtArgs>
+  exercise_id?: boolean
+  program_log_id?: boolean
+  set_nr?: boolean
+  exercise?: boolean | Prisma.exerciseDefaultArgs<ExtArgs>
+  program_log?: boolean | Prisma.program_logDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["exercise_log"]>
 
 export type exercise_logSelectScalar = {
   id?: boolean
-  exercise_order_id?: boolean
   reps?: boolean
   kg?: boolean
+  exercise_id?: boolean
+  program_log_id?: boolean
+  set_nr?: boolean
 }
 
-export type exercise_logOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "exercise_order_id" | "reps" | "kg", ExtArgs["result"]["exercise_log"]>
+export type exercise_logOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "reps" | "kg" | "exercise_id" | "program_log_id" | "set_nr", ExtArgs["result"]["exercise_log"]>
 export type exercise_logInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  exercise_order?: boolean | Prisma.exercise_orderDefaultArgs<ExtArgs>
+  exercise?: boolean | Prisma.exerciseDefaultArgs<ExtArgs>
+  program_log?: boolean | Prisma.program_logDefaultArgs<ExtArgs>
 }
 export type exercise_logIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  exercise_order?: boolean | Prisma.exercise_orderDefaultArgs<ExtArgs>
+  exercise?: boolean | Prisma.exerciseDefaultArgs<ExtArgs>
+  program_log?: boolean | Prisma.program_logDefaultArgs<ExtArgs>
 }
 export type exercise_logIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  exercise_order?: boolean | Prisma.exercise_orderDefaultArgs<ExtArgs>
+  exercise?: boolean | Prisma.exerciseDefaultArgs<ExtArgs>
+  program_log?: boolean | Prisma.program_logDefaultArgs<ExtArgs>
 }
 
 export type $exercise_logPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "exercise_log"
   objects: {
-    exercise_order: Prisma.$exercise_orderPayload<ExtArgs>
+    exercise: Prisma.$exercisePayload<ExtArgs>
+    program_log: Prisma.$program_logPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    exercise_order_id: number
     reps: number
     kg: number
+    exercise_id: number
+    program_log_id: number
+    set_nr: number
   }, ExtArgs["result"]["exercise_log"]>
   composites: {}
 }
@@ -922,7 +1132,8 @@ readonly fields: exercise_logFieldRefs;
  */
 export interface Prisma__exercise_logClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  exercise_order<T extends Prisma.exercise_orderDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.exercise_orderDefaultArgs<ExtArgs>>): Prisma.Prisma__exercise_orderClient<runtime.Types.Result.GetResult<Prisma.$exercise_orderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  exercise<T extends Prisma.exerciseDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.exerciseDefaultArgs<ExtArgs>>): Prisma.Prisma__exerciseClient<runtime.Types.Result.GetResult<Prisma.$exercisePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  program_log<T extends Prisma.program_logDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.program_logDefaultArgs<ExtArgs>>): Prisma.Prisma__program_logClient<runtime.Types.Result.GetResult<Prisma.$program_logPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -953,9 +1164,11 @@ export interface Prisma__exercise_logClient<T, Null = never, ExtArgs extends run
  */
 export interface exercise_logFieldRefs {
   readonly id: Prisma.FieldRef<"exercise_log", 'Int'>
-  readonly exercise_order_id: Prisma.FieldRef<"exercise_log", 'Int'>
   readonly reps: Prisma.FieldRef<"exercise_log", 'Int'>
   readonly kg: Prisma.FieldRef<"exercise_log", 'Float'>
+  readonly exercise_id: Prisma.FieldRef<"exercise_log", 'Int'>
+  readonly program_log_id: Prisma.FieldRef<"exercise_log", 'Int'>
+  readonly set_nr: Prisma.FieldRef<"exercise_log", 'Int'>
 }
     
 
