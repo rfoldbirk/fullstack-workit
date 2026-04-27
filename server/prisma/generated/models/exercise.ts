@@ -28,12 +28,10 @@ export type AggregateExercise = {
 
 export type ExerciseAvgAggregateOutputType = {
   id: number | null
-  owner_id: number | null
 }
 
 export type ExerciseSumAggregateOutputType = {
   id: number | null
-  owner_id: number | null
 }
 
 export type ExerciseMinAggregateOutputType = {
@@ -41,7 +39,6 @@ export type ExerciseMinAggregateOutputType = {
   name: string | null
   description: string | null
   equipment: $Enums.equipment_type | null
-  owner_id: number | null
 }
 
 export type ExerciseMaxAggregateOutputType = {
@@ -49,7 +46,6 @@ export type ExerciseMaxAggregateOutputType = {
   name: string | null
   description: string | null
   equipment: $Enums.equipment_type | null
-  owner_id: number | null
 }
 
 export type ExerciseCountAggregateOutputType = {
@@ -57,19 +53,16 @@ export type ExerciseCountAggregateOutputType = {
   name: number
   description: number
   equipment: number
-  owner_id: number
   _all: number
 }
 
 
 export type ExerciseAvgAggregateInputType = {
   id?: true
-  owner_id?: true
 }
 
 export type ExerciseSumAggregateInputType = {
   id?: true
-  owner_id?: true
 }
 
 export type ExerciseMinAggregateInputType = {
@@ -77,7 +70,6 @@ export type ExerciseMinAggregateInputType = {
   name?: true
   description?: true
   equipment?: true
-  owner_id?: true
 }
 
 export type ExerciseMaxAggregateInputType = {
@@ -85,7 +77,6 @@ export type ExerciseMaxAggregateInputType = {
   name?: true
   description?: true
   equipment?: true
-  owner_id?: true
 }
 
 export type ExerciseCountAggregateInputType = {
@@ -93,7 +84,6 @@ export type ExerciseCountAggregateInputType = {
   name?: true
   description?: true
   equipment?: true
-  owner_id?: true
   _all?: true
 }
 
@@ -188,7 +178,6 @@ export type ExerciseGroupByOutputType = {
   name: string
   description: string
   equipment: $Enums.equipment_type
-  owner_id: number | null
   _count: ExerciseCountAggregateOutputType | null
   _avg: ExerciseAvgAggregateOutputType | null
   _sum: ExerciseSumAggregateOutputType | null
@@ -219,10 +208,9 @@ export type exerciseWhereInput = {
   name?: Prisma.StringFilter<"exercise"> | string
   description?: Prisma.StringFilter<"exercise"> | string
   equipment?: Prisma.Enumequipment_typeFilter<"exercise"> | $Enums.equipment_type
-  owner_id?: Prisma.IntNullableFilter<"exercise"> | number | null
-  users?: Prisma.XOR<Prisma.UsersNullableScalarRelationFilter, Prisma.usersWhereInput> | null
-  exercise_order?: Prisma.Exercise_orderListRelationFilter
+  exercise_log?: Prisma.Exercise_logListRelationFilter
   exercise_to_muscle?: Prisma.Exercise_to_muscleListRelationFilter
+  program_template_exercise?: Prisma.Program_template_exerciseListRelationFilter
 }
 
 export type exerciseOrderByWithRelationInput = {
@@ -230,10 +218,9 @@ export type exerciseOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   equipment?: Prisma.SortOrder
-  owner_id?: Prisma.SortOrderInput | Prisma.SortOrder
-  users?: Prisma.usersOrderByWithRelationInput
-  exercise_order?: Prisma.exercise_orderOrderByRelationAggregateInput
+  exercise_log?: Prisma.exercise_logOrderByRelationAggregateInput
   exercise_to_muscle?: Prisma.exercise_to_muscleOrderByRelationAggregateInput
+  program_template_exercise?: Prisma.program_template_exerciseOrderByRelationAggregateInput
 }
 
 export type exerciseWhereUniqueInput = Prisma.AtLeast<{
@@ -244,10 +231,9 @@ export type exerciseWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"exercise"> | string
   description?: Prisma.StringFilter<"exercise"> | string
   equipment?: Prisma.Enumequipment_typeFilter<"exercise"> | $Enums.equipment_type
-  owner_id?: Prisma.IntNullableFilter<"exercise"> | number | null
-  users?: Prisma.XOR<Prisma.UsersNullableScalarRelationFilter, Prisma.usersWhereInput> | null
-  exercise_order?: Prisma.Exercise_orderListRelationFilter
+  exercise_log?: Prisma.Exercise_logListRelationFilter
   exercise_to_muscle?: Prisma.Exercise_to_muscleListRelationFilter
+  program_template_exercise?: Prisma.Program_template_exerciseListRelationFilter
 }, "id">
 
 export type exerciseOrderByWithAggregationInput = {
@@ -255,7 +241,6 @@ export type exerciseOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   equipment?: Prisma.SortOrder
-  owner_id?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.exerciseCountOrderByAggregateInput
   _avg?: Prisma.exerciseAvgOrderByAggregateInput
   _max?: Prisma.exerciseMaxOrderByAggregateInput
@@ -271,16 +256,15 @@ export type exerciseScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"exercise"> | string
   description?: Prisma.StringWithAggregatesFilter<"exercise"> | string
   equipment?: Prisma.Enumequipment_typeWithAggregatesFilter<"exercise"> | $Enums.equipment_type
-  owner_id?: Prisma.IntNullableWithAggregatesFilter<"exercise"> | number | null
 }
 
 export type exerciseCreateInput = {
   name: string
   description: string
   equipment: $Enums.equipment_type
-  users?: Prisma.usersCreateNestedOneWithoutExerciseInput
-  exercise_order?: Prisma.exercise_orderCreateNestedManyWithoutExerciseInput
+  exercise_log?: Prisma.exercise_logCreateNestedManyWithoutExerciseInput
   exercise_to_muscle?: Prisma.exercise_to_muscleCreateNestedManyWithoutExerciseInput
+  program_template_exercise?: Prisma.program_template_exerciseCreateNestedManyWithoutExerciseInput
 }
 
 export type exerciseUncheckedCreateInput = {
@@ -288,18 +272,18 @@ export type exerciseUncheckedCreateInput = {
   name: string
   description: string
   equipment: $Enums.equipment_type
-  owner_id?: number | null
-  exercise_order?: Prisma.exercise_orderUncheckedCreateNestedManyWithoutExerciseInput
+  exercise_log?: Prisma.exercise_logUncheckedCreateNestedManyWithoutExerciseInput
   exercise_to_muscle?: Prisma.exercise_to_muscleUncheckedCreateNestedManyWithoutExerciseInput
+  program_template_exercise?: Prisma.program_template_exerciseUncheckedCreateNestedManyWithoutExerciseInput
 }
 
 export type exerciseUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   equipment?: Prisma.Enumequipment_typeFieldUpdateOperationsInput | $Enums.equipment_type
-  users?: Prisma.usersUpdateOneWithoutExerciseNestedInput
-  exercise_order?: Prisma.exercise_orderUpdateManyWithoutExerciseNestedInput
+  exercise_log?: Prisma.exercise_logUpdateManyWithoutExerciseNestedInput
   exercise_to_muscle?: Prisma.exercise_to_muscleUpdateManyWithoutExerciseNestedInput
+  program_template_exercise?: Prisma.program_template_exerciseUpdateManyWithoutExerciseNestedInput
 }
 
 export type exerciseUncheckedUpdateInput = {
@@ -307,9 +291,9 @@ export type exerciseUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   equipment?: Prisma.Enumequipment_typeFieldUpdateOperationsInput | $Enums.equipment_type
-  owner_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  exercise_order?: Prisma.exercise_orderUncheckedUpdateManyWithoutExerciseNestedInput
+  exercise_log?: Prisma.exercise_logUncheckedUpdateManyWithoutExerciseNestedInput
   exercise_to_muscle?: Prisma.exercise_to_muscleUncheckedUpdateManyWithoutExerciseNestedInput
+  program_template_exercise?: Prisma.program_template_exerciseUncheckedUpdateManyWithoutExerciseNestedInput
 }
 
 export type exerciseCreateManyInput = {
@@ -317,7 +301,6 @@ export type exerciseCreateManyInput = {
   name: string
   description: string
   equipment: $Enums.equipment_type
-  owner_id?: number | null
 }
 
 export type exerciseUpdateManyMutationInput = {
@@ -331,7 +314,6 @@ export type exerciseUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   equipment?: Prisma.Enumequipment_typeFieldUpdateOperationsInput | $Enums.equipment_type
-  owner_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type exerciseCountOrderByAggregateInput = {
@@ -339,12 +321,10 @@ export type exerciseCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   equipment?: Prisma.SortOrder
-  owner_id?: Prisma.SortOrder
 }
 
 export type exerciseAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  owner_id?: Prisma.SortOrder
 }
 
 export type exerciseMaxOrderByAggregateInput = {
@@ -352,7 +332,6 @@ export type exerciseMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   equipment?: Prisma.SortOrder
-  owner_id?: Prisma.SortOrder
 }
 
 export type exerciseMinOrderByAggregateInput = {
@@ -360,27 +339,15 @@ export type exerciseMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   equipment?: Prisma.SortOrder
-  owner_id?: Prisma.SortOrder
 }
 
 export type exerciseSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  owner_id?: Prisma.SortOrder
 }
 
 export type ExerciseScalarRelationFilter = {
   is?: Prisma.exerciseWhereInput
   isNot?: Prisma.exerciseWhereInput
-}
-
-export type ExerciseListRelationFilter = {
-  every?: Prisma.exerciseWhereInput
-  some?: Prisma.exerciseWhereInput
-  none?: Prisma.exerciseWhereInput
-}
-
-export type exerciseOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -389,20 +356,6 @@ export type StringFieldUpdateOperationsInput = {
 
 export type Enumequipment_typeFieldUpdateOperationsInput = {
   set?: $Enums.equipment_type
-}
-
-export type exerciseCreateNestedOneWithoutExercise_orderInput = {
-  create?: Prisma.XOR<Prisma.exerciseCreateWithoutExercise_orderInput, Prisma.exerciseUncheckedCreateWithoutExercise_orderInput>
-  connectOrCreate?: Prisma.exerciseCreateOrConnectWithoutExercise_orderInput
-  connect?: Prisma.exerciseWhereUniqueInput
-}
-
-export type exerciseUpdateOneRequiredWithoutExercise_orderNestedInput = {
-  create?: Prisma.XOR<Prisma.exerciseCreateWithoutExercise_orderInput, Prisma.exerciseUncheckedCreateWithoutExercise_orderInput>
-  connectOrCreate?: Prisma.exerciseCreateOrConnectWithoutExercise_orderInput
-  upsert?: Prisma.exerciseUpsertWithoutExercise_orderInput
-  connect?: Prisma.exerciseWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.exerciseUpdateToOneWithWhereWithoutExercise_orderInput, Prisma.exerciseUpdateWithoutExercise_orderInput>, Prisma.exerciseUncheckedUpdateWithoutExercise_orderInput>
 }
 
 export type exerciseCreateNestedOneWithoutExercise_to_muscleInput = {
@@ -419,104 +372,40 @@ export type exerciseUpdateOneRequiredWithoutExercise_to_muscleNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.exerciseUpdateToOneWithWhereWithoutExercise_to_muscleInput, Prisma.exerciseUpdateWithoutExercise_to_muscleInput>, Prisma.exerciseUncheckedUpdateWithoutExercise_to_muscleInput>
 }
 
-export type exerciseCreateNestedManyWithoutUsersInput = {
-  create?: Prisma.XOR<Prisma.exerciseCreateWithoutUsersInput, Prisma.exerciseUncheckedCreateWithoutUsersInput> | Prisma.exerciseCreateWithoutUsersInput[] | Prisma.exerciseUncheckedCreateWithoutUsersInput[]
-  connectOrCreate?: Prisma.exerciseCreateOrConnectWithoutUsersInput | Prisma.exerciseCreateOrConnectWithoutUsersInput[]
-  createMany?: Prisma.exerciseCreateManyUsersInputEnvelope
-  connect?: Prisma.exerciseWhereUniqueInput | Prisma.exerciseWhereUniqueInput[]
+export type exerciseCreateNestedOneWithoutProgram_template_exerciseInput = {
+  create?: Prisma.XOR<Prisma.exerciseCreateWithoutProgram_template_exerciseInput, Prisma.exerciseUncheckedCreateWithoutProgram_template_exerciseInput>
+  connectOrCreate?: Prisma.exerciseCreateOrConnectWithoutProgram_template_exerciseInput
+  connect?: Prisma.exerciseWhereUniqueInput
 }
 
-export type exerciseUncheckedCreateNestedManyWithoutUsersInput = {
-  create?: Prisma.XOR<Prisma.exerciseCreateWithoutUsersInput, Prisma.exerciseUncheckedCreateWithoutUsersInput> | Prisma.exerciseCreateWithoutUsersInput[] | Prisma.exerciseUncheckedCreateWithoutUsersInput[]
-  connectOrCreate?: Prisma.exerciseCreateOrConnectWithoutUsersInput | Prisma.exerciseCreateOrConnectWithoutUsersInput[]
-  createMany?: Prisma.exerciseCreateManyUsersInputEnvelope
-  connect?: Prisma.exerciseWhereUniqueInput | Prisma.exerciseWhereUniqueInput[]
+export type exerciseUpdateOneRequiredWithoutProgram_template_exerciseNestedInput = {
+  create?: Prisma.XOR<Prisma.exerciseCreateWithoutProgram_template_exerciseInput, Prisma.exerciseUncheckedCreateWithoutProgram_template_exerciseInput>
+  connectOrCreate?: Prisma.exerciseCreateOrConnectWithoutProgram_template_exerciseInput
+  upsert?: Prisma.exerciseUpsertWithoutProgram_template_exerciseInput
+  connect?: Prisma.exerciseWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.exerciseUpdateToOneWithWhereWithoutProgram_template_exerciseInput, Prisma.exerciseUpdateWithoutProgram_template_exerciseInput>, Prisma.exerciseUncheckedUpdateWithoutProgram_template_exerciseInput>
 }
 
-export type exerciseUpdateManyWithoutUsersNestedInput = {
-  create?: Prisma.XOR<Prisma.exerciseCreateWithoutUsersInput, Prisma.exerciseUncheckedCreateWithoutUsersInput> | Prisma.exerciseCreateWithoutUsersInput[] | Prisma.exerciseUncheckedCreateWithoutUsersInput[]
-  connectOrCreate?: Prisma.exerciseCreateOrConnectWithoutUsersInput | Prisma.exerciseCreateOrConnectWithoutUsersInput[]
-  upsert?: Prisma.exerciseUpsertWithWhereUniqueWithoutUsersInput | Prisma.exerciseUpsertWithWhereUniqueWithoutUsersInput[]
-  createMany?: Prisma.exerciseCreateManyUsersInputEnvelope
-  set?: Prisma.exerciseWhereUniqueInput | Prisma.exerciseWhereUniqueInput[]
-  disconnect?: Prisma.exerciseWhereUniqueInput | Prisma.exerciseWhereUniqueInput[]
-  delete?: Prisma.exerciseWhereUniqueInput | Prisma.exerciseWhereUniqueInput[]
-  connect?: Prisma.exerciseWhereUniqueInput | Prisma.exerciseWhereUniqueInput[]
-  update?: Prisma.exerciseUpdateWithWhereUniqueWithoutUsersInput | Prisma.exerciseUpdateWithWhereUniqueWithoutUsersInput[]
-  updateMany?: Prisma.exerciseUpdateManyWithWhereWithoutUsersInput | Prisma.exerciseUpdateManyWithWhereWithoutUsersInput[]
-  deleteMany?: Prisma.exerciseScalarWhereInput | Prisma.exerciseScalarWhereInput[]
+export type exerciseCreateNestedOneWithoutExercise_logInput = {
+  create?: Prisma.XOR<Prisma.exerciseCreateWithoutExercise_logInput, Prisma.exerciseUncheckedCreateWithoutExercise_logInput>
+  connectOrCreate?: Prisma.exerciseCreateOrConnectWithoutExercise_logInput
+  connect?: Prisma.exerciseWhereUniqueInput
 }
 
-export type exerciseUncheckedUpdateManyWithoutUsersNestedInput = {
-  create?: Prisma.XOR<Prisma.exerciseCreateWithoutUsersInput, Prisma.exerciseUncheckedCreateWithoutUsersInput> | Prisma.exerciseCreateWithoutUsersInput[] | Prisma.exerciseUncheckedCreateWithoutUsersInput[]
-  connectOrCreate?: Prisma.exerciseCreateOrConnectWithoutUsersInput | Prisma.exerciseCreateOrConnectWithoutUsersInput[]
-  upsert?: Prisma.exerciseUpsertWithWhereUniqueWithoutUsersInput | Prisma.exerciseUpsertWithWhereUniqueWithoutUsersInput[]
-  createMany?: Prisma.exerciseCreateManyUsersInputEnvelope
-  set?: Prisma.exerciseWhereUniqueInput | Prisma.exerciseWhereUniqueInput[]
-  disconnect?: Prisma.exerciseWhereUniqueInput | Prisma.exerciseWhereUniqueInput[]
-  delete?: Prisma.exerciseWhereUniqueInput | Prisma.exerciseWhereUniqueInput[]
-  connect?: Prisma.exerciseWhereUniqueInput | Prisma.exerciseWhereUniqueInput[]
-  update?: Prisma.exerciseUpdateWithWhereUniqueWithoutUsersInput | Prisma.exerciseUpdateWithWhereUniqueWithoutUsersInput[]
-  updateMany?: Prisma.exerciseUpdateManyWithWhereWithoutUsersInput | Prisma.exerciseUpdateManyWithWhereWithoutUsersInput[]
-  deleteMany?: Prisma.exerciseScalarWhereInput | Prisma.exerciseScalarWhereInput[]
-}
-
-export type exerciseCreateWithoutExercise_orderInput = {
-  name: string
-  description: string
-  equipment: $Enums.equipment_type
-  users?: Prisma.usersCreateNestedOneWithoutExerciseInput
-  exercise_to_muscle?: Prisma.exercise_to_muscleCreateNestedManyWithoutExerciseInput
-}
-
-export type exerciseUncheckedCreateWithoutExercise_orderInput = {
-  id?: number
-  name: string
-  description: string
-  equipment: $Enums.equipment_type
-  owner_id?: number | null
-  exercise_to_muscle?: Prisma.exercise_to_muscleUncheckedCreateNestedManyWithoutExerciseInput
-}
-
-export type exerciseCreateOrConnectWithoutExercise_orderInput = {
-  where: Prisma.exerciseWhereUniqueInput
-  create: Prisma.XOR<Prisma.exerciseCreateWithoutExercise_orderInput, Prisma.exerciseUncheckedCreateWithoutExercise_orderInput>
-}
-
-export type exerciseUpsertWithoutExercise_orderInput = {
-  update: Prisma.XOR<Prisma.exerciseUpdateWithoutExercise_orderInput, Prisma.exerciseUncheckedUpdateWithoutExercise_orderInput>
-  create: Prisma.XOR<Prisma.exerciseCreateWithoutExercise_orderInput, Prisma.exerciseUncheckedCreateWithoutExercise_orderInput>
-  where?: Prisma.exerciseWhereInput
-}
-
-export type exerciseUpdateToOneWithWhereWithoutExercise_orderInput = {
-  where?: Prisma.exerciseWhereInput
-  data: Prisma.XOR<Prisma.exerciseUpdateWithoutExercise_orderInput, Prisma.exerciseUncheckedUpdateWithoutExercise_orderInput>
-}
-
-export type exerciseUpdateWithoutExercise_orderInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  equipment?: Prisma.Enumequipment_typeFieldUpdateOperationsInput | $Enums.equipment_type
-  users?: Prisma.usersUpdateOneWithoutExerciseNestedInput
-  exercise_to_muscle?: Prisma.exercise_to_muscleUpdateManyWithoutExerciseNestedInput
-}
-
-export type exerciseUncheckedUpdateWithoutExercise_orderInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  equipment?: Prisma.Enumequipment_typeFieldUpdateOperationsInput | $Enums.equipment_type
-  owner_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  exercise_to_muscle?: Prisma.exercise_to_muscleUncheckedUpdateManyWithoutExerciseNestedInput
+export type exerciseUpdateOneRequiredWithoutExercise_logNestedInput = {
+  create?: Prisma.XOR<Prisma.exerciseCreateWithoutExercise_logInput, Prisma.exerciseUncheckedCreateWithoutExercise_logInput>
+  connectOrCreate?: Prisma.exerciseCreateOrConnectWithoutExercise_logInput
+  upsert?: Prisma.exerciseUpsertWithoutExercise_logInput
+  connect?: Prisma.exerciseWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.exerciseUpdateToOneWithWhereWithoutExercise_logInput, Prisma.exerciseUpdateWithoutExercise_logInput>, Prisma.exerciseUncheckedUpdateWithoutExercise_logInput>
 }
 
 export type exerciseCreateWithoutExercise_to_muscleInput = {
   name: string
   description: string
   equipment: $Enums.equipment_type
-  users?: Prisma.usersCreateNestedOneWithoutExerciseInput
-  exercise_order?: Prisma.exercise_orderCreateNestedManyWithoutExerciseInput
+  exercise_log?: Prisma.exercise_logCreateNestedManyWithoutExerciseInput
+  program_template_exercise?: Prisma.program_template_exerciseCreateNestedManyWithoutExerciseInput
 }
 
 export type exerciseUncheckedCreateWithoutExercise_to_muscleInput = {
@@ -524,8 +413,8 @@ export type exerciseUncheckedCreateWithoutExercise_to_muscleInput = {
   name: string
   description: string
   equipment: $Enums.equipment_type
-  owner_id?: number | null
-  exercise_order?: Prisma.exercise_orderUncheckedCreateNestedManyWithoutExerciseInput
+  exercise_log?: Prisma.exercise_logUncheckedCreateNestedManyWithoutExerciseInput
+  program_template_exercise?: Prisma.program_template_exerciseUncheckedCreateNestedManyWithoutExerciseInput
 }
 
 export type exerciseCreateOrConnectWithoutExercise_to_muscleInput = {
@@ -548,8 +437,8 @@ export type exerciseUpdateWithoutExercise_to_muscleInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   equipment?: Prisma.Enumequipment_typeFieldUpdateOperationsInput | $Enums.equipment_type
-  users?: Prisma.usersUpdateOneWithoutExerciseNestedInput
-  exercise_order?: Prisma.exercise_orderUpdateManyWithoutExerciseNestedInput
+  exercise_log?: Prisma.exercise_logUpdateManyWithoutExerciseNestedInput
+  program_template_exercise?: Prisma.program_template_exerciseUpdateManyWithoutExerciseNestedInput
 }
 
 export type exerciseUncheckedUpdateWithoutExercise_to_muscleInput = {
@@ -557,93 +446,108 @@ export type exerciseUncheckedUpdateWithoutExercise_to_muscleInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   equipment?: Prisma.Enumequipment_typeFieldUpdateOperationsInput | $Enums.equipment_type
-  owner_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  exercise_order?: Prisma.exercise_orderUncheckedUpdateManyWithoutExerciseNestedInput
+  exercise_log?: Prisma.exercise_logUncheckedUpdateManyWithoutExerciseNestedInput
+  program_template_exercise?: Prisma.program_template_exerciseUncheckedUpdateManyWithoutExerciseNestedInput
 }
 
-export type exerciseCreateWithoutUsersInput = {
+export type exerciseCreateWithoutProgram_template_exerciseInput = {
   name: string
   description: string
   equipment: $Enums.equipment_type
-  exercise_order?: Prisma.exercise_orderCreateNestedManyWithoutExerciseInput
+  exercise_log?: Prisma.exercise_logCreateNestedManyWithoutExerciseInput
   exercise_to_muscle?: Prisma.exercise_to_muscleCreateNestedManyWithoutExerciseInput
 }
 
-export type exerciseUncheckedCreateWithoutUsersInput = {
+export type exerciseUncheckedCreateWithoutProgram_template_exerciseInput = {
   id?: number
   name: string
   description: string
   equipment: $Enums.equipment_type
-  exercise_order?: Prisma.exercise_orderUncheckedCreateNestedManyWithoutExerciseInput
+  exercise_log?: Prisma.exercise_logUncheckedCreateNestedManyWithoutExerciseInput
   exercise_to_muscle?: Prisma.exercise_to_muscleUncheckedCreateNestedManyWithoutExerciseInput
 }
 
-export type exerciseCreateOrConnectWithoutUsersInput = {
+export type exerciseCreateOrConnectWithoutProgram_template_exerciseInput = {
   where: Prisma.exerciseWhereUniqueInput
-  create: Prisma.XOR<Prisma.exerciseCreateWithoutUsersInput, Prisma.exerciseUncheckedCreateWithoutUsersInput>
+  create: Prisma.XOR<Prisma.exerciseCreateWithoutProgram_template_exerciseInput, Prisma.exerciseUncheckedCreateWithoutProgram_template_exerciseInput>
 }
 
-export type exerciseCreateManyUsersInputEnvelope = {
-  data: Prisma.exerciseCreateManyUsersInput | Prisma.exerciseCreateManyUsersInput[]
-  skipDuplicates?: boolean
+export type exerciseUpsertWithoutProgram_template_exerciseInput = {
+  update: Prisma.XOR<Prisma.exerciseUpdateWithoutProgram_template_exerciseInput, Prisma.exerciseUncheckedUpdateWithoutProgram_template_exerciseInput>
+  create: Prisma.XOR<Prisma.exerciseCreateWithoutProgram_template_exerciseInput, Prisma.exerciseUncheckedCreateWithoutProgram_template_exerciseInput>
+  where?: Prisma.exerciseWhereInput
 }
 
-export type exerciseUpsertWithWhereUniqueWithoutUsersInput = {
-  where: Prisma.exerciseWhereUniqueInput
-  update: Prisma.XOR<Prisma.exerciseUpdateWithoutUsersInput, Prisma.exerciseUncheckedUpdateWithoutUsersInput>
-  create: Prisma.XOR<Prisma.exerciseCreateWithoutUsersInput, Prisma.exerciseUncheckedCreateWithoutUsersInput>
+export type exerciseUpdateToOneWithWhereWithoutProgram_template_exerciseInput = {
+  where?: Prisma.exerciseWhereInput
+  data: Prisma.XOR<Prisma.exerciseUpdateWithoutProgram_template_exerciseInput, Prisma.exerciseUncheckedUpdateWithoutProgram_template_exerciseInput>
 }
 
-export type exerciseUpdateWithWhereUniqueWithoutUsersInput = {
-  where: Prisma.exerciseWhereUniqueInput
-  data: Prisma.XOR<Prisma.exerciseUpdateWithoutUsersInput, Prisma.exerciseUncheckedUpdateWithoutUsersInput>
+export type exerciseUpdateWithoutProgram_template_exerciseInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  equipment?: Prisma.Enumequipment_typeFieldUpdateOperationsInput | $Enums.equipment_type
+  exercise_log?: Prisma.exercise_logUpdateManyWithoutExerciseNestedInput
+  exercise_to_muscle?: Prisma.exercise_to_muscleUpdateManyWithoutExerciseNestedInput
 }
 
-export type exerciseUpdateManyWithWhereWithoutUsersInput = {
-  where: Prisma.exerciseScalarWhereInput
-  data: Prisma.XOR<Prisma.exerciseUpdateManyMutationInput, Prisma.exerciseUncheckedUpdateManyWithoutUsersInput>
+export type exerciseUncheckedUpdateWithoutProgram_template_exerciseInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  equipment?: Prisma.Enumequipment_typeFieldUpdateOperationsInput | $Enums.equipment_type
+  exercise_log?: Prisma.exercise_logUncheckedUpdateManyWithoutExerciseNestedInput
+  exercise_to_muscle?: Prisma.exercise_to_muscleUncheckedUpdateManyWithoutExerciseNestedInput
 }
 
-export type exerciseScalarWhereInput = {
-  AND?: Prisma.exerciseScalarWhereInput | Prisma.exerciseScalarWhereInput[]
-  OR?: Prisma.exerciseScalarWhereInput[]
-  NOT?: Prisma.exerciseScalarWhereInput | Prisma.exerciseScalarWhereInput[]
-  id?: Prisma.IntFilter<"exercise"> | number
-  name?: Prisma.StringFilter<"exercise"> | string
-  description?: Prisma.StringFilter<"exercise"> | string
-  equipment?: Prisma.Enumequipment_typeFilter<"exercise"> | $Enums.equipment_type
-  owner_id?: Prisma.IntNullableFilter<"exercise"> | number | null
+export type exerciseCreateWithoutExercise_logInput = {
+  name: string
+  description: string
+  equipment: $Enums.equipment_type
+  exercise_to_muscle?: Prisma.exercise_to_muscleCreateNestedManyWithoutExerciseInput
+  program_template_exercise?: Prisma.program_template_exerciseCreateNestedManyWithoutExerciseInput
 }
 
-export type exerciseCreateManyUsersInput = {
+export type exerciseUncheckedCreateWithoutExercise_logInput = {
   id?: number
   name: string
   description: string
   equipment: $Enums.equipment_type
+  exercise_to_muscle?: Prisma.exercise_to_muscleUncheckedCreateNestedManyWithoutExerciseInput
+  program_template_exercise?: Prisma.program_template_exerciseUncheckedCreateNestedManyWithoutExerciseInput
 }
 
-export type exerciseUpdateWithoutUsersInput = {
+export type exerciseCreateOrConnectWithoutExercise_logInput = {
+  where: Prisma.exerciseWhereUniqueInput
+  create: Prisma.XOR<Prisma.exerciseCreateWithoutExercise_logInput, Prisma.exerciseUncheckedCreateWithoutExercise_logInput>
+}
+
+export type exerciseUpsertWithoutExercise_logInput = {
+  update: Prisma.XOR<Prisma.exerciseUpdateWithoutExercise_logInput, Prisma.exerciseUncheckedUpdateWithoutExercise_logInput>
+  create: Prisma.XOR<Prisma.exerciseCreateWithoutExercise_logInput, Prisma.exerciseUncheckedCreateWithoutExercise_logInput>
+  where?: Prisma.exerciseWhereInput
+}
+
+export type exerciseUpdateToOneWithWhereWithoutExercise_logInput = {
+  where?: Prisma.exerciseWhereInput
+  data: Prisma.XOR<Prisma.exerciseUpdateWithoutExercise_logInput, Prisma.exerciseUncheckedUpdateWithoutExercise_logInput>
+}
+
+export type exerciseUpdateWithoutExercise_logInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   equipment?: Prisma.Enumequipment_typeFieldUpdateOperationsInput | $Enums.equipment_type
-  exercise_order?: Prisma.exercise_orderUpdateManyWithoutExerciseNestedInput
   exercise_to_muscle?: Prisma.exercise_to_muscleUpdateManyWithoutExerciseNestedInput
+  program_template_exercise?: Prisma.program_template_exerciseUpdateManyWithoutExerciseNestedInput
 }
 
-export type exerciseUncheckedUpdateWithoutUsersInput = {
+export type exerciseUncheckedUpdateWithoutExercise_logInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   equipment?: Prisma.Enumequipment_typeFieldUpdateOperationsInput | $Enums.equipment_type
-  exercise_order?: Prisma.exercise_orderUncheckedUpdateManyWithoutExerciseNestedInput
   exercise_to_muscle?: Prisma.exercise_to_muscleUncheckedUpdateManyWithoutExerciseNestedInput
-}
-
-export type exerciseUncheckedUpdateManyWithoutUsersInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  equipment?: Prisma.Enumequipment_typeFieldUpdateOperationsInput | $Enums.equipment_type
+  program_template_exercise?: Prisma.program_template_exerciseUncheckedUpdateManyWithoutExerciseNestedInput
 }
 
 
@@ -652,13 +556,15 @@ export type exerciseUncheckedUpdateManyWithoutUsersInput = {
  */
 
 export type ExerciseCountOutputType = {
-  exercise_order: number
+  exercise_log: number
   exercise_to_muscle: number
+  program_template_exercise: number
 }
 
 export type ExerciseCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  exercise_order?: boolean | ExerciseCountOutputTypeCountExercise_orderArgs
+  exercise_log?: boolean | ExerciseCountOutputTypeCountExercise_logArgs
   exercise_to_muscle?: boolean | ExerciseCountOutputTypeCountExercise_to_muscleArgs
+  program_template_exercise?: boolean | ExerciseCountOutputTypeCountProgram_template_exerciseArgs
 }
 
 /**
@@ -674,8 +580,8 @@ export type ExerciseCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Ext
 /**
  * ExerciseCountOutputType without action
  */
-export type ExerciseCountOutputTypeCountExercise_orderArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.exercise_orderWhereInput
+export type ExerciseCountOutputTypeCountExercise_logArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.exercise_logWhereInput
 }
 
 /**
@@ -685,16 +591,22 @@ export type ExerciseCountOutputTypeCountExercise_to_muscleArgs<ExtArgs extends r
   where?: Prisma.exercise_to_muscleWhereInput
 }
 
+/**
+ * ExerciseCountOutputType without action
+ */
+export type ExerciseCountOutputTypeCountProgram_template_exerciseArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.program_template_exerciseWhereInput
+}
+
 
 export type exerciseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   description?: boolean
   equipment?: boolean
-  owner_id?: boolean
-  users?: boolean | Prisma.exercise$usersArgs<ExtArgs>
-  exercise_order?: boolean | Prisma.exercise$exercise_orderArgs<ExtArgs>
+  exercise_log?: boolean | Prisma.exercise$exercise_logArgs<ExtArgs>
   exercise_to_muscle?: boolean | Prisma.exercise$exercise_to_muscleArgs<ExtArgs>
+  program_template_exercise?: boolean | Prisma.exercise$program_template_exerciseArgs<ExtArgs>
   _count?: boolean | Prisma.ExerciseCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["exercise"]>
 
@@ -703,8 +615,6 @@ export type exerciseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   name?: boolean
   description?: boolean
   equipment?: boolean
-  owner_id?: boolean
-  users?: boolean | Prisma.exercise$usersArgs<ExtArgs>
 }, ExtArgs["result"]["exercise"]>
 
 export type exerciseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -712,8 +622,6 @@ export type exerciseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   name?: boolean
   description?: boolean
   equipment?: boolean
-  owner_id?: boolean
-  users?: boolean | Prisma.exercise$usersArgs<ExtArgs>
 }, ExtArgs["result"]["exercise"]>
 
 export type exerciseSelectScalar = {
@@ -721,36 +629,30 @@ export type exerciseSelectScalar = {
   name?: boolean
   description?: boolean
   equipment?: boolean
-  owner_id?: boolean
 }
 
-export type exerciseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "equipment" | "owner_id", ExtArgs["result"]["exercise"]>
+export type exerciseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "equipment", ExtArgs["result"]["exercise"]>
 export type exerciseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  users?: boolean | Prisma.exercise$usersArgs<ExtArgs>
-  exercise_order?: boolean | Prisma.exercise$exercise_orderArgs<ExtArgs>
+  exercise_log?: boolean | Prisma.exercise$exercise_logArgs<ExtArgs>
   exercise_to_muscle?: boolean | Prisma.exercise$exercise_to_muscleArgs<ExtArgs>
+  program_template_exercise?: boolean | Prisma.exercise$program_template_exerciseArgs<ExtArgs>
   _count?: boolean | Prisma.ExerciseCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type exerciseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  users?: boolean | Prisma.exercise$usersArgs<ExtArgs>
-}
-export type exerciseIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  users?: boolean | Prisma.exercise$usersArgs<ExtArgs>
-}
+export type exerciseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type exerciseIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $exercisePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "exercise"
   objects: {
-    users: Prisma.$usersPayload<ExtArgs> | null
-    exercise_order: Prisma.$exercise_orderPayload<ExtArgs>[]
+    exercise_log: Prisma.$exercise_logPayload<ExtArgs>[]
     exercise_to_muscle: Prisma.$exercise_to_musclePayload<ExtArgs>[]
+    program_template_exercise: Prisma.$program_template_exercisePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
     description: string
     equipment: $Enums.equipment_type
-    owner_id: number | null
   }, ExtArgs["result"]["exercise"]>
   composites: {}
 }
@@ -1145,9 +1047,9 @@ readonly fields: exerciseFieldRefs;
  */
 export interface Prisma__exerciseClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  users<T extends Prisma.exercise$usersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.exercise$usersArgs<ExtArgs>>): Prisma.Prisma__usersClient<runtime.Types.Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  exercise_order<T extends Prisma.exercise$exercise_orderArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.exercise$exercise_orderArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$exercise_orderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  exercise_log<T extends Prisma.exercise$exercise_logArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.exercise$exercise_logArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$exercise_logPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   exercise_to_muscle<T extends Prisma.exercise$exercise_to_muscleArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.exercise$exercise_to_muscleArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$exercise_to_musclePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  program_template_exercise<T extends Prisma.exercise$program_template_exerciseArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.exercise$program_template_exerciseArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$program_template_exercisePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1181,7 +1083,6 @@ export interface exerciseFieldRefs {
   readonly name: Prisma.FieldRef<"exercise", 'String'>
   readonly description: Prisma.FieldRef<"exercise", 'String'>
   readonly equipment: Prisma.FieldRef<"exercise", 'equipment_type'>
-  readonly owner_id: Prisma.FieldRef<"exercise", 'Int'>
 }
     
 
@@ -1431,10 +1332,6 @@ export type exerciseCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extens
    */
   data: Prisma.exerciseCreateManyInput | Prisma.exerciseCreateManyInput[]
   skipDuplicates?: boolean
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.exerciseIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1505,10 +1402,6 @@ export type exerciseUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extens
    * Limit how many exercises to update.
    */
   limit?: number
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.exerciseIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1578,46 +1471,27 @@ export type exerciseDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
- * exercise.users
+ * exercise.exercise_log
  */
-export type exercise$usersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type exercise$exercise_logArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the users
+   * Select specific fields to fetch from the exercise_log
    */
-  select?: Prisma.usersSelect<ExtArgs> | null
+  select?: Prisma.exercise_logSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the users
+   * Omit specific fields from the exercise_log
    */
-  omit?: Prisma.usersOmit<ExtArgs> | null
+  omit?: Prisma.exercise_logOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.usersInclude<ExtArgs> | null
-  where?: Prisma.usersWhereInput
-}
-
-/**
- * exercise.exercise_order
- */
-export type exercise$exercise_orderArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the exercise_order
-   */
-  select?: Prisma.exercise_orderSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the exercise_order
-   */
-  omit?: Prisma.exercise_orderOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.exercise_orderInclude<ExtArgs> | null
-  where?: Prisma.exercise_orderWhereInput
-  orderBy?: Prisma.exercise_orderOrderByWithRelationInput | Prisma.exercise_orderOrderByWithRelationInput[]
-  cursor?: Prisma.exercise_orderWhereUniqueInput
+  include?: Prisma.exercise_logInclude<ExtArgs> | null
+  where?: Prisma.exercise_logWhereInput
+  orderBy?: Prisma.exercise_logOrderByWithRelationInput | Prisma.exercise_logOrderByWithRelationInput[]
+  cursor?: Prisma.exercise_logWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.Exercise_orderScalarFieldEnum | Prisma.Exercise_orderScalarFieldEnum[]
+  distinct?: Prisma.Exercise_logScalarFieldEnum | Prisma.Exercise_logScalarFieldEnum[]
 }
 
 /**
@@ -1642,6 +1516,30 @@ export type exercise$exercise_to_muscleArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.Exercise_to_muscleScalarFieldEnum | Prisma.Exercise_to_muscleScalarFieldEnum[]
+}
+
+/**
+ * exercise.program_template_exercise
+ */
+export type exercise$program_template_exerciseArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the program_template_exercise
+   */
+  select?: Prisma.program_template_exerciseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the program_template_exercise
+   */
+  omit?: Prisma.program_template_exerciseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.program_template_exerciseInclude<ExtArgs> | null
+  where?: Prisma.program_template_exerciseWhereInput
+  orderBy?: Prisma.program_template_exerciseOrderByWithRelationInput | Prisma.program_template_exerciseOrderByWithRelationInput[]
+  cursor?: Prisma.program_template_exerciseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Program_template_exerciseScalarFieldEnum | Prisma.Program_template_exerciseScalarFieldEnum[]
 }
 
 /**

@@ -5,6 +5,10 @@ import cookieParser from "cookie-parser";
 import usersRouter from "./routes/users";
 import authRouter from "./routes/auth";
 import meRouter from "./routes/me";
+import muscleGroupsRouter from "./routes/muscle-groups";
+import exercisesRouter from "./routes/exercises";
+import coachProgramTemplatesRouter from "./routes/coach/program-templates";
+import { requireAuth } from "./middleware/auth";
 
 const app = express();
 
@@ -15,6 +19,10 @@ const api = Router();
 api.use("/users", usersRouter);
 api.use("/auth", authRouter);
 api.use("/me", meRouter);
+app.use("/profilepictures", express.static("public/profilepictures"));
+api.use("/muscle-groups", muscleGroupsRouter);
+api.use("/exercises", exercisesRouter);
+api.use("/coach/program-templates", requireAuth, coachProgramTemplatesRouter);
 
 app.use("/api", api);
 

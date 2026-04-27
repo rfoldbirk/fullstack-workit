@@ -251,12 +251,12 @@ export type usersWhereInput = {
   admin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.adminWhereInput> | null
   coach?: Prisma.XOR<Prisma.CoachNullableScalarRelationFilter, Prisma.coachWhereInput> | null
   comment?: Prisma.CommentListRelationFilter
-  exercise?: Prisma.ExerciseListRelationFilter
   password?: Prisma.XOR<Prisma.PasswordNullableScalarRelationFilter, Prisma.passwordWhereInput> | null
   program_log?: Prisma.Program_logListRelationFilter
+  coached_program_templates?: Prisma.Program_templateListRelationFilter
   token?: Prisma.TokenListRelationFilter
+  assigned_program_templates?: Prisma.User_program_templateListRelationFilter
   user_to_coach?: Prisma.XOR<Prisma.User_to_coachNullableScalarRelationFilter, Prisma.user_to_coachWhereInput> | null
-  users_program?: Prisma.Users_programListRelationFilter
   weight_logs?: Prisma.Weight_logsListRelationFilter
 }
 
@@ -272,12 +272,12 @@ export type usersOrderByWithRelationInput = {
   admin?: Prisma.adminOrderByWithRelationInput
   coach?: Prisma.coachOrderByWithRelationInput
   comment?: Prisma.commentOrderByRelationAggregateInput
-  exercise?: Prisma.exerciseOrderByRelationAggregateInput
   password?: Prisma.passwordOrderByWithRelationInput
   program_log?: Prisma.program_logOrderByRelationAggregateInput
+  coached_program_templates?: Prisma.program_templateOrderByRelationAggregateInput
   token?: Prisma.tokenOrderByRelationAggregateInput
+  assigned_program_templates?: Prisma.user_program_templateOrderByRelationAggregateInput
   user_to_coach?: Prisma.user_to_coachOrderByWithRelationInput
-  users_program?: Prisma.users_programOrderByRelationAggregateInput
   weight_logs?: Prisma.weight_logsOrderByRelationAggregateInput
 }
 
@@ -296,12 +296,12 @@ export type usersWhereUniqueInput = Prisma.AtLeast<{
   admin?: Prisma.XOR<Prisma.AdminNullableScalarRelationFilter, Prisma.adminWhereInput> | null
   coach?: Prisma.XOR<Prisma.CoachNullableScalarRelationFilter, Prisma.coachWhereInput> | null
   comment?: Prisma.CommentListRelationFilter
-  exercise?: Prisma.ExerciseListRelationFilter
   password?: Prisma.XOR<Prisma.PasswordNullableScalarRelationFilter, Prisma.passwordWhereInput> | null
   program_log?: Prisma.Program_logListRelationFilter
+  coached_program_templates?: Prisma.Program_templateListRelationFilter
   token?: Prisma.TokenListRelationFilter
+  assigned_program_templates?: Prisma.User_program_templateListRelationFilter
   user_to_coach?: Prisma.XOR<Prisma.User_to_coachNullableScalarRelationFilter, Prisma.user_to_coachWhereInput> | null
-  users_program?: Prisma.Users_programListRelationFilter
   weight_logs?: Prisma.Weight_logsListRelationFilter
 }, "id" | "email">
 
@@ -346,12 +346,12 @@ export type usersCreateInput = {
   admin?: Prisma.adminCreateNestedOneWithoutUsersInput
   coach?: Prisma.coachCreateNestedOneWithoutUsersInput
   comment?: Prisma.commentCreateNestedManyWithoutUsersInput
-  exercise?: Prisma.exerciseCreateNestedManyWithoutUsersInput
   password?: Prisma.passwordCreateNestedOneWithoutUsersInput
-  program_log?: Prisma.program_logCreateNestedManyWithoutUsersInput
+  program_log?: Prisma.program_logCreateNestedManyWithoutUserInput
+  coached_program_templates?: Prisma.program_templateCreateNestedManyWithoutCoachInput
   token?: Prisma.tokenCreateNestedManyWithoutUsersInput
+  assigned_program_templates?: Prisma.user_program_templateCreateNestedManyWithoutUserInput
   user_to_coach?: Prisma.user_to_coachCreateNestedOneWithoutUsersInput
-  users_program?: Prisma.users_programCreateNestedManyWithoutUsersInput
   weight_logs?: Prisma.weight_logsCreateNestedManyWithoutUsersInput
 }
 
@@ -367,12 +367,12 @@ export type usersUncheckedCreateInput = {
   admin?: Prisma.adminUncheckedCreateNestedOneWithoutUsersInput
   coach?: Prisma.coachUncheckedCreateNestedOneWithoutUsersInput
   comment?: Prisma.commentUncheckedCreateNestedManyWithoutUsersInput
-  exercise?: Prisma.exerciseUncheckedCreateNestedManyWithoutUsersInput
   password?: Prisma.passwordUncheckedCreateNestedOneWithoutUsersInput
-  program_log?: Prisma.program_logUncheckedCreateNestedManyWithoutUsersInput
+  program_log?: Prisma.program_logUncheckedCreateNestedManyWithoutUserInput
+  coached_program_templates?: Prisma.program_templateUncheckedCreateNestedManyWithoutCoachInput
   token?: Prisma.tokenUncheckedCreateNestedManyWithoutUsersInput
+  assigned_program_templates?: Prisma.user_program_templateUncheckedCreateNestedManyWithoutUserInput
   user_to_coach?: Prisma.user_to_coachUncheckedCreateNestedOneWithoutUsersInput
-  users_program?: Prisma.users_programUncheckedCreateNestedManyWithoutUsersInput
   weight_logs?: Prisma.weight_logsUncheckedCreateNestedManyWithoutUsersInput
 }
 
@@ -387,12 +387,12 @@ export type usersUpdateInput = {
   admin?: Prisma.adminUpdateOneWithoutUsersNestedInput
   coach?: Prisma.coachUpdateOneWithoutUsersNestedInput
   comment?: Prisma.commentUpdateManyWithoutUsersNestedInput
-  exercise?: Prisma.exerciseUpdateManyWithoutUsersNestedInput
   password?: Prisma.passwordUpdateOneWithoutUsersNestedInput
-  program_log?: Prisma.program_logUpdateManyWithoutUsersNestedInput
+  program_log?: Prisma.program_logUpdateManyWithoutUserNestedInput
+  coached_program_templates?: Prisma.program_templateUpdateManyWithoutCoachNestedInput
   token?: Prisma.tokenUpdateManyWithoutUsersNestedInput
+  assigned_program_templates?: Prisma.user_program_templateUpdateManyWithoutUserNestedInput
   user_to_coach?: Prisma.user_to_coachUpdateOneWithoutUsersNestedInput
-  users_program?: Prisma.users_programUpdateManyWithoutUsersNestedInput
   weight_logs?: Prisma.weight_logsUpdateManyWithoutUsersNestedInput
 }
 
@@ -408,12 +408,12 @@ export type usersUncheckedUpdateInput = {
   admin?: Prisma.adminUncheckedUpdateOneWithoutUsersNestedInput
   coach?: Prisma.coachUncheckedUpdateOneWithoutUsersNestedInput
   comment?: Prisma.commentUncheckedUpdateManyWithoutUsersNestedInput
-  exercise?: Prisma.exerciseUncheckedUpdateManyWithoutUsersNestedInput
   password?: Prisma.passwordUncheckedUpdateOneWithoutUsersNestedInput
-  program_log?: Prisma.program_logUncheckedUpdateManyWithoutUsersNestedInput
+  program_log?: Prisma.program_logUncheckedUpdateManyWithoutUserNestedInput
+  coached_program_templates?: Prisma.program_templateUncheckedUpdateManyWithoutCoachNestedInput
   token?: Prisma.tokenUncheckedUpdateManyWithoutUsersNestedInput
+  assigned_program_templates?: Prisma.user_program_templateUncheckedUpdateManyWithoutUserNestedInput
   user_to_coach?: Prisma.user_to_coachUncheckedUpdateOneWithoutUsersNestedInput
-  users_program?: Prisma.users_programUncheckedUpdateManyWithoutUsersNestedInput
   weight_logs?: Prisma.weight_logsUncheckedUpdateManyWithoutUsersNestedInput
 }
 
@@ -548,22 +548,6 @@ export type usersUpdateOneWithoutCommentNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.usersUpdateToOneWithWhereWithoutCommentInput, Prisma.usersUpdateWithoutCommentInput>, Prisma.usersUncheckedUpdateWithoutCommentInput>
 }
 
-export type usersCreateNestedOneWithoutExerciseInput = {
-  create?: Prisma.XOR<Prisma.usersCreateWithoutExerciseInput, Prisma.usersUncheckedCreateWithoutExerciseInput>
-  connectOrCreate?: Prisma.usersCreateOrConnectWithoutExerciseInput
-  connect?: Prisma.usersWhereUniqueInput
-}
-
-export type usersUpdateOneWithoutExerciseNestedInput = {
-  create?: Prisma.XOR<Prisma.usersCreateWithoutExerciseInput, Prisma.usersUncheckedCreateWithoutExerciseInput>
-  connectOrCreate?: Prisma.usersCreateOrConnectWithoutExerciseInput
-  upsert?: Prisma.usersUpsertWithoutExerciseInput
-  disconnect?: Prisma.usersWhereInput | boolean
-  delete?: Prisma.usersWhereInput | boolean
-  connect?: Prisma.usersWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.usersUpdateToOneWithWhereWithoutExerciseInput, Prisma.usersUpdateWithoutExerciseInput>, Prisma.usersUncheckedUpdateWithoutExerciseInput>
-}
-
 export type usersCreateNestedOneWithoutPasswordInput = {
   create?: Prisma.XOR<Prisma.usersCreateWithoutPasswordInput, Prisma.usersUncheckedCreateWithoutPasswordInput>
   connectOrCreate?: Prisma.usersCreateOrConnectWithoutPasswordInput
@@ -576,6 +560,34 @@ export type usersUpdateOneRequiredWithoutPasswordNestedInput = {
   upsert?: Prisma.usersUpsertWithoutPasswordInput
   connect?: Prisma.usersWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.usersUpdateToOneWithWhereWithoutPasswordInput, Prisma.usersUpdateWithoutPasswordInput>, Prisma.usersUncheckedUpdateWithoutPasswordInput>
+}
+
+export type usersCreateNestedOneWithoutCoached_program_templatesInput = {
+  create?: Prisma.XOR<Prisma.usersCreateWithoutCoached_program_templatesInput, Prisma.usersUncheckedCreateWithoutCoached_program_templatesInput>
+  connectOrCreate?: Prisma.usersCreateOrConnectWithoutCoached_program_templatesInput
+  connect?: Prisma.usersWhereUniqueInput
+}
+
+export type usersUpdateOneRequiredWithoutCoached_program_templatesNestedInput = {
+  create?: Prisma.XOR<Prisma.usersCreateWithoutCoached_program_templatesInput, Prisma.usersUncheckedCreateWithoutCoached_program_templatesInput>
+  connectOrCreate?: Prisma.usersCreateOrConnectWithoutCoached_program_templatesInput
+  upsert?: Prisma.usersUpsertWithoutCoached_program_templatesInput
+  connect?: Prisma.usersWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.usersUpdateToOneWithWhereWithoutCoached_program_templatesInput, Prisma.usersUpdateWithoutCoached_program_templatesInput>, Prisma.usersUncheckedUpdateWithoutCoached_program_templatesInput>
+}
+
+export type usersCreateNestedOneWithoutAssigned_program_templatesInput = {
+  create?: Prisma.XOR<Prisma.usersCreateWithoutAssigned_program_templatesInput, Prisma.usersUncheckedCreateWithoutAssigned_program_templatesInput>
+  connectOrCreate?: Prisma.usersCreateOrConnectWithoutAssigned_program_templatesInput
+  connect?: Prisma.usersWhereUniqueInput
+}
+
+export type usersUpdateOneRequiredWithoutAssigned_program_templatesNestedInput = {
+  create?: Prisma.XOR<Prisma.usersCreateWithoutAssigned_program_templatesInput, Prisma.usersUncheckedCreateWithoutAssigned_program_templatesInput>
+  connectOrCreate?: Prisma.usersCreateOrConnectWithoutAssigned_program_templatesInput
+  upsert?: Prisma.usersUpsertWithoutAssigned_program_templatesInput
+  connect?: Prisma.usersWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.usersUpdateToOneWithWhereWithoutAssigned_program_templatesInput, Prisma.usersUpdateWithoutAssigned_program_templatesInput>, Prisma.usersUncheckedUpdateWithoutAssigned_program_templatesInput>
 }
 
 export type usersCreateNestedOneWithoutProgram_logInput = {
@@ -632,20 +644,6 @@ export type NullableEnumgender_typeFieldUpdateOperationsInput = {
   set?: $Enums.gender_type | null
 }
 
-export type usersCreateNestedOneWithoutUsers_programInput = {
-  create?: Prisma.XOR<Prisma.usersCreateWithoutUsers_programInput, Prisma.usersUncheckedCreateWithoutUsers_programInput>
-  connectOrCreate?: Prisma.usersCreateOrConnectWithoutUsers_programInput
-  connect?: Prisma.usersWhereUniqueInput
-}
-
-export type usersUpdateOneRequiredWithoutUsers_programNestedInput = {
-  create?: Prisma.XOR<Prisma.usersCreateWithoutUsers_programInput, Prisma.usersUncheckedCreateWithoutUsers_programInput>
-  connectOrCreate?: Prisma.usersCreateOrConnectWithoutUsers_programInput
-  upsert?: Prisma.usersUpsertWithoutUsers_programInput
-  connect?: Prisma.usersWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.usersUpdateToOneWithWhereWithoutUsers_programInput, Prisma.usersUpdateWithoutUsers_programInput>, Prisma.usersUncheckedUpdateWithoutUsers_programInput>
-}
-
 export type usersCreateNestedOneWithoutWeight_logsInput = {
   create?: Prisma.XOR<Prisma.usersCreateWithoutWeight_logsInput, Prisma.usersUncheckedCreateWithoutWeight_logsInput>
   connectOrCreate?: Prisma.usersCreateOrConnectWithoutWeight_logsInput
@@ -670,12 +668,12 @@ export type usersCreateWithoutAdminInput = {
   picture?: string | null
   coach?: Prisma.coachCreateNestedOneWithoutUsersInput
   comment?: Prisma.commentCreateNestedManyWithoutUsersInput
-  exercise?: Prisma.exerciseCreateNestedManyWithoutUsersInput
   password?: Prisma.passwordCreateNestedOneWithoutUsersInput
-  program_log?: Prisma.program_logCreateNestedManyWithoutUsersInput
+  program_log?: Prisma.program_logCreateNestedManyWithoutUserInput
+  coached_program_templates?: Prisma.program_templateCreateNestedManyWithoutCoachInput
   token?: Prisma.tokenCreateNestedManyWithoutUsersInput
+  assigned_program_templates?: Prisma.user_program_templateCreateNestedManyWithoutUserInput
   user_to_coach?: Prisma.user_to_coachCreateNestedOneWithoutUsersInput
-  users_program?: Prisma.users_programCreateNestedManyWithoutUsersInput
   weight_logs?: Prisma.weight_logsCreateNestedManyWithoutUsersInput
 }
 
@@ -690,12 +688,12 @@ export type usersUncheckedCreateWithoutAdminInput = {
   picture?: string | null
   coach?: Prisma.coachUncheckedCreateNestedOneWithoutUsersInput
   comment?: Prisma.commentUncheckedCreateNestedManyWithoutUsersInput
-  exercise?: Prisma.exerciseUncheckedCreateNestedManyWithoutUsersInput
   password?: Prisma.passwordUncheckedCreateNestedOneWithoutUsersInput
-  program_log?: Prisma.program_logUncheckedCreateNestedManyWithoutUsersInput
+  program_log?: Prisma.program_logUncheckedCreateNestedManyWithoutUserInput
+  coached_program_templates?: Prisma.program_templateUncheckedCreateNestedManyWithoutCoachInput
   token?: Prisma.tokenUncheckedCreateNestedManyWithoutUsersInput
+  assigned_program_templates?: Prisma.user_program_templateUncheckedCreateNestedManyWithoutUserInput
   user_to_coach?: Prisma.user_to_coachUncheckedCreateNestedOneWithoutUsersInput
-  users_program?: Prisma.users_programUncheckedCreateNestedManyWithoutUsersInput
   weight_logs?: Prisma.weight_logsUncheckedCreateNestedManyWithoutUsersInput
 }
 
@@ -725,12 +723,12 @@ export type usersUpdateWithoutAdminInput = {
   picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coach?: Prisma.coachUpdateOneWithoutUsersNestedInput
   comment?: Prisma.commentUpdateManyWithoutUsersNestedInput
-  exercise?: Prisma.exerciseUpdateManyWithoutUsersNestedInput
   password?: Prisma.passwordUpdateOneWithoutUsersNestedInput
-  program_log?: Prisma.program_logUpdateManyWithoutUsersNestedInput
+  program_log?: Prisma.program_logUpdateManyWithoutUserNestedInput
+  coached_program_templates?: Prisma.program_templateUpdateManyWithoutCoachNestedInput
   token?: Prisma.tokenUpdateManyWithoutUsersNestedInput
+  assigned_program_templates?: Prisma.user_program_templateUpdateManyWithoutUserNestedInput
   user_to_coach?: Prisma.user_to_coachUpdateOneWithoutUsersNestedInput
-  users_program?: Prisma.users_programUpdateManyWithoutUsersNestedInput
   weight_logs?: Prisma.weight_logsUpdateManyWithoutUsersNestedInput
 }
 
@@ -745,12 +743,12 @@ export type usersUncheckedUpdateWithoutAdminInput = {
   picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coach?: Prisma.coachUncheckedUpdateOneWithoutUsersNestedInput
   comment?: Prisma.commentUncheckedUpdateManyWithoutUsersNestedInput
-  exercise?: Prisma.exerciseUncheckedUpdateManyWithoutUsersNestedInput
   password?: Prisma.passwordUncheckedUpdateOneWithoutUsersNestedInput
-  program_log?: Prisma.program_logUncheckedUpdateManyWithoutUsersNestedInput
+  program_log?: Prisma.program_logUncheckedUpdateManyWithoutUserNestedInput
+  coached_program_templates?: Prisma.program_templateUncheckedUpdateManyWithoutCoachNestedInput
   token?: Prisma.tokenUncheckedUpdateManyWithoutUsersNestedInput
+  assigned_program_templates?: Prisma.user_program_templateUncheckedUpdateManyWithoutUserNestedInput
   user_to_coach?: Prisma.user_to_coachUncheckedUpdateOneWithoutUsersNestedInput
-  users_program?: Prisma.users_programUncheckedUpdateManyWithoutUsersNestedInput
   weight_logs?: Prisma.weight_logsUncheckedUpdateManyWithoutUsersNestedInput
 }
 
@@ -764,12 +762,12 @@ export type usersCreateWithoutCoachInput = {
   picture?: string | null
   admin?: Prisma.adminCreateNestedOneWithoutUsersInput
   comment?: Prisma.commentCreateNestedManyWithoutUsersInput
-  exercise?: Prisma.exerciseCreateNestedManyWithoutUsersInput
   password?: Prisma.passwordCreateNestedOneWithoutUsersInput
-  program_log?: Prisma.program_logCreateNestedManyWithoutUsersInput
+  program_log?: Prisma.program_logCreateNestedManyWithoutUserInput
+  coached_program_templates?: Prisma.program_templateCreateNestedManyWithoutCoachInput
   token?: Prisma.tokenCreateNestedManyWithoutUsersInput
+  assigned_program_templates?: Prisma.user_program_templateCreateNestedManyWithoutUserInput
   user_to_coach?: Prisma.user_to_coachCreateNestedOneWithoutUsersInput
-  users_program?: Prisma.users_programCreateNestedManyWithoutUsersInput
   weight_logs?: Prisma.weight_logsCreateNestedManyWithoutUsersInput
 }
 
@@ -784,12 +782,12 @@ export type usersUncheckedCreateWithoutCoachInput = {
   picture?: string | null
   admin?: Prisma.adminUncheckedCreateNestedOneWithoutUsersInput
   comment?: Prisma.commentUncheckedCreateNestedManyWithoutUsersInput
-  exercise?: Prisma.exerciseUncheckedCreateNestedManyWithoutUsersInput
   password?: Prisma.passwordUncheckedCreateNestedOneWithoutUsersInput
-  program_log?: Prisma.program_logUncheckedCreateNestedManyWithoutUsersInput
+  program_log?: Prisma.program_logUncheckedCreateNestedManyWithoutUserInput
+  coached_program_templates?: Prisma.program_templateUncheckedCreateNestedManyWithoutCoachInput
   token?: Prisma.tokenUncheckedCreateNestedManyWithoutUsersInput
+  assigned_program_templates?: Prisma.user_program_templateUncheckedCreateNestedManyWithoutUserInput
   user_to_coach?: Prisma.user_to_coachUncheckedCreateNestedOneWithoutUsersInput
-  users_program?: Prisma.users_programUncheckedCreateNestedManyWithoutUsersInput
   weight_logs?: Prisma.weight_logsUncheckedCreateNestedManyWithoutUsersInput
 }
 
@@ -819,12 +817,12 @@ export type usersUpdateWithoutCoachInput = {
   picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   admin?: Prisma.adminUpdateOneWithoutUsersNestedInput
   comment?: Prisma.commentUpdateManyWithoutUsersNestedInput
-  exercise?: Prisma.exerciseUpdateManyWithoutUsersNestedInput
   password?: Prisma.passwordUpdateOneWithoutUsersNestedInput
-  program_log?: Prisma.program_logUpdateManyWithoutUsersNestedInput
+  program_log?: Prisma.program_logUpdateManyWithoutUserNestedInput
+  coached_program_templates?: Prisma.program_templateUpdateManyWithoutCoachNestedInput
   token?: Prisma.tokenUpdateManyWithoutUsersNestedInput
+  assigned_program_templates?: Prisma.user_program_templateUpdateManyWithoutUserNestedInput
   user_to_coach?: Prisma.user_to_coachUpdateOneWithoutUsersNestedInput
-  users_program?: Prisma.users_programUpdateManyWithoutUsersNestedInput
   weight_logs?: Prisma.weight_logsUpdateManyWithoutUsersNestedInput
 }
 
@@ -839,12 +837,12 @@ export type usersUncheckedUpdateWithoutCoachInput = {
   picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   admin?: Prisma.adminUncheckedUpdateOneWithoutUsersNestedInput
   comment?: Prisma.commentUncheckedUpdateManyWithoutUsersNestedInput
-  exercise?: Prisma.exerciseUncheckedUpdateManyWithoutUsersNestedInput
   password?: Prisma.passwordUncheckedUpdateOneWithoutUsersNestedInput
-  program_log?: Prisma.program_logUncheckedUpdateManyWithoutUsersNestedInput
+  program_log?: Prisma.program_logUncheckedUpdateManyWithoutUserNestedInput
+  coached_program_templates?: Prisma.program_templateUncheckedUpdateManyWithoutCoachNestedInput
   token?: Prisma.tokenUncheckedUpdateManyWithoutUsersNestedInput
+  assigned_program_templates?: Prisma.user_program_templateUncheckedUpdateManyWithoutUserNestedInput
   user_to_coach?: Prisma.user_to_coachUncheckedUpdateOneWithoutUsersNestedInput
-  users_program?: Prisma.users_programUncheckedUpdateManyWithoutUsersNestedInput
   weight_logs?: Prisma.weight_logsUncheckedUpdateManyWithoutUsersNestedInput
 }
 
@@ -858,12 +856,12 @@ export type usersCreateWithoutCommentInput = {
   picture?: string | null
   admin?: Prisma.adminCreateNestedOneWithoutUsersInput
   coach?: Prisma.coachCreateNestedOneWithoutUsersInput
-  exercise?: Prisma.exerciseCreateNestedManyWithoutUsersInput
   password?: Prisma.passwordCreateNestedOneWithoutUsersInput
-  program_log?: Prisma.program_logCreateNestedManyWithoutUsersInput
+  program_log?: Prisma.program_logCreateNestedManyWithoutUserInput
+  coached_program_templates?: Prisma.program_templateCreateNestedManyWithoutCoachInput
   token?: Prisma.tokenCreateNestedManyWithoutUsersInput
+  assigned_program_templates?: Prisma.user_program_templateCreateNestedManyWithoutUserInput
   user_to_coach?: Prisma.user_to_coachCreateNestedOneWithoutUsersInput
-  users_program?: Prisma.users_programCreateNestedManyWithoutUsersInput
   weight_logs?: Prisma.weight_logsCreateNestedManyWithoutUsersInput
 }
 
@@ -878,12 +876,12 @@ export type usersUncheckedCreateWithoutCommentInput = {
   picture?: string | null
   admin?: Prisma.adminUncheckedCreateNestedOneWithoutUsersInput
   coach?: Prisma.coachUncheckedCreateNestedOneWithoutUsersInput
-  exercise?: Prisma.exerciseUncheckedCreateNestedManyWithoutUsersInput
   password?: Prisma.passwordUncheckedCreateNestedOneWithoutUsersInput
-  program_log?: Prisma.program_logUncheckedCreateNestedManyWithoutUsersInput
+  program_log?: Prisma.program_logUncheckedCreateNestedManyWithoutUserInput
+  coached_program_templates?: Prisma.program_templateUncheckedCreateNestedManyWithoutCoachInput
   token?: Prisma.tokenUncheckedCreateNestedManyWithoutUsersInput
+  assigned_program_templates?: Prisma.user_program_templateUncheckedCreateNestedManyWithoutUserInput
   user_to_coach?: Prisma.user_to_coachUncheckedCreateNestedOneWithoutUsersInput
-  users_program?: Prisma.users_programUncheckedCreateNestedManyWithoutUsersInput
   weight_logs?: Prisma.weight_logsUncheckedCreateNestedManyWithoutUsersInput
 }
 
@@ -913,12 +911,12 @@ export type usersUpdateWithoutCommentInput = {
   picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   admin?: Prisma.adminUpdateOneWithoutUsersNestedInput
   coach?: Prisma.coachUpdateOneWithoutUsersNestedInput
-  exercise?: Prisma.exerciseUpdateManyWithoutUsersNestedInput
   password?: Prisma.passwordUpdateOneWithoutUsersNestedInput
-  program_log?: Prisma.program_logUpdateManyWithoutUsersNestedInput
+  program_log?: Prisma.program_logUpdateManyWithoutUserNestedInput
+  coached_program_templates?: Prisma.program_templateUpdateManyWithoutCoachNestedInput
   token?: Prisma.tokenUpdateManyWithoutUsersNestedInput
+  assigned_program_templates?: Prisma.user_program_templateUpdateManyWithoutUserNestedInput
   user_to_coach?: Prisma.user_to_coachUpdateOneWithoutUsersNestedInput
-  users_program?: Prisma.users_programUpdateManyWithoutUsersNestedInput
   weight_logs?: Prisma.weight_logsUpdateManyWithoutUsersNestedInput
 }
 
@@ -933,106 +931,12 @@ export type usersUncheckedUpdateWithoutCommentInput = {
   picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   admin?: Prisma.adminUncheckedUpdateOneWithoutUsersNestedInput
   coach?: Prisma.coachUncheckedUpdateOneWithoutUsersNestedInput
-  exercise?: Prisma.exerciseUncheckedUpdateManyWithoutUsersNestedInput
   password?: Prisma.passwordUncheckedUpdateOneWithoutUsersNestedInput
-  program_log?: Prisma.program_logUncheckedUpdateManyWithoutUsersNestedInput
+  program_log?: Prisma.program_logUncheckedUpdateManyWithoutUserNestedInput
+  coached_program_templates?: Prisma.program_templateUncheckedUpdateManyWithoutCoachNestedInput
   token?: Prisma.tokenUncheckedUpdateManyWithoutUsersNestedInput
+  assigned_program_templates?: Prisma.user_program_templateUncheckedUpdateManyWithoutUserNestedInput
   user_to_coach?: Prisma.user_to_coachUncheckedUpdateOneWithoutUsersNestedInput
-  users_program?: Prisma.users_programUncheckedUpdateManyWithoutUsersNestedInput
-  weight_logs?: Prisma.weight_logsUncheckedUpdateManyWithoutUsersNestedInput
-}
-
-export type usersCreateWithoutExerciseInput = {
-  name: string
-  date_of_birth?: Date | string | null
-  weight_kg?: number | null
-  height_cm?: number | null
-  email: string
-  gender?: $Enums.gender_type | null
-  picture?: string | null
-  admin?: Prisma.adminCreateNestedOneWithoutUsersInput
-  coach?: Prisma.coachCreateNestedOneWithoutUsersInput
-  comment?: Prisma.commentCreateNestedManyWithoutUsersInput
-  password?: Prisma.passwordCreateNestedOneWithoutUsersInput
-  program_log?: Prisma.program_logCreateNestedManyWithoutUsersInput
-  token?: Prisma.tokenCreateNestedManyWithoutUsersInput
-  user_to_coach?: Prisma.user_to_coachCreateNestedOneWithoutUsersInput
-  users_program?: Prisma.users_programCreateNestedManyWithoutUsersInput
-  weight_logs?: Prisma.weight_logsCreateNestedManyWithoutUsersInput
-}
-
-export type usersUncheckedCreateWithoutExerciseInput = {
-  id?: number
-  name: string
-  date_of_birth?: Date | string | null
-  weight_kg?: number | null
-  height_cm?: number | null
-  email: string
-  gender?: $Enums.gender_type | null
-  picture?: string | null
-  admin?: Prisma.adminUncheckedCreateNestedOneWithoutUsersInput
-  coach?: Prisma.coachUncheckedCreateNestedOneWithoutUsersInput
-  comment?: Prisma.commentUncheckedCreateNestedManyWithoutUsersInput
-  password?: Prisma.passwordUncheckedCreateNestedOneWithoutUsersInput
-  program_log?: Prisma.program_logUncheckedCreateNestedManyWithoutUsersInput
-  token?: Prisma.tokenUncheckedCreateNestedManyWithoutUsersInput
-  user_to_coach?: Prisma.user_to_coachUncheckedCreateNestedOneWithoutUsersInput
-  users_program?: Prisma.users_programUncheckedCreateNestedManyWithoutUsersInput
-  weight_logs?: Prisma.weight_logsUncheckedCreateNestedManyWithoutUsersInput
-}
-
-export type usersCreateOrConnectWithoutExerciseInput = {
-  where: Prisma.usersWhereUniqueInput
-  create: Prisma.XOR<Prisma.usersCreateWithoutExerciseInput, Prisma.usersUncheckedCreateWithoutExerciseInput>
-}
-
-export type usersUpsertWithoutExerciseInput = {
-  update: Prisma.XOR<Prisma.usersUpdateWithoutExerciseInput, Prisma.usersUncheckedUpdateWithoutExerciseInput>
-  create: Prisma.XOR<Prisma.usersCreateWithoutExerciseInput, Prisma.usersUncheckedCreateWithoutExerciseInput>
-  where?: Prisma.usersWhereInput
-}
-
-export type usersUpdateToOneWithWhereWithoutExerciseInput = {
-  where?: Prisma.usersWhereInput
-  data: Prisma.XOR<Prisma.usersUpdateWithoutExerciseInput, Prisma.usersUncheckedUpdateWithoutExerciseInput>
-}
-
-export type usersUpdateWithoutExerciseInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  weight_kg?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  height_cm?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  gender?: Prisma.NullableEnumgender_typeFieldUpdateOperationsInput | $Enums.gender_type | null
-  picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  admin?: Prisma.adminUpdateOneWithoutUsersNestedInput
-  coach?: Prisma.coachUpdateOneWithoutUsersNestedInput
-  comment?: Prisma.commentUpdateManyWithoutUsersNestedInput
-  password?: Prisma.passwordUpdateOneWithoutUsersNestedInput
-  program_log?: Prisma.program_logUpdateManyWithoutUsersNestedInput
-  token?: Prisma.tokenUpdateManyWithoutUsersNestedInput
-  user_to_coach?: Prisma.user_to_coachUpdateOneWithoutUsersNestedInput
-  users_program?: Prisma.users_programUpdateManyWithoutUsersNestedInput
-  weight_logs?: Prisma.weight_logsUpdateManyWithoutUsersNestedInput
-}
-
-export type usersUncheckedUpdateWithoutExerciseInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  weight_kg?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  height_cm?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  gender?: Prisma.NullableEnumgender_typeFieldUpdateOperationsInput | $Enums.gender_type | null
-  picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  admin?: Prisma.adminUncheckedUpdateOneWithoutUsersNestedInput
-  coach?: Prisma.coachUncheckedUpdateOneWithoutUsersNestedInput
-  comment?: Prisma.commentUncheckedUpdateManyWithoutUsersNestedInput
-  password?: Prisma.passwordUncheckedUpdateOneWithoutUsersNestedInput
-  program_log?: Prisma.program_logUncheckedUpdateManyWithoutUsersNestedInput
-  token?: Prisma.tokenUncheckedUpdateManyWithoutUsersNestedInput
-  user_to_coach?: Prisma.user_to_coachUncheckedUpdateOneWithoutUsersNestedInput
-  users_program?: Prisma.users_programUncheckedUpdateManyWithoutUsersNestedInput
   weight_logs?: Prisma.weight_logsUncheckedUpdateManyWithoutUsersNestedInput
 }
 
@@ -1047,11 +951,11 @@ export type usersCreateWithoutPasswordInput = {
   admin?: Prisma.adminCreateNestedOneWithoutUsersInput
   coach?: Prisma.coachCreateNestedOneWithoutUsersInput
   comment?: Prisma.commentCreateNestedManyWithoutUsersInput
-  exercise?: Prisma.exerciseCreateNestedManyWithoutUsersInput
-  program_log?: Prisma.program_logCreateNestedManyWithoutUsersInput
+  program_log?: Prisma.program_logCreateNestedManyWithoutUserInput
+  coached_program_templates?: Prisma.program_templateCreateNestedManyWithoutCoachInput
   token?: Prisma.tokenCreateNestedManyWithoutUsersInput
+  assigned_program_templates?: Prisma.user_program_templateCreateNestedManyWithoutUserInput
   user_to_coach?: Prisma.user_to_coachCreateNestedOneWithoutUsersInput
-  users_program?: Prisma.users_programCreateNestedManyWithoutUsersInput
   weight_logs?: Prisma.weight_logsCreateNestedManyWithoutUsersInput
 }
 
@@ -1067,11 +971,11 @@ export type usersUncheckedCreateWithoutPasswordInput = {
   admin?: Prisma.adminUncheckedCreateNestedOneWithoutUsersInput
   coach?: Prisma.coachUncheckedCreateNestedOneWithoutUsersInput
   comment?: Prisma.commentUncheckedCreateNestedManyWithoutUsersInput
-  exercise?: Prisma.exerciseUncheckedCreateNestedManyWithoutUsersInput
-  program_log?: Prisma.program_logUncheckedCreateNestedManyWithoutUsersInput
+  program_log?: Prisma.program_logUncheckedCreateNestedManyWithoutUserInput
+  coached_program_templates?: Prisma.program_templateUncheckedCreateNestedManyWithoutCoachInput
   token?: Prisma.tokenUncheckedCreateNestedManyWithoutUsersInput
+  assigned_program_templates?: Prisma.user_program_templateUncheckedCreateNestedManyWithoutUserInput
   user_to_coach?: Prisma.user_to_coachUncheckedCreateNestedOneWithoutUsersInput
-  users_program?: Prisma.users_programUncheckedCreateNestedManyWithoutUsersInput
   weight_logs?: Prisma.weight_logsUncheckedCreateNestedManyWithoutUsersInput
 }
 
@@ -1102,11 +1006,11 @@ export type usersUpdateWithoutPasswordInput = {
   admin?: Prisma.adminUpdateOneWithoutUsersNestedInput
   coach?: Prisma.coachUpdateOneWithoutUsersNestedInput
   comment?: Prisma.commentUpdateManyWithoutUsersNestedInput
-  exercise?: Prisma.exerciseUpdateManyWithoutUsersNestedInput
-  program_log?: Prisma.program_logUpdateManyWithoutUsersNestedInput
+  program_log?: Prisma.program_logUpdateManyWithoutUserNestedInput
+  coached_program_templates?: Prisma.program_templateUpdateManyWithoutCoachNestedInput
   token?: Prisma.tokenUpdateManyWithoutUsersNestedInput
+  assigned_program_templates?: Prisma.user_program_templateUpdateManyWithoutUserNestedInput
   user_to_coach?: Prisma.user_to_coachUpdateOneWithoutUsersNestedInput
-  users_program?: Prisma.users_programUpdateManyWithoutUsersNestedInput
   weight_logs?: Prisma.weight_logsUpdateManyWithoutUsersNestedInput
 }
 
@@ -1122,11 +1026,199 @@ export type usersUncheckedUpdateWithoutPasswordInput = {
   admin?: Prisma.adminUncheckedUpdateOneWithoutUsersNestedInput
   coach?: Prisma.coachUncheckedUpdateOneWithoutUsersNestedInput
   comment?: Prisma.commentUncheckedUpdateManyWithoutUsersNestedInput
-  exercise?: Prisma.exerciseUncheckedUpdateManyWithoutUsersNestedInput
-  program_log?: Prisma.program_logUncheckedUpdateManyWithoutUsersNestedInput
+  program_log?: Prisma.program_logUncheckedUpdateManyWithoutUserNestedInput
+  coached_program_templates?: Prisma.program_templateUncheckedUpdateManyWithoutCoachNestedInput
+  token?: Prisma.tokenUncheckedUpdateManyWithoutUsersNestedInput
+  assigned_program_templates?: Prisma.user_program_templateUncheckedUpdateManyWithoutUserNestedInput
+  user_to_coach?: Prisma.user_to_coachUncheckedUpdateOneWithoutUsersNestedInput
+  weight_logs?: Prisma.weight_logsUncheckedUpdateManyWithoutUsersNestedInput
+}
+
+export type usersCreateWithoutCoached_program_templatesInput = {
+  name: string
+  date_of_birth?: Date | string | null
+  weight_kg?: number | null
+  height_cm?: number | null
+  email: string
+  gender?: $Enums.gender_type | null
+  picture?: string | null
+  admin?: Prisma.adminCreateNestedOneWithoutUsersInput
+  coach?: Prisma.coachCreateNestedOneWithoutUsersInput
+  comment?: Prisma.commentCreateNestedManyWithoutUsersInput
+  password?: Prisma.passwordCreateNestedOneWithoutUsersInput
+  program_log?: Prisma.program_logCreateNestedManyWithoutUserInput
+  token?: Prisma.tokenCreateNestedManyWithoutUsersInput
+  assigned_program_templates?: Prisma.user_program_templateCreateNestedManyWithoutUserInput
+  user_to_coach?: Prisma.user_to_coachCreateNestedOneWithoutUsersInput
+  weight_logs?: Prisma.weight_logsCreateNestedManyWithoutUsersInput
+}
+
+export type usersUncheckedCreateWithoutCoached_program_templatesInput = {
+  id?: number
+  name: string
+  date_of_birth?: Date | string | null
+  weight_kg?: number | null
+  height_cm?: number | null
+  email: string
+  gender?: $Enums.gender_type | null
+  picture?: string | null
+  admin?: Prisma.adminUncheckedCreateNestedOneWithoutUsersInput
+  coach?: Prisma.coachUncheckedCreateNestedOneWithoutUsersInput
+  comment?: Prisma.commentUncheckedCreateNestedManyWithoutUsersInput
+  password?: Prisma.passwordUncheckedCreateNestedOneWithoutUsersInput
+  program_log?: Prisma.program_logUncheckedCreateNestedManyWithoutUserInput
+  token?: Prisma.tokenUncheckedCreateNestedManyWithoutUsersInput
+  assigned_program_templates?: Prisma.user_program_templateUncheckedCreateNestedManyWithoutUserInput
+  user_to_coach?: Prisma.user_to_coachUncheckedCreateNestedOneWithoutUsersInput
+  weight_logs?: Prisma.weight_logsUncheckedCreateNestedManyWithoutUsersInput
+}
+
+export type usersCreateOrConnectWithoutCoached_program_templatesInput = {
+  where: Prisma.usersWhereUniqueInput
+  create: Prisma.XOR<Prisma.usersCreateWithoutCoached_program_templatesInput, Prisma.usersUncheckedCreateWithoutCoached_program_templatesInput>
+}
+
+export type usersUpsertWithoutCoached_program_templatesInput = {
+  update: Prisma.XOR<Prisma.usersUpdateWithoutCoached_program_templatesInput, Prisma.usersUncheckedUpdateWithoutCoached_program_templatesInput>
+  create: Prisma.XOR<Prisma.usersCreateWithoutCoached_program_templatesInput, Prisma.usersUncheckedCreateWithoutCoached_program_templatesInput>
+  where?: Prisma.usersWhereInput
+}
+
+export type usersUpdateToOneWithWhereWithoutCoached_program_templatesInput = {
+  where?: Prisma.usersWhereInput
+  data: Prisma.XOR<Prisma.usersUpdateWithoutCoached_program_templatesInput, Prisma.usersUncheckedUpdateWithoutCoached_program_templatesInput>
+}
+
+export type usersUpdateWithoutCoached_program_templatesInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  weight_kg?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  height_cm?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  gender?: Prisma.NullableEnumgender_typeFieldUpdateOperationsInput | $Enums.gender_type | null
+  picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admin?: Prisma.adminUpdateOneWithoutUsersNestedInput
+  coach?: Prisma.coachUpdateOneWithoutUsersNestedInput
+  comment?: Prisma.commentUpdateManyWithoutUsersNestedInput
+  password?: Prisma.passwordUpdateOneWithoutUsersNestedInput
+  program_log?: Prisma.program_logUpdateManyWithoutUserNestedInput
+  token?: Prisma.tokenUpdateManyWithoutUsersNestedInput
+  assigned_program_templates?: Prisma.user_program_templateUpdateManyWithoutUserNestedInput
+  user_to_coach?: Prisma.user_to_coachUpdateOneWithoutUsersNestedInput
+  weight_logs?: Prisma.weight_logsUpdateManyWithoutUsersNestedInput
+}
+
+export type usersUncheckedUpdateWithoutCoached_program_templatesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  weight_kg?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  height_cm?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  gender?: Prisma.NullableEnumgender_typeFieldUpdateOperationsInput | $Enums.gender_type | null
+  picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admin?: Prisma.adminUncheckedUpdateOneWithoutUsersNestedInput
+  coach?: Prisma.coachUncheckedUpdateOneWithoutUsersNestedInput
+  comment?: Prisma.commentUncheckedUpdateManyWithoutUsersNestedInput
+  password?: Prisma.passwordUncheckedUpdateOneWithoutUsersNestedInput
+  program_log?: Prisma.program_logUncheckedUpdateManyWithoutUserNestedInput
+  token?: Prisma.tokenUncheckedUpdateManyWithoutUsersNestedInput
+  assigned_program_templates?: Prisma.user_program_templateUncheckedUpdateManyWithoutUserNestedInput
+  user_to_coach?: Prisma.user_to_coachUncheckedUpdateOneWithoutUsersNestedInput
+  weight_logs?: Prisma.weight_logsUncheckedUpdateManyWithoutUsersNestedInput
+}
+
+export type usersCreateWithoutAssigned_program_templatesInput = {
+  name: string
+  date_of_birth?: Date | string | null
+  weight_kg?: number | null
+  height_cm?: number | null
+  email: string
+  gender?: $Enums.gender_type | null
+  picture?: string | null
+  admin?: Prisma.adminCreateNestedOneWithoutUsersInput
+  coach?: Prisma.coachCreateNestedOneWithoutUsersInput
+  comment?: Prisma.commentCreateNestedManyWithoutUsersInput
+  password?: Prisma.passwordCreateNestedOneWithoutUsersInput
+  program_log?: Prisma.program_logCreateNestedManyWithoutUserInput
+  coached_program_templates?: Prisma.program_templateCreateNestedManyWithoutCoachInput
+  token?: Prisma.tokenCreateNestedManyWithoutUsersInput
+  user_to_coach?: Prisma.user_to_coachCreateNestedOneWithoutUsersInput
+  weight_logs?: Prisma.weight_logsCreateNestedManyWithoutUsersInput
+}
+
+export type usersUncheckedCreateWithoutAssigned_program_templatesInput = {
+  id?: number
+  name: string
+  date_of_birth?: Date | string | null
+  weight_kg?: number | null
+  height_cm?: number | null
+  email: string
+  gender?: $Enums.gender_type | null
+  picture?: string | null
+  admin?: Prisma.adminUncheckedCreateNestedOneWithoutUsersInput
+  coach?: Prisma.coachUncheckedCreateNestedOneWithoutUsersInput
+  comment?: Prisma.commentUncheckedCreateNestedManyWithoutUsersInput
+  password?: Prisma.passwordUncheckedCreateNestedOneWithoutUsersInput
+  program_log?: Prisma.program_logUncheckedCreateNestedManyWithoutUserInput
+  coached_program_templates?: Prisma.program_templateUncheckedCreateNestedManyWithoutCoachInput
+  token?: Prisma.tokenUncheckedCreateNestedManyWithoutUsersInput
+  user_to_coach?: Prisma.user_to_coachUncheckedCreateNestedOneWithoutUsersInput
+  weight_logs?: Prisma.weight_logsUncheckedCreateNestedManyWithoutUsersInput
+}
+
+export type usersCreateOrConnectWithoutAssigned_program_templatesInput = {
+  where: Prisma.usersWhereUniqueInput
+  create: Prisma.XOR<Prisma.usersCreateWithoutAssigned_program_templatesInput, Prisma.usersUncheckedCreateWithoutAssigned_program_templatesInput>
+}
+
+export type usersUpsertWithoutAssigned_program_templatesInput = {
+  update: Prisma.XOR<Prisma.usersUpdateWithoutAssigned_program_templatesInput, Prisma.usersUncheckedUpdateWithoutAssigned_program_templatesInput>
+  create: Prisma.XOR<Prisma.usersCreateWithoutAssigned_program_templatesInput, Prisma.usersUncheckedCreateWithoutAssigned_program_templatesInput>
+  where?: Prisma.usersWhereInput
+}
+
+export type usersUpdateToOneWithWhereWithoutAssigned_program_templatesInput = {
+  where?: Prisma.usersWhereInput
+  data: Prisma.XOR<Prisma.usersUpdateWithoutAssigned_program_templatesInput, Prisma.usersUncheckedUpdateWithoutAssigned_program_templatesInput>
+}
+
+export type usersUpdateWithoutAssigned_program_templatesInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  weight_kg?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  height_cm?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  gender?: Prisma.NullableEnumgender_typeFieldUpdateOperationsInput | $Enums.gender_type | null
+  picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admin?: Prisma.adminUpdateOneWithoutUsersNestedInput
+  coach?: Prisma.coachUpdateOneWithoutUsersNestedInput
+  comment?: Prisma.commentUpdateManyWithoutUsersNestedInput
+  password?: Prisma.passwordUpdateOneWithoutUsersNestedInput
+  program_log?: Prisma.program_logUpdateManyWithoutUserNestedInput
+  coached_program_templates?: Prisma.program_templateUpdateManyWithoutCoachNestedInput
+  token?: Prisma.tokenUpdateManyWithoutUsersNestedInput
+  user_to_coach?: Prisma.user_to_coachUpdateOneWithoutUsersNestedInput
+  weight_logs?: Prisma.weight_logsUpdateManyWithoutUsersNestedInput
+}
+
+export type usersUncheckedUpdateWithoutAssigned_program_templatesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  weight_kg?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  height_cm?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  gender?: Prisma.NullableEnumgender_typeFieldUpdateOperationsInput | $Enums.gender_type | null
+  picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admin?: Prisma.adminUncheckedUpdateOneWithoutUsersNestedInput
+  coach?: Prisma.coachUncheckedUpdateOneWithoutUsersNestedInput
+  comment?: Prisma.commentUncheckedUpdateManyWithoutUsersNestedInput
+  password?: Prisma.passwordUncheckedUpdateOneWithoutUsersNestedInput
+  program_log?: Prisma.program_logUncheckedUpdateManyWithoutUserNestedInput
+  coached_program_templates?: Prisma.program_templateUncheckedUpdateManyWithoutCoachNestedInput
   token?: Prisma.tokenUncheckedUpdateManyWithoutUsersNestedInput
   user_to_coach?: Prisma.user_to_coachUncheckedUpdateOneWithoutUsersNestedInput
-  users_program?: Prisma.users_programUncheckedUpdateManyWithoutUsersNestedInput
   weight_logs?: Prisma.weight_logsUncheckedUpdateManyWithoutUsersNestedInput
 }
 
@@ -1141,11 +1233,11 @@ export type usersCreateWithoutProgram_logInput = {
   admin?: Prisma.adminCreateNestedOneWithoutUsersInput
   coach?: Prisma.coachCreateNestedOneWithoutUsersInput
   comment?: Prisma.commentCreateNestedManyWithoutUsersInput
-  exercise?: Prisma.exerciseCreateNestedManyWithoutUsersInput
   password?: Prisma.passwordCreateNestedOneWithoutUsersInput
+  coached_program_templates?: Prisma.program_templateCreateNestedManyWithoutCoachInput
   token?: Prisma.tokenCreateNestedManyWithoutUsersInput
+  assigned_program_templates?: Prisma.user_program_templateCreateNestedManyWithoutUserInput
   user_to_coach?: Prisma.user_to_coachCreateNestedOneWithoutUsersInput
-  users_program?: Prisma.users_programCreateNestedManyWithoutUsersInput
   weight_logs?: Prisma.weight_logsCreateNestedManyWithoutUsersInput
 }
 
@@ -1161,11 +1253,11 @@ export type usersUncheckedCreateWithoutProgram_logInput = {
   admin?: Prisma.adminUncheckedCreateNestedOneWithoutUsersInput
   coach?: Prisma.coachUncheckedCreateNestedOneWithoutUsersInput
   comment?: Prisma.commentUncheckedCreateNestedManyWithoutUsersInput
-  exercise?: Prisma.exerciseUncheckedCreateNestedManyWithoutUsersInput
   password?: Prisma.passwordUncheckedCreateNestedOneWithoutUsersInput
+  coached_program_templates?: Prisma.program_templateUncheckedCreateNestedManyWithoutCoachInput
   token?: Prisma.tokenUncheckedCreateNestedManyWithoutUsersInput
+  assigned_program_templates?: Prisma.user_program_templateUncheckedCreateNestedManyWithoutUserInput
   user_to_coach?: Prisma.user_to_coachUncheckedCreateNestedOneWithoutUsersInput
-  users_program?: Prisma.users_programUncheckedCreateNestedManyWithoutUsersInput
   weight_logs?: Prisma.weight_logsUncheckedCreateNestedManyWithoutUsersInput
 }
 
@@ -1196,11 +1288,11 @@ export type usersUpdateWithoutProgram_logInput = {
   admin?: Prisma.adminUpdateOneWithoutUsersNestedInput
   coach?: Prisma.coachUpdateOneWithoutUsersNestedInput
   comment?: Prisma.commentUpdateManyWithoutUsersNestedInput
-  exercise?: Prisma.exerciseUpdateManyWithoutUsersNestedInput
   password?: Prisma.passwordUpdateOneWithoutUsersNestedInput
+  coached_program_templates?: Prisma.program_templateUpdateManyWithoutCoachNestedInput
   token?: Prisma.tokenUpdateManyWithoutUsersNestedInput
+  assigned_program_templates?: Prisma.user_program_templateUpdateManyWithoutUserNestedInput
   user_to_coach?: Prisma.user_to_coachUpdateOneWithoutUsersNestedInput
-  users_program?: Prisma.users_programUpdateManyWithoutUsersNestedInput
   weight_logs?: Prisma.weight_logsUpdateManyWithoutUsersNestedInput
 }
 
@@ -1216,11 +1308,11 @@ export type usersUncheckedUpdateWithoutProgram_logInput = {
   admin?: Prisma.adminUncheckedUpdateOneWithoutUsersNestedInput
   coach?: Prisma.coachUncheckedUpdateOneWithoutUsersNestedInput
   comment?: Prisma.commentUncheckedUpdateManyWithoutUsersNestedInput
-  exercise?: Prisma.exerciseUncheckedUpdateManyWithoutUsersNestedInput
   password?: Prisma.passwordUncheckedUpdateOneWithoutUsersNestedInput
+  coached_program_templates?: Prisma.program_templateUncheckedUpdateManyWithoutCoachNestedInput
   token?: Prisma.tokenUncheckedUpdateManyWithoutUsersNestedInput
+  assigned_program_templates?: Prisma.user_program_templateUncheckedUpdateManyWithoutUserNestedInput
   user_to_coach?: Prisma.user_to_coachUncheckedUpdateOneWithoutUsersNestedInput
-  users_program?: Prisma.users_programUncheckedUpdateManyWithoutUsersNestedInput
   weight_logs?: Prisma.weight_logsUncheckedUpdateManyWithoutUsersNestedInput
 }
 
@@ -1235,11 +1327,11 @@ export type usersCreateWithoutTokenInput = {
   admin?: Prisma.adminCreateNestedOneWithoutUsersInput
   coach?: Prisma.coachCreateNestedOneWithoutUsersInput
   comment?: Prisma.commentCreateNestedManyWithoutUsersInput
-  exercise?: Prisma.exerciseCreateNestedManyWithoutUsersInput
   password?: Prisma.passwordCreateNestedOneWithoutUsersInput
-  program_log?: Prisma.program_logCreateNestedManyWithoutUsersInput
+  program_log?: Prisma.program_logCreateNestedManyWithoutUserInput
+  coached_program_templates?: Prisma.program_templateCreateNestedManyWithoutCoachInput
+  assigned_program_templates?: Prisma.user_program_templateCreateNestedManyWithoutUserInput
   user_to_coach?: Prisma.user_to_coachCreateNestedOneWithoutUsersInput
-  users_program?: Prisma.users_programCreateNestedManyWithoutUsersInput
   weight_logs?: Prisma.weight_logsCreateNestedManyWithoutUsersInput
 }
 
@@ -1255,11 +1347,11 @@ export type usersUncheckedCreateWithoutTokenInput = {
   admin?: Prisma.adminUncheckedCreateNestedOneWithoutUsersInput
   coach?: Prisma.coachUncheckedCreateNestedOneWithoutUsersInput
   comment?: Prisma.commentUncheckedCreateNestedManyWithoutUsersInput
-  exercise?: Prisma.exerciseUncheckedCreateNestedManyWithoutUsersInput
   password?: Prisma.passwordUncheckedCreateNestedOneWithoutUsersInput
-  program_log?: Prisma.program_logUncheckedCreateNestedManyWithoutUsersInput
+  program_log?: Prisma.program_logUncheckedCreateNestedManyWithoutUserInput
+  coached_program_templates?: Prisma.program_templateUncheckedCreateNestedManyWithoutCoachInput
+  assigned_program_templates?: Prisma.user_program_templateUncheckedCreateNestedManyWithoutUserInput
   user_to_coach?: Prisma.user_to_coachUncheckedCreateNestedOneWithoutUsersInput
-  users_program?: Prisma.users_programUncheckedCreateNestedManyWithoutUsersInput
   weight_logs?: Prisma.weight_logsUncheckedCreateNestedManyWithoutUsersInput
 }
 
@@ -1290,11 +1382,11 @@ export type usersUpdateWithoutTokenInput = {
   admin?: Prisma.adminUpdateOneWithoutUsersNestedInput
   coach?: Prisma.coachUpdateOneWithoutUsersNestedInput
   comment?: Prisma.commentUpdateManyWithoutUsersNestedInput
-  exercise?: Prisma.exerciseUpdateManyWithoutUsersNestedInput
   password?: Prisma.passwordUpdateOneWithoutUsersNestedInput
-  program_log?: Prisma.program_logUpdateManyWithoutUsersNestedInput
+  program_log?: Prisma.program_logUpdateManyWithoutUserNestedInput
+  coached_program_templates?: Prisma.program_templateUpdateManyWithoutCoachNestedInput
+  assigned_program_templates?: Prisma.user_program_templateUpdateManyWithoutUserNestedInput
   user_to_coach?: Prisma.user_to_coachUpdateOneWithoutUsersNestedInput
-  users_program?: Prisma.users_programUpdateManyWithoutUsersNestedInput
   weight_logs?: Prisma.weight_logsUpdateManyWithoutUsersNestedInput
 }
 
@@ -1310,11 +1402,11 @@ export type usersUncheckedUpdateWithoutTokenInput = {
   admin?: Prisma.adminUncheckedUpdateOneWithoutUsersNestedInput
   coach?: Prisma.coachUncheckedUpdateOneWithoutUsersNestedInput
   comment?: Prisma.commentUncheckedUpdateManyWithoutUsersNestedInput
-  exercise?: Prisma.exerciseUncheckedUpdateManyWithoutUsersNestedInput
   password?: Prisma.passwordUncheckedUpdateOneWithoutUsersNestedInput
-  program_log?: Prisma.program_logUncheckedUpdateManyWithoutUsersNestedInput
+  program_log?: Prisma.program_logUncheckedUpdateManyWithoutUserNestedInput
+  coached_program_templates?: Prisma.program_templateUncheckedUpdateManyWithoutCoachNestedInput
+  assigned_program_templates?: Prisma.user_program_templateUncheckedUpdateManyWithoutUserNestedInput
   user_to_coach?: Prisma.user_to_coachUncheckedUpdateOneWithoutUsersNestedInput
-  users_program?: Prisma.users_programUncheckedUpdateManyWithoutUsersNestedInput
   weight_logs?: Prisma.weight_logsUncheckedUpdateManyWithoutUsersNestedInput
 }
 
@@ -1329,11 +1421,11 @@ export type usersCreateWithoutUser_to_coachInput = {
   admin?: Prisma.adminCreateNestedOneWithoutUsersInput
   coach?: Prisma.coachCreateNestedOneWithoutUsersInput
   comment?: Prisma.commentCreateNestedManyWithoutUsersInput
-  exercise?: Prisma.exerciseCreateNestedManyWithoutUsersInput
   password?: Prisma.passwordCreateNestedOneWithoutUsersInput
-  program_log?: Prisma.program_logCreateNestedManyWithoutUsersInput
+  program_log?: Prisma.program_logCreateNestedManyWithoutUserInput
+  coached_program_templates?: Prisma.program_templateCreateNestedManyWithoutCoachInput
   token?: Prisma.tokenCreateNestedManyWithoutUsersInput
-  users_program?: Prisma.users_programCreateNestedManyWithoutUsersInput
+  assigned_program_templates?: Prisma.user_program_templateCreateNestedManyWithoutUserInput
   weight_logs?: Prisma.weight_logsCreateNestedManyWithoutUsersInput
 }
 
@@ -1349,11 +1441,11 @@ export type usersUncheckedCreateWithoutUser_to_coachInput = {
   admin?: Prisma.adminUncheckedCreateNestedOneWithoutUsersInput
   coach?: Prisma.coachUncheckedCreateNestedOneWithoutUsersInput
   comment?: Prisma.commentUncheckedCreateNestedManyWithoutUsersInput
-  exercise?: Prisma.exerciseUncheckedCreateNestedManyWithoutUsersInput
   password?: Prisma.passwordUncheckedCreateNestedOneWithoutUsersInput
-  program_log?: Prisma.program_logUncheckedCreateNestedManyWithoutUsersInput
+  program_log?: Prisma.program_logUncheckedCreateNestedManyWithoutUserInput
+  coached_program_templates?: Prisma.program_templateUncheckedCreateNestedManyWithoutCoachInput
   token?: Prisma.tokenUncheckedCreateNestedManyWithoutUsersInput
-  users_program?: Prisma.users_programUncheckedCreateNestedManyWithoutUsersInput
+  assigned_program_templates?: Prisma.user_program_templateUncheckedCreateNestedManyWithoutUserInput
   weight_logs?: Prisma.weight_logsUncheckedCreateNestedManyWithoutUsersInput
 }
 
@@ -1384,11 +1476,11 @@ export type usersUpdateWithoutUser_to_coachInput = {
   admin?: Prisma.adminUpdateOneWithoutUsersNestedInput
   coach?: Prisma.coachUpdateOneWithoutUsersNestedInput
   comment?: Prisma.commentUpdateManyWithoutUsersNestedInput
-  exercise?: Prisma.exerciseUpdateManyWithoutUsersNestedInput
   password?: Prisma.passwordUpdateOneWithoutUsersNestedInput
-  program_log?: Prisma.program_logUpdateManyWithoutUsersNestedInput
+  program_log?: Prisma.program_logUpdateManyWithoutUserNestedInput
+  coached_program_templates?: Prisma.program_templateUpdateManyWithoutCoachNestedInput
   token?: Prisma.tokenUpdateManyWithoutUsersNestedInput
-  users_program?: Prisma.users_programUpdateManyWithoutUsersNestedInput
+  assigned_program_templates?: Prisma.user_program_templateUpdateManyWithoutUserNestedInput
   weight_logs?: Prisma.weight_logsUpdateManyWithoutUsersNestedInput
 }
 
@@ -1404,105 +1496,11 @@ export type usersUncheckedUpdateWithoutUser_to_coachInput = {
   admin?: Prisma.adminUncheckedUpdateOneWithoutUsersNestedInput
   coach?: Prisma.coachUncheckedUpdateOneWithoutUsersNestedInput
   comment?: Prisma.commentUncheckedUpdateManyWithoutUsersNestedInput
-  exercise?: Prisma.exerciseUncheckedUpdateManyWithoutUsersNestedInput
   password?: Prisma.passwordUncheckedUpdateOneWithoutUsersNestedInput
-  program_log?: Prisma.program_logUncheckedUpdateManyWithoutUsersNestedInput
+  program_log?: Prisma.program_logUncheckedUpdateManyWithoutUserNestedInput
+  coached_program_templates?: Prisma.program_templateUncheckedUpdateManyWithoutCoachNestedInput
   token?: Prisma.tokenUncheckedUpdateManyWithoutUsersNestedInput
-  users_program?: Prisma.users_programUncheckedUpdateManyWithoutUsersNestedInput
-  weight_logs?: Prisma.weight_logsUncheckedUpdateManyWithoutUsersNestedInput
-}
-
-export type usersCreateWithoutUsers_programInput = {
-  name: string
-  date_of_birth?: Date | string | null
-  weight_kg?: number | null
-  height_cm?: number | null
-  email: string
-  gender?: $Enums.gender_type | null
-  picture?: string | null
-  admin?: Prisma.adminCreateNestedOneWithoutUsersInput
-  coach?: Prisma.coachCreateNestedOneWithoutUsersInput
-  comment?: Prisma.commentCreateNestedManyWithoutUsersInput
-  exercise?: Prisma.exerciseCreateNestedManyWithoutUsersInput
-  password?: Prisma.passwordCreateNestedOneWithoutUsersInput
-  program_log?: Prisma.program_logCreateNestedManyWithoutUsersInput
-  token?: Prisma.tokenCreateNestedManyWithoutUsersInput
-  user_to_coach?: Prisma.user_to_coachCreateNestedOneWithoutUsersInput
-  weight_logs?: Prisma.weight_logsCreateNestedManyWithoutUsersInput
-}
-
-export type usersUncheckedCreateWithoutUsers_programInput = {
-  id?: number
-  name: string
-  date_of_birth?: Date | string | null
-  weight_kg?: number | null
-  height_cm?: number | null
-  email: string
-  gender?: $Enums.gender_type | null
-  picture?: string | null
-  admin?: Prisma.adminUncheckedCreateNestedOneWithoutUsersInput
-  coach?: Prisma.coachUncheckedCreateNestedOneWithoutUsersInput
-  comment?: Prisma.commentUncheckedCreateNestedManyWithoutUsersInput
-  exercise?: Prisma.exerciseUncheckedCreateNestedManyWithoutUsersInput
-  password?: Prisma.passwordUncheckedCreateNestedOneWithoutUsersInput
-  program_log?: Prisma.program_logUncheckedCreateNestedManyWithoutUsersInput
-  token?: Prisma.tokenUncheckedCreateNestedManyWithoutUsersInput
-  user_to_coach?: Prisma.user_to_coachUncheckedCreateNestedOneWithoutUsersInput
-  weight_logs?: Prisma.weight_logsUncheckedCreateNestedManyWithoutUsersInput
-}
-
-export type usersCreateOrConnectWithoutUsers_programInput = {
-  where: Prisma.usersWhereUniqueInput
-  create: Prisma.XOR<Prisma.usersCreateWithoutUsers_programInput, Prisma.usersUncheckedCreateWithoutUsers_programInput>
-}
-
-export type usersUpsertWithoutUsers_programInput = {
-  update: Prisma.XOR<Prisma.usersUpdateWithoutUsers_programInput, Prisma.usersUncheckedUpdateWithoutUsers_programInput>
-  create: Prisma.XOR<Prisma.usersCreateWithoutUsers_programInput, Prisma.usersUncheckedCreateWithoutUsers_programInput>
-  where?: Prisma.usersWhereInput
-}
-
-export type usersUpdateToOneWithWhereWithoutUsers_programInput = {
-  where?: Prisma.usersWhereInput
-  data: Prisma.XOR<Prisma.usersUpdateWithoutUsers_programInput, Prisma.usersUncheckedUpdateWithoutUsers_programInput>
-}
-
-export type usersUpdateWithoutUsers_programInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  weight_kg?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  height_cm?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  gender?: Prisma.NullableEnumgender_typeFieldUpdateOperationsInput | $Enums.gender_type | null
-  picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  admin?: Prisma.adminUpdateOneWithoutUsersNestedInput
-  coach?: Prisma.coachUpdateOneWithoutUsersNestedInput
-  comment?: Prisma.commentUpdateManyWithoutUsersNestedInput
-  exercise?: Prisma.exerciseUpdateManyWithoutUsersNestedInput
-  password?: Prisma.passwordUpdateOneWithoutUsersNestedInput
-  program_log?: Prisma.program_logUpdateManyWithoutUsersNestedInput
-  token?: Prisma.tokenUpdateManyWithoutUsersNestedInput
-  user_to_coach?: Prisma.user_to_coachUpdateOneWithoutUsersNestedInput
-  weight_logs?: Prisma.weight_logsUpdateManyWithoutUsersNestedInput
-}
-
-export type usersUncheckedUpdateWithoutUsers_programInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  weight_kg?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  height_cm?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  gender?: Prisma.NullableEnumgender_typeFieldUpdateOperationsInput | $Enums.gender_type | null
-  picture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  admin?: Prisma.adminUncheckedUpdateOneWithoutUsersNestedInput
-  coach?: Prisma.coachUncheckedUpdateOneWithoutUsersNestedInput
-  comment?: Prisma.commentUncheckedUpdateManyWithoutUsersNestedInput
-  exercise?: Prisma.exerciseUncheckedUpdateManyWithoutUsersNestedInput
-  password?: Prisma.passwordUncheckedUpdateOneWithoutUsersNestedInput
-  program_log?: Prisma.program_logUncheckedUpdateManyWithoutUsersNestedInput
-  token?: Prisma.tokenUncheckedUpdateManyWithoutUsersNestedInput
-  user_to_coach?: Prisma.user_to_coachUncheckedUpdateOneWithoutUsersNestedInput
+  assigned_program_templates?: Prisma.user_program_templateUncheckedUpdateManyWithoutUserNestedInput
   weight_logs?: Prisma.weight_logsUncheckedUpdateManyWithoutUsersNestedInput
 }
 
@@ -1517,12 +1515,12 @@ export type usersCreateWithoutWeight_logsInput = {
   admin?: Prisma.adminCreateNestedOneWithoutUsersInput
   coach?: Prisma.coachCreateNestedOneWithoutUsersInput
   comment?: Prisma.commentCreateNestedManyWithoutUsersInput
-  exercise?: Prisma.exerciseCreateNestedManyWithoutUsersInput
   password?: Prisma.passwordCreateNestedOneWithoutUsersInput
-  program_log?: Prisma.program_logCreateNestedManyWithoutUsersInput
+  program_log?: Prisma.program_logCreateNestedManyWithoutUserInput
+  coached_program_templates?: Prisma.program_templateCreateNestedManyWithoutCoachInput
   token?: Prisma.tokenCreateNestedManyWithoutUsersInput
+  assigned_program_templates?: Prisma.user_program_templateCreateNestedManyWithoutUserInput
   user_to_coach?: Prisma.user_to_coachCreateNestedOneWithoutUsersInput
-  users_program?: Prisma.users_programCreateNestedManyWithoutUsersInput
 }
 
 export type usersUncheckedCreateWithoutWeight_logsInput = {
@@ -1537,12 +1535,12 @@ export type usersUncheckedCreateWithoutWeight_logsInput = {
   admin?: Prisma.adminUncheckedCreateNestedOneWithoutUsersInput
   coach?: Prisma.coachUncheckedCreateNestedOneWithoutUsersInput
   comment?: Prisma.commentUncheckedCreateNestedManyWithoutUsersInput
-  exercise?: Prisma.exerciseUncheckedCreateNestedManyWithoutUsersInput
   password?: Prisma.passwordUncheckedCreateNestedOneWithoutUsersInput
-  program_log?: Prisma.program_logUncheckedCreateNestedManyWithoutUsersInput
+  program_log?: Prisma.program_logUncheckedCreateNestedManyWithoutUserInput
+  coached_program_templates?: Prisma.program_templateUncheckedCreateNestedManyWithoutCoachInput
   token?: Prisma.tokenUncheckedCreateNestedManyWithoutUsersInput
+  assigned_program_templates?: Prisma.user_program_templateUncheckedCreateNestedManyWithoutUserInput
   user_to_coach?: Prisma.user_to_coachUncheckedCreateNestedOneWithoutUsersInput
-  users_program?: Prisma.users_programUncheckedCreateNestedManyWithoutUsersInput
 }
 
 export type usersCreateOrConnectWithoutWeight_logsInput = {
@@ -1572,12 +1570,12 @@ export type usersUpdateWithoutWeight_logsInput = {
   admin?: Prisma.adminUpdateOneWithoutUsersNestedInput
   coach?: Prisma.coachUpdateOneWithoutUsersNestedInput
   comment?: Prisma.commentUpdateManyWithoutUsersNestedInput
-  exercise?: Prisma.exerciseUpdateManyWithoutUsersNestedInput
   password?: Prisma.passwordUpdateOneWithoutUsersNestedInput
-  program_log?: Prisma.program_logUpdateManyWithoutUsersNestedInput
+  program_log?: Prisma.program_logUpdateManyWithoutUserNestedInput
+  coached_program_templates?: Prisma.program_templateUpdateManyWithoutCoachNestedInput
   token?: Prisma.tokenUpdateManyWithoutUsersNestedInput
+  assigned_program_templates?: Prisma.user_program_templateUpdateManyWithoutUserNestedInput
   user_to_coach?: Prisma.user_to_coachUpdateOneWithoutUsersNestedInput
-  users_program?: Prisma.users_programUpdateManyWithoutUsersNestedInput
 }
 
 export type usersUncheckedUpdateWithoutWeight_logsInput = {
@@ -1592,12 +1590,12 @@ export type usersUncheckedUpdateWithoutWeight_logsInput = {
   admin?: Prisma.adminUncheckedUpdateOneWithoutUsersNestedInput
   coach?: Prisma.coachUncheckedUpdateOneWithoutUsersNestedInput
   comment?: Prisma.commentUncheckedUpdateManyWithoutUsersNestedInput
-  exercise?: Prisma.exerciseUncheckedUpdateManyWithoutUsersNestedInput
   password?: Prisma.passwordUncheckedUpdateOneWithoutUsersNestedInput
-  program_log?: Prisma.program_logUncheckedUpdateManyWithoutUsersNestedInput
+  program_log?: Prisma.program_logUncheckedUpdateManyWithoutUserNestedInput
+  coached_program_templates?: Prisma.program_templateUncheckedUpdateManyWithoutCoachNestedInput
   token?: Prisma.tokenUncheckedUpdateManyWithoutUsersNestedInput
+  assigned_program_templates?: Prisma.user_program_templateUncheckedUpdateManyWithoutUserNestedInput
   user_to_coach?: Prisma.user_to_coachUncheckedUpdateOneWithoutUsersNestedInput
-  users_program?: Prisma.users_programUncheckedUpdateManyWithoutUsersNestedInput
 }
 
 
@@ -1607,19 +1605,19 @@ export type usersUncheckedUpdateWithoutWeight_logsInput = {
 
 export type UsersCountOutputType = {
   comment: number
-  exercise: number
   program_log: number
+  coached_program_templates: number
   token: number
-  users_program: number
+  assigned_program_templates: number
   weight_logs: number
 }
 
 export type UsersCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   comment?: boolean | UsersCountOutputTypeCountCommentArgs
-  exercise?: boolean | UsersCountOutputTypeCountExerciseArgs
   program_log?: boolean | UsersCountOutputTypeCountProgram_logArgs
+  coached_program_templates?: boolean | UsersCountOutputTypeCountCoached_program_templatesArgs
   token?: boolean | UsersCountOutputTypeCountTokenArgs
-  users_program?: boolean | UsersCountOutputTypeCountUsers_programArgs
+  assigned_program_templates?: boolean | UsersCountOutputTypeCountAssigned_program_templatesArgs
   weight_logs?: boolean | UsersCountOutputTypeCountWeight_logsArgs
 }
 
@@ -1643,15 +1641,15 @@ export type UsersCountOutputTypeCountCommentArgs<ExtArgs extends runtime.Types.E
 /**
  * UsersCountOutputType without action
  */
-export type UsersCountOutputTypeCountExerciseArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.exerciseWhereInput
+export type UsersCountOutputTypeCountProgram_logArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.program_logWhereInput
 }
 
 /**
  * UsersCountOutputType without action
  */
-export type UsersCountOutputTypeCountProgram_logArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.program_logWhereInput
+export type UsersCountOutputTypeCountCoached_program_templatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.program_templateWhereInput
 }
 
 /**
@@ -1664,8 +1662,8 @@ export type UsersCountOutputTypeCountTokenArgs<ExtArgs extends runtime.Types.Ext
 /**
  * UsersCountOutputType without action
  */
-export type UsersCountOutputTypeCountUsers_programArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.users_programWhereInput
+export type UsersCountOutputTypeCountAssigned_program_templatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.user_program_templateWhereInput
 }
 
 /**
@@ -1688,12 +1686,12 @@ export type usersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   admin?: boolean | Prisma.users$adminArgs<ExtArgs>
   coach?: boolean | Prisma.users$coachArgs<ExtArgs>
   comment?: boolean | Prisma.users$commentArgs<ExtArgs>
-  exercise?: boolean | Prisma.users$exerciseArgs<ExtArgs>
   password?: boolean | Prisma.users$passwordArgs<ExtArgs>
   program_log?: boolean | Prisma.users$program_logArgs<ExtArgs>
+  coached_program_templates?: boolean | Prisma.users$coached_program_templatesArgs<ExtArgs>
   token?: boolean | Prisma.users$tokenArgs<ExtArgs>
+  assigned_program_templates?: boolean | Prisma.users$assigned_program_templatesArgs<ExtArgs>
   user_to_coach?: boolean | Prisma.users$user_to_coachArgs<ExtArgs>
-  users_program?: boolean | Prisma.users$users_programArgs<ExtArgs>
   weight_logs?: boolean | Prisma.users$weight_logsArgs<ExtArgs>
   _count?: boolean | Prisma.UsersCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["users"]>
@@ -1736,12 +1734,12 @@ export type usersInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   admin?: boolean | Prisma.users$adminArgs<ExtArgs>
   coach?: boolean | Prisma.users$coachArgs<ExtArgs>
   comment?: boolean | Prisma.users$commentArgs<ExtArgs>
-  exercise?: boolean | Prisma.users$exerciseArgs<ExtArgs>
   password?: boolean | Prisma.users$passwordArgs<ExtArgs>
   program_log?: boolean | Prisma.users$program_logArgs<ExtArgs>
+  coached_program_templates?: boolean | Prisma.users$coached_program_templatesArgs<ExtArgs>
   token?: boolean | Prisma.users$tokenArgs<ExtArgs>
+  assigned_program_templates?: boolean | Prisma.users$assigned_program_templatesArgs<ExtArgs>
   user_to_coach?: boolean | Prisma.users$user_to_coachArgs<ExtArgs>
-  users_program?: boolean | Prisma.users$users_programArgs<ExtArgs>
   weight_logs?: boolean | Prisma.users$weight_logsArgs<ExtArgs>
   _count?: boolean | Prisma.UsersCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -1754,12 +1752,12 @@ export type $usersPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     admin: Prisma.$adminPayload<ExtArgs> | null
     coach: Prisma.$coachPayload<ExtArgs> | null
     comment: Prisma.$commentPayload<ExtArgs>[]
-    exercise: Prisma.$exercisePayload<ExtArgs>[]
     password: Prisma.$passwordPayload<ExtArgs> | null
     program_log: Prisma.$program_logPayload<ExtArgs>[]
+    coached_program_templates: Prisma.$program_templatePayload<ExtArgs>[]
     token: Prisma.$tokenPayload<ExtArgs>[]
+    assigned_program_templates: Prisma.$user_program_templatePayload<ExtArgs>[]
     user_to_coach: Prisma.$user_to_coachPayload<ExtArgs> | null
-    users_program: Prisma.$users_programPayload<ExtArgs>[]
     weight_logs: Prisma.$weight_logsPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -2168,12 +2166,12 @@ export interface Prisma__usersClient<T, Null = never, ExtArgs extends runtime.Ty
   admin<T extends Prisma.users$adminArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$adminArgs<ExtArgs>>): Prisma.Prisma__adminClient<runtime.Types.Result.GetResult<Prisma.$adminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   coach<T extends Prisma.users$coachArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$coachArgs<ExtArgs>>): Prisma.Prisma__coachClient<runtime.Types.Result.GetResult<Prisma.$coachPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   comment<T extends Prisma.users$commentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$commentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$commentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  exercise<T extends Prisma.users$exerciseArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$exerciseArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$exercisePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   password<T extends Prisma.users$passwordArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$passwordArgs<ExtArgs>>): Prisma.Prisma__passwordClient<runtime.Types.Result.GetResult<Prisma.$passwordPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   program_log<T extends Prisma.users$program_logArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$program_logArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$program_logPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  coached_program_templates<T extends Prisma.users$coached_program_templatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$coached_program_templatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$program_templatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   token<T extends Prisma.users$tokenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$tokenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$tokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assigned_program_templates<T extends Prisma.users$assigned_program_templatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$assigned_program_templatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$user_program_templatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   user_to_coach<T extends Prisma.users$user_to_coachArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$user_to_coachArgs<ExtArgs>>): Prisma.Prisma__user_to_coachClient<runtime.Types.Result.GetResult<Prisma.$user_to_coachPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  users_program<T extends Prisma.users$users_programArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$users_programArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$users_programPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   weight_logs<T extends Prisma.users$weight_logsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$weight_logsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$weight_logsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2662,30 +2660,6 @@ export type users$commentArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 }
 
 /**
- * users.exercise
- */
-export type users$exerciseArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the exercise
-   */
-  select?: Prisma.exerciseSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the exercise
-   */
-  omit?: Prisma.exerciseOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.exerciseInclude<ExtArgs> | null
-  where?: Prisma.exerciseWhereInput
-  orderBy?: Prisma.exerciseOrderByWithRelationInput | Prisma.exerciseOrderByWithRelationInput[]
-  cursor?: Prisma.exerciseWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ExerciseScalarFieldEnum | Prisma.ExerciseScalarFieldEnum[]
-}
-
-/**
  * users.password
  */
 export type users$passwordArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2729,6 +2703,30 @@ export type users$program_logArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
+ * users.coached_program_templates
+ */
+export type users$coached_program_templatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the program_template
+   */
+  select?: Prisma.program_templateSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the program_template
+   */
+  omit?: Prisma.program_templateOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.program_templateInclude<ExtArgs> | null
+  where?: Prisma.program_templateWhereInput
+  orderBy?: Prisma.program_templateOrderByWithRelationInput | Prisma.program_templateOrderByWithRelationInput[]
+  cursor?: Prisma.program_templateWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Program_templateScalarFieldEnum | Prisma.Program_templateScalarFieldEnum[]
+}
+
+/**
  * users.token
  */
 export type users$tokenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2753,6 +2751,30 @@ export type users$tokenArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 }
 
 /**
+ * users.assigned_program_templates
+ */
+export type users$assigned_program_templatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the user_program_template
+   */
+  select?: Prisma.user_program_templateSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the user_program_template
+   */
+  omit?: Prisma.user_program_templateOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.user_program_templateInclude<ExtArgs> | null
+  where?: Prisma.user_program_templateWhereInput
+  orderBy?: Prisma.user_program_templateOrderByWithRelationInput | Prisma.user_program_templateOrderByWithRelationInput[]
+  cursor?: Prisma.user_program_templateWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.User_program_templateScalarFieldEnum | Prisma.User_program_templateScalarFieldEnum[]
+}
+
+/**
  * users.user_to_coach
  */
 export type users$user_to_coachArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2769,30 +2791,6 @@ export type users$user_to_coachArgs<ExtArgs extends runtime.Types.Extensions.Int
    */
   include?: Prisma.user_to_coachInclude<ExtArgs> | null
   where?: Prisma.user_to_coachWhereInput
-}
-
-/**
- * users.users_program
- */
-export type users$users_programArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the users_program
-   */
-  select?: Prisma.users_programSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the users_program
-   */
-  omit?: Prisma.users_programOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.users_programInclude<ExtArgs> | null
-  where?: Prisma.users_programWhereInput
-  orderBy?: Prisma.users_programOrderByWithRelationInput | Prisma.users_programOrderByWithRelationInput[]
-  cursor?: Prisma.users_programWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.Users_programScalarFieldEnum | Prisma.Users_programScalarFieldEnum[]
 }
 
 /**

@@ -9,29 +9,6 @@
 * 🟢 You can import this file directly.
 */
 
-export const Equipment = {
-  None: 'None',
-  Barbell: 'Barbell',
-  Dumbbell: 'Dumbbell',
-  Kettlebell: 'Kettlebell',
-  Machine: 'Machine',
-  Plate: 'Plate',
-  Resistance_Band: 'Resistance_Band',
-  Suspension_Band: 'Suspension_Band',
-  Other: 'Other'
-} as const
-
-export type Equipment = (typeof Equipment)[keyof typeof Equipment]
-
-
-export const Gender = {
-  male: 'male',
-  female: 'female'
-} as const
-
-export type Gender = (typeof Gender)[keyof typeof Gender]
-
-
 export const equipment_type = {
   None: 'None',
   Barbell: 'Barbell',

@@ -15,7 +15,7 @@ export type MeUser = {
   date_of_birth: string | null;
   weight_kg: number | null;
   height_cm: number | null;
-  gender: 'male' | 'female' | null;
+  gender: "male" | "female" | null;
   picture: string | null;
 };
 
@@ -30,7 +30,7 @@ export type SessionResponse = {
 };
 
 export type SignupOtpResponse = {
-  status: 'otp_sent';
+  status: "otp_sent";
 };
 
 export type LogoutResponse = {
@@ -39,6 +39,22 @@ export type LogoutResponse = {
 
 export type MeResponse = MeUser;
 
+export type CoachProfile = {
+  user_id: number;
+  price_dkk: number;
+  max_clients: number | null;
+  users: {
+    id: number;
+    name: string;
+    email: string;
+    picture: string | null;
+  };
+};
+
+export type CoachProfileResponse = {
+  myCoachProfile: CoachProfile | null;
+  connectedCoach: CoachProfile | null;
+};
 export type WeightLogEntry = {
   timestamp: string;
   weight: number | null;
