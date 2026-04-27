@@ -10,25 +10,44 @@ router.get("/", async (req: AuthenticatedRequest, res: Response) => {
     const userId = getUserId(req, res);
     if (!userId) return;
 
-    const relation = await prisma.user_to_coach.findUnique({
-      where: { user_id: userId },
-      include: {
-        coach: {
-          include: {
-            users: {
-              select: {
-                id: true,
-                name: true,
-                email: true,
-                picture: true,
+    const [myCoachProfile, relation] = await Promise.all([
+      prisma.coach.findUnique({
+        where: { user_id: userId },
+        include: {
+          users: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              picture: true,
+            },
+          },
+        },
+      }),
+
+      prisma.user_to_coach.findUnique({
+        where: { user_id: userId },
+        include: {
+          coach: {
+            include: {
+              users: {
+                select: {
+                  id: true,
+                  name: true,
+                  email: true,
+                  picture: true,
+                },
               },
             },
           },
         },
-      },
-    });
+      }),
+    ]);
 
-    return res.json(relation?.coach ?? null);
+    return res.json({
+      myCoachProfile,
+      connectedCoach: relation?.coach ?? null,
+    });
   } catch (error) {
     console.error("get coach error:", error);
     return res.status(500).json({ error: "Internal server error" });
