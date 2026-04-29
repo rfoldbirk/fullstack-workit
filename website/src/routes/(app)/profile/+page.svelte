@@ -47,6 +47,13 @@
     await loadData();
   });
 
+  const latestLoggedWeight = $derived.by(() => {
+    const latestFromLogs =
+      weightLogs?.find((entry) => entry.weight !== null)?.weight ?? null;
+
+    return latestFromLogs ?? meResponse?.weight_kg ?? null;
+  });
+
   async function loadData() {
     try {
       loading = true;
@@ -484,8 +491,8 @@
             <div class="border-border rounded-lg border p-4">
               <div class="text-muted-foreground text-xs uppercase">Current</div>
               <div class="mt-1 text-2xl font-semibold">
-                {meResponse.weight_kg !== null
-                  ? `${meResponse.weight_kg} kg`
+                {latestLoggedWeight !== null
+                  ? `${latestLoggedWeight} kg`
                   : "—"}
               </div>
             </div>

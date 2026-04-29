@@ -8,6 +8,7 @@ import meRouter from "./routes/me";
 import muscleGroupsRouter from "./routes/muscle-groups";
 import exercisesRouter from "./routes/exercises";
 import coachProgramTemplatesRouter from "./routes/coach/program-templates";
+import coachClientsRouter from "./routes/coach/clients";
 import { requireAuth } from "./middleware/auth";
 import coachesRouter from "./routes/coaches";
 
@@ -24,6 +25,7 @@ app.use("/profilepictures", express.static("public/profilepictures"));
 api.use("/muscle-groups", muscleGroupsRouter);
 api.use("/exercises", exercisesRouter);
 api.use("/coach/program-templates", requireAuth, coachProgramTemplatesRouter);
+api.use("/coach/clients", requireAuth, coachClientsRouter);
 api.use("/coaches", coachesRouter);
 
 app.use("/api", api);

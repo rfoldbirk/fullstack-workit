@@ -95,7 +95,6 @@ export type CoachListItem = {
   currentClients: number;
   maxClients: number | null;
   remainingSlots: number | null;
-  isCurrentCoach: boolean;
 };
 
 export type CoachesResponse = {
@@ -107,6 +106,7 @@ export type ClientSummary = {
   id: number;
   name: string;
   email: string;
+  picture: string | null;
   age: number | null;
   currentWeightKg: number | null;
   heightCm: number | null;
@@ -114,7 +114,7 @@ export type ClientSummary = {
   weightLogCount: number;
   assignedProgramCount: number;
   latestActivityAt: string | null;
-  latestProgram: { title: string; description: string } | null;
+  latestProgram: { title: string; description: string | null } | null;
 };
 
 export type ClientsResponse = {
@@ -123,7 +123,7 @@ export type ClientsResponse = {
 };
 
 export type ConnectCoachResponse = {
-  coach: CoachListItem;
+  coach: CoachProfile;
 };
 
 export type ProgramListItem = {
