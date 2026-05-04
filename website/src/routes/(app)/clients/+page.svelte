@@ -8,6 +8,7 @@
   import * as Avatar from '$lib/components/ui/avatar/index.js';
   import { Button } from '$lib/components/ui/button/index.js';
   import * as Card from '$lib/components/ui/card/index.js';
+  import { getInitials, profilePictureSrc } from '$lib/profile-picture';
   import type {
     ClientsResponse,
     CoachProfileResponse,
@@ -50,14 +51,6 @@
     } finally {
       loading = false;
     }
-  }
-
-  function initials(name: string): string {
-    return name
-      .split(/\s+/)
-      .map((part) => part[0]?.toUpperCase() ?? '')
-      .slice(0, 2)
-      .join('');
   }
 
   function formatActivity(value: string | null): string {
@@ -177,10 +170,10 @@
                       <div class="flex items-start gap-3">
                         <Avatar.Root class="size-11 rounded-lg">
                           {#if client.picture}
-                            <Avatar.Image src={client.picture} alt={client.name} />
+                            <Avatar.Image src={profilePictureSrc(client.picture) ?? ''} alt={client.name} />
                           {/if}
                           <Avatar.Fallback class="rounded-lg">
-                            {initials(client.name) || 'C'}
+                            {getInitials(client.name) || 'C'}
                           </Avatar.Fallback>
                         </Avatar.Root>
 

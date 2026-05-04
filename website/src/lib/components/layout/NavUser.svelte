@@ -9,19 +9,15 @@
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import type { MeUser } from '$lib/api/types';
+	import { getInitials, profilePictureSrc } from '$lib/profile-picture';
 
 	type Props = { user: MeUser };
 	let { user }: Props = $props();
 
 	const sidebar = Sidebar.useSidebar();
 
-	const initials = $derived(
-		user.name
-			.split(/\s+/)
-			.map((part) => part[0]?.toUpperCase() ?? '')
-			.slice(0, 2)
-			.join(''),
-	);
+	const initials = $derived(getInitials(user.name));
+	const avatarSrc = $derived(profilePictureSrc(user.picture));
 </script>
 
 <Sidebar.Menu>
@@ -35,8 +31,8 @@
 						{...props}
 					>
 						<Avatar.Root class="size-8 rounded-lg">
-							{#if user.picture}
-								<Avatar.Image src={user.picture} alt={user.name} />
+							{#if avatarSrc}
+								<Avatar.Image src={avatarSrc} alt={user.name} />
 							{/if}
 							<Avatar.Fallback class="rounded-lg">{initials || 'U'}</Avatar.Fallback>
 						</Avatar.Root>
@@ -57,8 +53,8 @@
 				<DropdownMenu.Label class="p-0 font-normal">
 					<div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
 						<Avatar.Root class="size-8 rounded-lg">
-							{#if user.picture}
-								<Avatar.Image src={user.picture} alt={user.name} />
+							{#if avatarSrc}
+								<Avatar.Image src={avatarSrc} alt={user.name} />
 							{/if}
 							<Avatar.Fallback class="rounded-lg">{initials || 'U'}</Avatar.Fallback>
 						</Avatar.Root>
