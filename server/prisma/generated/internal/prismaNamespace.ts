@@ -1718,7 +1718,8 @@ export const Program_template_exerciseScalarFieldEnum = {
   id: 'id',
   template_id: 'template_id',
   exercise_id: 'exercise_id',
-  order_nr: 'order_nr'
+  order_nr: 'order_nr',
+  rest_timer: 'rest_timer'
 } as const
 
 export type Program_template_exerciseScalarFieldEnum = (typeof Program_template_exerciseScalarFieldEnum)[keyof typeof Program_template_exerciseScalarFieldEnum]

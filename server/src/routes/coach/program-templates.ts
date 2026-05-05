@@ -254,6 +254,10 @@ router.post(
       const templateId = parseId(req.params.templateId);
       const exerciseId = parseId(String(req.body.exercise_id));
       const orderNr = Number(req.body.order_nr);
+      const restTimer =
+        req.body.rest_timer !== undefined
+          ? Number(req.body.rest_timer)
+          : undefined;
 
       if (!templateId) {
         return res.status(400).json({ error: "Invalid templateId" });
@@ -265,6 +269,13 @@ router.post(
 
       if (!Number.isInteger(orderNr) || orderNr <= 0) {
         return res.status(400).json({ error: "Invalid order_nr" });
+      }
+
+      if (
+        restTimer !== undefined &&
+        (!Number.isInteger(restTimer) || restTimer < 0)
+      ) {
+        return res.status(400).json({ error: "Invalid rest_timer" });
       }
 
       const template = await prisma.program_template.findFirst({
@@ -291,6 +302,7 @@ router.post(
           template_id: templateId,
           exercise_id: exerciseId,
           order_nr: orderNr,
+          ...(restTimer !== undefined ? { rest_timer: restTimer } : {}),
         },
         include: {
           exercise: true,
@@ -344,16 +356,28 @@ router.patch(
         return res.status(404).json({ error: "Template exercise not found" });
       }
 
-      const exerciseId =
-        req.body.exercise_id !== undefined
-          ? parseId(String(req.body.exercise_id))
-          : null;
+      const data: {
+        exercise_id?: number;
+        order_nr?: number;
+        rest_timer?: number;
+      } = {};
 
-      const orderNr =
-        req.body.order_nr !== undefined ? Number(req.body.order_nr) : null;
+      if (req.body.exercise_id !== undefined) {
+        const exerciseId = parseId(String(req.body.exercise_id));
 
-      if (req.body.exercise_id !== undefined && !exerciseId) {
-        return res.status(400).json({ error: "Invalid exercise_id" });
+        if (!exerciseId) {
+          return res.status(400).json({ error: "Invalid exercise_id" });
+        }
+
+        const exercise = await prisma.exercise.findUnique({
+          where: { id: exerciseId },
+        });
+
+        if (!exercise) {
+          return res.status(404).json({ error: "Exercise not found" });
+        }
+
+        data.exercise_id = exerciseId;
       }
 
       if (req.body.order_nr !== undefined) {
@@ -362,14 +386,23 @@ router.patch(
         if (!Number.isInteger(orderNr) || orderNr <= 0) {
           return res.status(400).json({ error: "Invalid order_nr" });
         }
+
+        data.order_nr = orderNr;
+      }
+
+      if (req.body.rest_timer !== undefined) {
+        const restTimer = Number(req.body.rest_timer);
+
+        if (!Number.isInteger(restTimer) || restTimer < 0) {
+          return res.status(400).json({ error: "Invalid rest_timer" });
+        }
+
+        data.rest_timer = restTimer;
       }
 
       const updated = await prisma.program_template_exercise.update({
         where: { id: templateExerciseId },
-        data: {
-          ...(exerciseId ? { exercise_id: exerciseId } : {}),
-          ...(orderNr ? { order_nr: orderNr } : {}),
-        },
+        data,
         include: {
           exercise: true,
         },

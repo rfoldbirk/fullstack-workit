@@ -30,6 +30,10 @@ api.use("/coaches", coachesRouter);
 
 app.use("/api", api);
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server ready at: http://localhost:${process.env.PORT}`);
-});
+if (process.env.NODE_ENV !== "test") {
+  app.listen(process.env.PORT, () => {
+    console.log(`Server ready at: http://localhost:${process.env.PORT}`);
+  });
+}
+
+export { app };
