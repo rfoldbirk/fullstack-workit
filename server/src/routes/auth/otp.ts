@@ -109,7 +109,7 @@ export async function sendSignupOtpMail(args: {
   const firstName =
     args.fullName.trim().split(/\s+/)[0] ?? args.fullName.trim();
 
-  if (!resend) {
+  if (process.env.NODE_ENV === "test" || !resend) {
     console.log(
       `[signup otp] to=${args.email} firstName=${firstName} code=${args.otp}`,
     );
@@ -143,4 +143,14 @@ export async function sendSignupOtpMail(args: {
     console.error("send otp mail error:", error);
     return { success: false };
   }
+}
+
+//for api test
+export function getSignupOtpForTest(email: string): string | null {
+  if (process.env.NODE_ENV !== "test") {
+    throw new Error("getSignupOtpForTest can only be used in test mode");
+  }
+
+  const normalizedEmail = normalizeEmail(email);
+  return cachedOtp.get(normalizedEmail)?.code ?? null;
 }

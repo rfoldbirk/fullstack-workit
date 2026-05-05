@@ -5,9 +5,10 @@ import { getUserId } from "./me/utils";
 
 const router = Router();
 
-router.get("/", async (req: AuthenticatedRequest, res: Response) => {
+router.use(requireAuth);
+
+router.get("/", async (_req: AuthenticatedRequest, res: Response) => {
   try {
-    const userId = getUserId(req, res);
     const muscleGroups = await prisma.muscle_group.findMany({
       orderBy: {
         name: "asc",
