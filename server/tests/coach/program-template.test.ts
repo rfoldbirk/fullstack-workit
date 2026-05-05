@@ -89,6 +89,8 @@ describe("coach program templates", () => {
           exercise_id: templateExerciseId,
           order_nr: templateExerciseOrder,
           rest_timer: restTimer,
+          reps: 10,
+          weight_kg: 100,
         });
       expect(addExercise.status).toBe(201);
       expect(addExercise.body.template_id).toBe(templateId);

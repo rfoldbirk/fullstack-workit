@@ -11,7 +11,7 @@
 
   let { routine, all_exercises } = $props();
 
-  let uuid = $state(0);
+  let uuid = $state(1000);
   let isOpen = $state(false);
   let search_value = $state("");
 

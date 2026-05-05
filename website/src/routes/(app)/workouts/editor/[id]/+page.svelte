@@ -1,71 +1,113 @@
 <script lang="ts">
   import { Button, buttonVariants } from "@/components/ui/button";
-  import * as InputGroup from "$lib/components/ui/input-group";
   import Input from "@/components/ui/input/input.svelte";
   import Label from "@/components/ui/label/label.svelte";
   import Dumbbell from "@lucide/svelte/icons/dumbbell";
   import Plus from "@lucide/svelte/icons/plus";
-  import SearchIcon from "@lucide/svelte/icons/search";
   import { onMount } from "svelte";
-  import EllipsisVertical from "@lucide/svelte/icons/ellipsis-vertical";
   import X from "@lucide/svelte/icons/x";
-  import * as Dialog from "$lib/components/ui/dialog";
-  import { ScrollArea } from "@/components/ui/scroll-area";
-  import { Separator } from "@/components/ui/separator";
   import { Slider } from "@/components/ui/slider";
   import EditSet from "../components/edit_set.svelte";
-  import { describe } from "zod/mini";
-  import type { Exercise } from "@/api/types";
+  import type { Exercise, SimpleSet } from "@/api/types";
   import AddExercise from "../components/add_exercise.svelte";
-
   import { page } from "$app/state";
-  import { replaceState } from "$app/navigation";
-    import { upload } from "./upload";
+  import { upload } from "./upload.svelte.ts";
+  import type { PageProps } from './$types';
 
-  let all_exercises: Exercise[] = $state([]);
-
-  // binded values
-  let name_val = $state("");
-
-  onMount(async () => {
-    if (page.state.id != undefined) {
-      localStorage.setItem("routine_data", JSON.stringify(page.state));
-      console.log("Successfully saved routine data to localStorage");
-
-      name_val = page.state.name;
-    } else {
-      let rd = localStorage.getItem("routine_data");
-      if (rd) {
-        let state = JSON.parse(rd);
-      }
-    }
-
-    let res = await fetch("/api/exercises");
-    all_exercises = await res.json();
-  });
+  let { params }: PageProps = $props();
 
   type SetExercise = {
     uuid: number;
     id: number;
     note: String;
     rest_timer: number;
-    sets: Set[];
+    sets: SimpleSet[];
   };
 
-  type Set = {
-    weight: number;
-    reps: number;
-  };
 
+  // binded values
+  let all_exercises: Exercise[] = $state([]);
   let routine: SetExercise[] = $state([]);
+  let routine_name = $state("");
+
+
+  onMount(async () => {
+    // load initial name, if we just made the routine
+    if (page.state.id != undefined) {
+      localStorage.setItem("routine_data", JSON.stringify(page.state));
+      routine_name = page.state.name;
+    }
+
+    // load all exercises
+    const response = await fetch('/api/exercises');
+    all_exercises = await response.json();
+
+    // load routine from server
+    const routine_response = await fetch('/api/coach/program-templates/' + params.id);
+    let routine_data = await routine_response.json();
+
+    routine_name = routine_data.name;
+
+    let current_exercise: SetExercise = {
+      id: 0,
+      uuid: 0,
+      note: '',
+      rest_timer: 0,
+      sets: [],
+    };
+
+    for (let set of routine_data.exercises) {
+      if (current_exercise.id != set.exercise.id && current_exercise.id != 0) {
+        let sets_clone = current_exercise.sets;
+        routine.push({
+          id: current_exercise.id,
+          uuid: current_exercise.uuid,
+          note: current_exercise.note,
+          rest_timer: current_exercise.rest_timer,
+          sets: sets_clone,
+        });
+
+        current_exercise.sets = [];
+      }
+
+      if (current_exercise.sets.length == 0) {
+        current_exercise = {
+          id: set.exercise.id,
+          uuid: set.order_nr,
+          note: '',
+          sets: [{ reps: set.reps, weight: set.weight_kg }],
+          rest_timer: set.rest_timer,
+        }
+
+        // console.table(current_exercise.sets)
+
+        continue;
+      }
+
+      current_exercise.sets.push({ reps: set.reps, weight: set.weight_kg });
+    }
+
+    if (current_exercise.sets.length != 0) {
+      routine.push(current_exercise);
+    }
+  });
+
+  let timeout_ids: NodeJS.Timeout[] = [];
 
   $effect(() => {
+    let id = setTimeout(upload, 300)
+    for (const tid of timeout_ids) { clearTimeout(tid); }
+    timeout_ids.push(id);
+
+    localStorage.setItem('routine_id', params.id);
+
     if (routine.length == 0) return;
     localStorage.setItem('routine', JSON.stringify(routine));
     console.log('Routine was saved!')
 
-    if (name_val.length == 0) return;
-    localStorage.setItem('routine_name', name_val);
+    if (routine_name.length == 0) return;
+    localStorage.setItem('routine_name', routine_name);
+
   })
 
   function display_min(raw_number: number): string {
@@ -129,7 +171,7 @@
 
 <div class="flex w-full flex-col gap-2">
   <Label for="routine-id">Routine Title</Label>
-  <Input bind:value={name_val} class="w-full" type="text" id="routine-id" placeholder="Workout Routine Title" />
+  <Input bind:value={routine_name} class="w-full" type="text" id="routine-id" placeholder="Workout Routine Title" />
 </div>
 
 <br />

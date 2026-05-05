@@ -143,6 +143,11 @@ export type LoggedSet = {
   createdAt: string;
 };
 
+export type SimpleSet = {
+  weight: number;
+  reps: number;
+};
+
 export type ProgramExerciseEntry = {
   exerciseOrderId: number;
   orderNr: number;

@@ -202,6 +202,7 @@ router.patch(
   },
 );
 
+// Deletes a program template
 router.delete(
   "/:templateId",
   async (req: AuthenticatedRequest, res: Response) => {
@@ -241,6 +242,7 @@ router.delete(
   },
 );
 
+// Adds an exercise to a program template
 router.post(
   "/:templateId/exercises",
   async (req: AuthenticatedRequest, res: Response) => {
@@ -254,10 +256,10 @@ router.post(
       const templateId = parseId(req.params.templateId);
       const exerciseId = parseId(String(req.body.exercise_id));
       const orderNr = Number(req.body.order_nr);
-      const restTimer =
-        req.body.rest_timer !== undefined
-          ? Number(req.body.rest_timer)
-          : undefined;
+      const restTimer = Number(req.body.rest_timer);
+      const weight_kg = Number(req.body.weight_kg);
+      const reps = Number(req.body.reps);
+
 
       if (!templateId) {
         return res.status(400).json({ error: "Invalid templateId" });
@@ -297,17 +299,35 @@ router.post(
         return res.status(404).json({ error: "Exercise not found" });
       }
 
+
+      // const templateExercise = await prisma.program_template_exercise.create({
+      //   data: {
+      //     template_id: templateId,
+      //     exercise_id: exerciseId,
+      //     order_nr: orderNr,
+      //     rest_timer: restTimer,
+      //     weight_kg: weight_kg,
+      //     reps: reps,
+      //   },
+      //   include: {
+      //     exercise: true,
+      //   },
+      // });
+
       const templateExercise = await prisma.program_template_exercise.create({
         data: {
-          template_id: templateId,
-          exercise_id: exerciseId,
           order_nr: orderNr,
-          ...(restTimer !== undefined ? { rest_timer: restTimer } : {}),
-        },
-        include: {
-          exercise: true,
-        },
-      });
+          exercise: {
+            connect: { id: exerciseId },
+          },
+          template: {
+            connect: { id: templateId },
+          },
+          rest_timer: restTimer,
+          weight_kg: weight_kg,
+          reps: reps,
+        }
+      })
 
       return res.status(201).json(templateExercise);
     } catch (error) {
@@ -317,6 +337,7 @@ router.post(
   },
 );
 
+// Updates an exercise in a program template
 router.patch(
   "/:templateId/exercises/:templateExerciseId",
   async (req: AuthenticatedRequest, res: Response) => {
@@ -416,6 +437,38 @@ router.patch(
   },
 );
 
+// Deletes every exercise from program_template_exercise
+router.delete(
+  "/:templateId/exercises",
+  async (req: AuthenticatedRequest, res: Response) => {
+    try {
+      const userId = getUserId(req, res);
+      if (!userId) return;
+
+      const coach = await requireCoach(userId, res);
+      if (!coach) return;
+
+      const templateId = parseId(req.params.templateId);
+
+      if (!templateId) {
+        return res.status(400).json({ error: "Invalid id" });
+      }
+
+      await prisma.program_template_exercise.deleteMany({
+        where: {
+          template_id: templateId,
+        },
+      });
+
+      return res.status(204).send();
+    } catch (error) {
+      console.error("delete template exercises error:", error);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+  },
+);
+
+// Deletes an exercise from a program template
 router.delete(
   "/:templateId/exercises/:templateExerciseId",
   async (req: AuthenticatedRequest, res: Response) => {
@@ -459,6 +512,7 @@ router.delete(
   },
 );
 
+// Assigns a program template to a client (user)
 router.post(
   "/:templateId/assign/:userId",
   async (req: AuthenticatedRequest, res: Response) => {

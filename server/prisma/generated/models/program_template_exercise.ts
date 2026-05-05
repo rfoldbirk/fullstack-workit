@@ -32,6 +32,8 @@ export type Program_template_exerciseAvgAggregateOutputType = {
   exercise_id: number | null
   order_nr: number | null
   rest_timer: number | null
+  weight_kg: number | null
+  reps: number | null
 }
 
 export type Program_template_exerciseSumAggregateOutputType = {
@@ -40,6 +42,8 @@ export type Program_template_exerciseSumAggregateOutputType = {
   exercise_id: number | null
   order_nr: number | null
   rest_timer: number | null
+  weight_kg: number | null
+  reps: number | null
 }
 
 export type Program_template_exerciseMinAggregateOutputType = {
@@ -48,6 +52,8 @@ export type Program_template_exerciseMinAggregateOutputType = {
   exercise_id: number | null
   order_nr: number | null
   rest_timer: number | null
+  weight_kg: number | null
+  reps: number | null
 }
 
 export type Program_template_exerciseMaxAggregateOutputType = {
@@ -56,6 +62,8 @@ export type Program_template_exerciseMaxAggregateOutputType = {
   exercise_id: number | null
   order_nr: number | null
   rest_timer: number | null
+  weight_kg: number | null
+  reps: number | null
 }
 
 export type Program_template_exerciseCountAggregateOutputType = {
@@ -64,6 +72,8 @@ export type Program_template_exerciseCountAggregateOutputType = {
   exercise_id: number
   order_nr: number
   rest_timer: number
+  weight_kg: number
+  reps: number
   _all: number
 }
 
@@ -74,6 +84,8 @@ export type Program_template_exerciseAvgAggregateInputType = {
   exercise_id?: true
   order_nr?: true
   rest_timer?: true
+  weight_kg?: true
+  reps?: true
 }
 
 export type Program_template_exerciseSumAggregateInputType = {
@@ -82,6 +94,8 @@ export type Program_template_exerciseSumAggregateInputType = {
   exercise_id?: true
   order_nr?: true
   rest_timer?: true
+  weight_kg?: true
+  reps?: true
 }
 
 export type Program_template_exerciseMinAggregateInputType = {
@@ -90,6 +104,8 @@ export type Program_template_exerciseMinAggregateInputType = {
   exercise_id?: true
   order_nr?: true
   rest_timer?: true
+  weight_kg?: true
+  reps?: true
 }
 
 export type Program_template_exerciseMaxAggregateInputType = {
@@ -98,6 +114,8 @@ export type Program_template_exerciseMaxAggregateInputType = {
   exercise_id?: true
   order_nr?: true
   rest_timer?: true
+  weight_kg?: true
+  reps?: true
 }
 
 export type Program_template_exerciseCountAggregateInputType = {
@@ -106,6 +124,8 @@ export type Program_template_exerciseCountAggregateInputType = {
   exercise_id?: true
   order_nr?: true
   rest_timer?: true
+  weight_kg?: true
+  reps?: true
   _all?: true
 }
 
@@ -201,6 +221,8 @@ export type Program_template_exerciseGroupByOutputType = {
   exercise_id: number
   order_nr: number
   rest_timer: number
+  weight_kg: number
+  reps: number
   _count: Program_template_exerciseCountAggregateOutputType | null
   _avg: Program_template_exerciseAvgAggregateOutputType | null
   _sum: Program_template_exerciseSumAggregateOutputType | null
@@ -232,6 +254,8 @@ export type program_template_exerciseWhereInput = {
   exercise_id?: Prisma.IntFilter<"program_template_exercise"> | number
   order_nr?: Prisma.IntFilter<"program_template_exercise"> | number
   rest_timer?: Prisma.IntFilter<"program_template_exercise"> | number
+  weight_kg?: Prisma.IntFilter<"program_template_exercise"> | number
+  reps?: Prisma.IntFilter<"program_template_exercise"> | number
   exercise?: Prisma.XOR<Prisma.ExerciseScalarRelationFilter, Prisma.exerciseWhereInput>
   template?: Prisma.XOR<Prisma.Program_templateScalarRelationFilter, Prisma.program_templateWhereInput>
 }
@@ -242,6 +266,8 @@ export type program_template_exerciseOrderByWithRelationInput = {
   exercise_id?: Prisma.SortOrder
   order_nr?: Prisma.SortOrder
   rest_timer?: Prisma.SortOrder
+  weight_kg?: Prisma.SortOrder
+  reps?: Prisma.SortOrder
   exercise?: Prisma.exerciseOrderByWithRelationInput
   template?: Prisma.program_templateOrderByWithRelationInput
 }
@@ -256,6 +282,8 @@ export type program_template_exerciseWhereUniqueInput = Prisma.AtLeast<{
   exercise_id?: Prisma.IntFilter<"program_template_exercise"> | number
   order_nr?: Prisma.IntFilter<"program_template_exercise"> | number
   rest_timer?: Prisma.IntFilter<"program_template_exercise"> | number
+  weight_kg?: Prisma.IntFilter<"program_template_exercise"> | number
+  reps?: Prisma.IntFilter<"program_template_exercise"> | number
   exercise?: Prisma.XOR<Prisma.ExerciseScalarRelationFilter, Prisma.exerciseWhereInput>
   template?: Prisma.XOR<Prisma.Program_templateScalarRelationFilter, Prisma.program_templateWhereInput>
 }, "id" | "template_id_exercise_id_order_nr">
@@ -266,6 +294,8 @@ export type program_template_exerciseOrderByWithAggregationInput = {
   exercise_id?: Prisma.SortOrder
   order_nr?: Prisma.SortOrder
   rest_timer?: Prisma.SortOrder
+  weight_kg?: Prisma.SortOrder
+  reps?: Prisma.SortOrder
   _count?: Prisma.program_template_exerciseCountOrderByAggregateInput
   _avg?: Prisma.program_template_exerciseAvgOrderByAggregateInput
   _max?: Prisma.program_template_exerciseMaxOrderByAggregateInput
@@ -282,11 +312,15 @@ export type program_template_exerciseScalarWhereWithAggregatesInput = {
   exercise_id?: Prisma.IntWithAggregatesFilter<"program_template_exercise"> | number
   order_nr?: Prisma.IntWithAggregatesFilter<"program_template_exercise"> | number
   rest_timer?: Prisma.IntWithAggregatesFilter<"program_template_exercise"> | number
+  weight_kg?: Prisma.IntWithAggregatesFilter<"program_template_exercise"> | number
+  reps?: Prisma.IntWithAggregatesFilter<"program_template_exercise"> | number
 }
 
 export type program_template_exerciseCreateInput = {
   order_nr: number
   rest_timer?: number
+  weight_kg?: number
+  reps?: number
   exercise: Prisma.exerciseCreateNestedOneWithoutProgram_template_exerciseInput
   template: Prisma.program_templateCreateNestedOneWithoutExercisesInput
 }
@@ -297,11 +331,15 @@ export type program_template_exerciseUncheckedCreateInput = {
   exercise_id: number
   order_nr: number
   rest_timer?: number
+  weight_kg?: number
+  reps?: number
 }
 
 export type program_template_exerciseUpdateInput = {
   order_nr?: Prisma.IntFieldUpdateOperationsInput | number
   rest_timer?: Prisma.IntFieldUpdateOperationsInput | number
+  weight_kg?: Prisma.IntFieldUpdateOperationsInput | number
+  reps?: Prisma.IntFieldUpdateOperationsInput | number
   exercise?: Prisma.exerciseUpdateOneRequiredWithoutProgram_template_exerciseNestedInput
   template?: Prisma.program_templateUpdateOneRequiredWithoutExercisesNestedInput
 }
@@ -312,6 +350,8 @@ export type program_template_exerciseUncheckedUpdateInput = {
   exercise_id?: Prisma.IntFieldUpdateOperationsInput | number
   order_nr?: Prisma.IntFieldUpdateOperationsInput | number
   rest_timer?: Prisma.IntFieldUpdateOperationsInput | number
+  weight_kg?: Prisma.IntFieldUpdateOperationsInput | number
+  reps?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type program_template_exerciseCreateManyInput = {
@@ -320,11 +360,15 @@ export type program_template_exerciseCreateManyInput = {
   exercise_id: number
   order_nr: number
   rest_timer?: number
+  weight_kg?: number
+  reps?: number
 }
 
 export type program_template_exerciseUpdateManyMutationInput = {
   order_nr?: Prisma.IntFieldUpdateOperationsInput | number
   rest_timer?: Prisma.IntFieldUpdateOperationsInput | number
+  weight_kg?: Prisma.IntFieldUpdateOperationsInput | number
+  reps?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type program_template_exerciseUncheckedUpdateManyInput = {
@@ -333,6 +377,8 @@ export type program_template_exerciseUncheckedUpdateManyInput = {
   exercise_id?: Prisma.IntFieldUpdateOperationsInput | number
   order_nr?: Prisma.IntFieldUpdateOperationsInput | number
   rest_timer?: Prisma.IntFieldUpdateOperationsInput | number
+  weight_kg?: Prisma.IntFieldUpdateOperationsInput | number
+  reps?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type Program_template_exerciseListRelationFilter = {
@@ -357,6 +403,8 @@ export type program_template_exerciseCountOrderByAggregateInput = {
   exercise_id?: Prisma.SortOrder
   order_nr?: Prisma.SortOrder
   rest_timer?: Prisma.SortOrder
+  weight_kg?: Prisma.SortOrder
+  reps?: Prisma.SortOrder
 }
 
 export type program_template_exerciseAvgOrderByAggregateInput = {
@@ -365,6 +413,8 @@ export type program_template_exerciseAvgOrderByAggregateInput = {
   exercise_id?: Prisma.SortOrder
   order_nr?: Prisma.SortOrder
   rest_timer?: Prisma.SortOrder
+  weight_kg?: Prisma.SortOrder
+  reps?: Prisma.SortOrder
 }
 
 export type program_template_exerciseMaxOrderByAggregateInput = {
@@ -373,6 +423,8 @@ export type program_template_exerciseMaxOrderByAggregateInput = {
   exercise_id?: Prisma.SortOrder
   order_nr?: Prisma.SortOrder
   rest_timer?: Prisma.SortOrder
+  weight_kg?: Prisma.SortOrder
+  reps?: Prisma.SortOrder
 }
 
 export type program_template_exerciseMinOrderByAggregateInput = {
@@ -381,6 +433,8 @@ export type program_template_exerciseMinOrderByAggregateInput = {
   exercise_id?: Prisma.SortOrder
   order_nr?: Prisma.SortOrder
   rest_timer?: Prisma.SortOrder
+  weight_kg?: Prisma.SortOrder
+  reps?: Prisma.SortOrder
 }
 
 export type program_template_exerciseSumOrderByAggregateInput = {
@@ -389,6 +443,8 @@ export type program_template_exerciseSumOrderByAggregateInput = {
   exercise_id?: Prisma.SortOrder
   order_nr?: Prisma.SortOrder
   rest_timer?: Prisma.SortOrder
+  weight_kg?: Prisma.SortOrder
+  reps?: Prisma.SortOrder
 }
 
 export type program_template_exerciseCreateNestedManyWithoutExerciseInput = {
@@ -478,6 +534,8 @@ export type program_template_exerciseUncheckedUpdateManyWithoutTemplateNestedInp
 export type program_template_exerciseCreateWithoutExerciseInput = {
   order_nr: number
   rest_timer?: number
+  weight_kg?: number
+  reps?: number
   template: Prisma.program_templateCreateNestedOneWithoutExercisesInput
 }
 
@@ -486,6 +544,8 @@ export type program_template_exerciseUncheckedCreateWithoutExerciseInput = {
   template_id: number
   order_nr: number
   rest_timer?: number
+  weight_kg?: number
+  reps?: number
 }
 
 export type program_template_exerciseCreateOrConnectWithoutExerciseInput = {
@@ -523,11 +583,15 @@ export type program_template_exerciseScalarWhereInput = {
   exercise_id?: Prisma.IntFilter<"program_template_exercise"> | number
   order_nr?: Prisma.IntFilter<"program_template_exercise"> | number
   rest_timer?: Prisma.IntFilter<"program_template_exercise"> | number
+  weight_kg?: Prisma.IntFilter<"program_template_exercise"> | number
+  reps?: Prisma.IntFilter<"program_template_exercise"> | number
 }
 
 export type program_template_exerciseCreateWithoutTemplateInput = {
   order_nr: number
   rest_timer?: number
+  weight_kg?: number
+  reps?: number
   exercise: Prisma.exerciseCreateNestedOneWithoutProgram_template_exerciseInput
 }
 
@@ -536,6 +600,8 @@ export type program_template_exerciseUncheckedCreateWithoutTemplateInput = {
   exercise_id: number
   order_nr: number
   rest_timer?: number
+  weight_kg?: number
+  reps?: number
 }
 
 export type program_template_exerciseCreateOrConnectWithoutTemplateInput = {
@@ -569,11 +635,15 @@ export type program_template_exerciseCreateManyExerciseInput = {
   template_id: number
   order_nr: number
   rest_timer?: number
+  weight_kg?: number
+  reps?: number
 }
 
 export type program_template_exerciseUpdateWithoutExerciseInput = {
   order_nr?: Prisma.IntFieldUpdateOperationsInput | number
   rest_timer?: Prisma.IntFieldUpdateOperationsInput | number
+  weight_kg?: Prisma.IntFieldUpdateOperationsInput | number
+  reps?: Prisma.IntFieldUpdateOperationsInput | number
   template?: Prisma.program_templateUpdateOneRequiredWithoutExercisesNestedInput
 }
 
@@ -582,6 +652,8 @@ export type program_template_exerciseUncheckedUpdateWithoutExerciseInput = {
   template_id?: Prisma.IntFieldUpdateOperationsInput | number
   order_nr?: Prisma.IntFieldUpdateOperationsInput | number
   rest_timer?: Prisma.IntFieldUpdateOperationsInput | number
+  weight_kg?: Prisma.IntFieldUpdateOperationsInput | number
+  reps?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type program_template_exerciseUncheckedUpdateManyWithoutExerciseInput = {
@@ -589,6 +661,8 @@ export type program_template_exerciseUncheckedUpdateManyWithoutExerciseInput = {
   template_id?: Prisma.IntFieldUpdateOperationsInput | number
   order_nr?: Prisma.IntFieldUpdateOperationsInput | number
   rest_timer?: Prisma.IntFieldUpdateOperationsInput | number
+  weight_kg?: Prisma.IntFieldUpdateOperationsInput | number
+  reps?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type program_template_exerciseCreateManyTemplateInput = {
@@ -596,11 +670,15 @@ export type program_template_exerciseCreateManyTemplateInput = {
   exercise_id: number
   order_nr: number
   rest_timer?: number
+  weight_kg?: number
+  reps?: number
 }
 
 export type program_template_exerciseUpdateWithoutTemplateInput = {
   order_nr?: Prisma.IntFieldUpdateOperationsInput | number
   rest_timer?: Prisma.IntFieldUpdateOperationsInput | number
+  weight_kg?: Prisma.IntFieldUpdateOperationsInput | number
+  reps?: Prisma.IntFieldUpdateOperationsInput | number
   exercise?: Prisma.exerciseUpdateOneRequiredWithoutProgram_template_exerciseNestedInput
 }
 
@@ -609,6 +687,8 @@ export type program_template_exerciseUncheckedUpdateWithoutTemplateInput = {
   exercise_id?: Prisma.IntFieldUpdateOperationsInput | number
   order_nr?: Prisma.IntFieldUpdateOperationsInput | number
   rest_timer?: Prisma.IntFieldUpdateOperationsInput | number
+  weight_kg?: Prisma.IntFieldUpdateOperationsInput | number
+  reps?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type program_template_exerciseUncheckedUpdateManyWithoutTemplateInput = {
@@ -616,6 +696,8 @@ export type program_template_exerciseUncheckedUpdateManyWithoutTemplateInput = {
   exercise_id?: Prisma.IntFieldUpdateOperationsInput | number
   order_nr?: Prisma.IntFieldUpdateOperationsInput | number
   rest_timer?: Prisma.IntFieldUpdateOperationsInput | number
+  weight_kg?: Prisma.IntFieldUpdateOperationsInput | number
+  reps?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -626,6 +708,8 @@ export type program_template_exerciseSelect<ExtArgs extends runtime.Types.Extens
   exercise_id?: boolean
   order_nr?: boolean
   rest_timer?: boolean
+  weight_kg?: boolean
+  reps?: boolean
   exercise?: boolean | Prisma.exerciseDefaultArgs<ExtArgs>
   template?: boolean | Prisma.program_templateDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["program_template_exercise"]>
@@ -636,6 +720,8 @@ export type program_template_exerciseSelectCreateManyAndReturn<ExtArgs extends r
   exercise_id?: boolean
   order_nr?: boolean
   rest_timer?: boolean
+  weight_kg?: boolean
+  reps?: boolean
   exercise?: boolean | Prisma.exerciseDefaultArgs<ExtArgs>
   template?: boolean | Prisma.program_templateDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["program_template_exercise"]>
@@ -646,6 +732,8 @@ export type program_template_exerciseSelectUpdateManyAndReturn<ExtArgs extends r
   exercise_id?: boolean
   order_nr?: boolean
   rest_timer?: boolean
+  weight_kg?: boolean
+  reps?: boolean
   exercise?: boolean | Prisma.exerciseDefaultArgs<ExtArgs>
   template?: boolean | Prisma.program_templateDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["program_template_exercise"]>
@@ -656,9 +744,11 @@ export type program_template_exerciseSelectScalar = {
   exercise_id?: boolean
   order_nr?: boolean
   rest_timer?: boolean
+  weight_kg?: boolean
+  reps?: boolean
 }
 
-export type program_template_exerciseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "template_id" | "exercise_id" | "order_nr" | "rest_timer", ExtArgs["result"]["program_template_exercise"]>
+export type program_template_exerciseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "template_id" | "exercise_id" | "order_nr" | "rest_timer" | "weight_kg" | "reps", ExtArgs["result"]["program_template_exercise"]>
 export type program_template_exerciseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   exercise?: boolean | Prisma.exerciseDefaultArgs<ExtArgs>
   template?: boolean | Prisma.program_templateDefaultArgs<ExtArgs>
@@ -684,6 +774,8 @@ export type $program_template_exercisePayload<ExtArgs extends runtime.Types.Exte
     exercise_id: number
     order_nr: number
     rest_timer: number
+    weight_kg: number
+    reps: number
   }, ExtArgs["result"]["program_template_exercise"]>
   composites: {}
 }
@@ -1114,6 +1206,8 @@ export interface program_template_exerciseFieldRefs {
   readonly exercise_id: Prisma.FieldRef<"program_template_exercise", 'Int'>
   readonly order_nr: Prisma.FieldRef<"program_template_exercise", 'Int'>
   readonly rest_timer: Prisma.FieldRef<"program_template_exercise", 'Int'>
+  readonly weight_kg: Prisma.FieldRef<"program_template_exercise", 'Int'>
+  readonly reps: Prisma.FieldRef<"program_template_exercise", 'Int'>
 }
     
 

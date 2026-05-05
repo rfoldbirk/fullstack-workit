@@ -80,6 +80,8 @@ model program_template_exercise {
   exercise_id Int
   order_nr    Int
   rest_timer  Int              @default(0)
+  weight_kg   Int              @default(0)
+  reps        Int              @default(0)
   exercise    exercise         @relation(fields: [exercise_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   template    program_template @relation(fields: [template_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
