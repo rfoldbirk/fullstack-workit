@@ -4,13 +4,28 @@
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import AppSidebar from '$lib/components/layout/AppSidebar.svelte';
+	import HeaderUserMenu from '$lib/components/layout/HeaderUserMenu.svelte';
 	import { mainNav, footerNav } from '$lib/components/layout/nav-config.js';
 	import type { MeUser } from "$lib/api/types";
 
 	let { children } = $props();
 	let user: MeUser | null = $state(null);
 
-	onMount(async () => {
+	onMount(() => {
+		const handleUserUpdated = (event: Event) => {
+			user = (event as CustomEvent<MeUser>).detail;
+		};
+
+		window.addEventListener('workit:user-updated', handleUserUpdated);
+
+		void loadUser();
+
+		return () => {
+			window.removeEventListener('workit:user-updated', handleUserUpdated);
+		};
+	});
+
+	async function loadUser() {
 		try {
 			const response = await fetch("/api/me", {
 				credentials: "include",
@@ -19,7 +34,7 @@
 			user = (await response.json()) as MeUser;
 		} catch (err) {
 		}
-	});
+	}
 
 	const currentTitle = $derived.by(() => {
 		const match = [...mainNav, ...footerNav].find(
@@ -40,6 +55,11 @@
 			<Sidebar.Trigger class="-ml-1" />
 			<Separator orientation="vertical" class="mx-1 h-4" />
 			<h1 class="text-sm font-medium">{currentTitle}</h1>
+			<div class="ml-auto">
+				{#if user}
+					<HeaderUserMenu {user} />
+				{/if}
+			</div>
 		</header>
 		<div class="flex-1 p-4 sm:p-6">
 			{@render children()}

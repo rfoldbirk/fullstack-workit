@@ -2,8 +2,10 @@
   import { onMount } from "svelte";
   import { toast } from "svelte-sonner";
   import BadgeInfo from "@lucide/svelte/icons/badge-info";
+  import Camera from "@lucide/svelte/icons/camera";
   import GraduationCap from "@lucide/svelte/icons/graduation-cap";
   import Users from "@lucide/svelte/icons/users";
+  import * as Avatar from "$lib/components/ui/avatar/index.js";
   import { Button } from "$lib/components/ui/button/index.js";
   import { Input } from "$lib/components/ui/input/index.js";
   import * as Card from "$lib/components/ui/card/index.js";
@@ -13,6 +15,7 @@
     type UpdateProfileInput,
     type LogWeightInput,
   } from "$lib/validators/me";
+  import { getInitials, profilePictureSrc } from "$lib/profile-picture";
   import type {
     CoachProfileResponse,
     MeResponse,
@@ -30,6 +33,9 @@
   let heightCm = $state<number | "">("");
   let gender = $state<"male" | "female" | "">("");
   let profileSubmitting = $state(false);
+  let profilePictureFiles: FileList | undefined = $state();
+  let profilePictureSubmitting = $state(false);
+  let profilePictureVersion = $state(Date.now());
 
   let weight = $state<number | "">("");
   let weightSubmitting = $state(false);
@@ -53,6 +59,11 @@
 
     return latestFromLogs ?? meResponse?.weight_kg ?? null;
   });
+  const profileInitials = $derived.by(() => getInitials(meResponse?.name ?? name));
+  const selectedProfilePicture = $derived(profilePictureFiles?.[0] ?? null);
+  const profilePicturePreview = $derived.by(() =>
+    profilePictureSrc(meResponse?.picture, profilePictureVersion),
+  );
 
   async function loadData() {
     try {
@@ -113,6 +124,7 @@
       );
 
       meResponse = response;
+      dispatchUserUpdated(response);
       toast.success("Profile updated successfully");
     } catch (err) {
       toast.error(
@@ -120,6 +132,46 @@
       );
     } finally {
       profileSubmitting = false;
+    }
+  }
+
+  async function handleUploadProfilePicture(event: Event) {
+    event.preventDefault();
+
+    if (!selectedProfilePicture) {
+      toast.error("Choose a profile picture first");
+      return;
+    }
+
+    profilePictureSubmitting = true;
+
+    try {
+      const formData = new FormData();
+      formData.append("profile_picture", selectedProfilePicture);
+
+      const response = await fetchJson<MeResponse>(
+        "/api/me/profile-picture",
+        "Failed to upload profile picture",
+        {
+          method: "PATCH",
+          body: formData,
+        },
+      );
+
+      profilePictureVersion = Date.now();
+      meResponse = response;
+      profilePictureFiles = undefined;
+      dispatchUserUpdated({
+        ...response,
+        picture: profilePictureSrc(response.picture, profilePictureVersion),
+      });
+      toast.success("Profile picture updated successfully");
+    } catch (err) {
+      toast.error(
+        err instanceof Error ? err.message : "Failed to upload profile picture",
+      );
+    } finally {
+      profilePictureSubmitting = false;
     }
   }
 
@@ -224,6 +276,12 @@
     return new Date(value).toLocaleDateString();
   }
 
+  function dispatchUserUpdated(user: MeResponse) {
+    window.dispatchEvent(
+      new CustomEvent<MeResponse>("workit:user-updated", { detail: user }),
+    );
+  }
+
   async function fetchJson<T>(
     url: string,
     fallback: string,
@@ -286,7 +344,47 @@
           <Card.Description>Update your personal details.</Card.Description>
         </Card.Header>
 
-        <Card.Content>
+        <Card.Content class="flex flex-col gap-6">
+          <form
+            onsubmit={handleUploadProfilePicture}
+            class="border-border flex flex-col gap-4 border-b pb-6 sm:flex-row sm:items-center"
+          >
+            <Avatar.Root class="size-20 rounded-lg">
+              {#if profilePicturePreview}
+                <Avatar.Image src={profilePicturePreview} alt={meResponse.name} />
+              {/if}
+              <Avatar.Fallback class="rounded-lg text-xl">
+                {profileInitials || "U"}
+              </Avatar.Fallback>
+            </Avatar.Root>
+
+            <div class="min-w-0 flex-1">
+              <label for="profilePicture" class="text-sm font-medium">
+                Profile picture
+              </label>
+              <div class="mt-2 flex flex-col gap-3 sm:flex-row">
+                <Input
+                  id="profilePicture"
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  bind:files={profilePictureFiles}
+                />
+                <Button
+                  type="submit"
+                  variant="outline"
+                  disabled={!selectedProfilePicture || profilePictureSubmitting}
+                  class="sm:w-auto"
+                >
+                  <Camera class="size-4" />
+                  {profilePictureSubmitting ? "Uploading..." : "Upload"}
+                </Button>
+              </div>
+              <p class="text-muted-foreground mt-2 text-xs">
+                JPG, PNG or WEBP up to 5 MB.
+              </p>
+            </div>
+          </form>
+
           <form onsubmit={handleUpdateProfile} class="flex flex-col gap-4">
             <div>
               <label for="name" class="text-sm font-medium">Full name</label>
