@@ -88,7 +88,7 @@ describe("coach program templates", () => {
         .send({
           exercise_id: templateExerciseId,
           order_nr: templateExerciseOrder,
-          rest_timer: restTimer,
+          rest_timer: restTimer
           reps: 10,
           weight_kg: 100,
         });

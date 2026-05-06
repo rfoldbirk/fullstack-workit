@@ -17,7 +17,6 @@ export const mainNav: NavItem[] = [
 	{ title: 'Clients', href: '/clients', icon: Users },
 	{ title: 'Coach', href: '/trainer', icon: GraduationCap },
 	{ title: 'Workouts', href: '/workouts', icon: Dumbbell },
-	{ title: 'Exercises', href: '/exercises', icon: BicepsFlexed },
 ];
 
 export const footerNav: NavItem[] = [{ title: 'Settings', href: '/profile', icon: Settings }];

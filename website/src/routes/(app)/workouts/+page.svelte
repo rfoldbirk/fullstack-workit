@@ -4,17 +4,63 @@
   import * as Card from "$lib/components/ui/card/index.js";
   import { Button } from "@/components/ui/button";
   import { goto, pushState, replaceState } from "$app/navigation";
+  import { onMount } from "svelte";
+  import { Skeleton } from "@/components/ui/skeleton";
 
-  async function open_editor() {
-    let resp = await fetch('api/coach/program-templates', {
-      headers: { 'Content-Type': 'application/json' },
-      method: 'POST',
-      body: JSON.stringify({
-        name: 'Empty template',
-        description: '',
-      }),
+  let is_coach: undefined | true | false = $state(undefined);
+
+  let workouts = $state([]);
+
+  onMount(async () => {
+    let me = await fetch('/api/me/coach')
+    me = await me.json();
+    is_coach = me?.myCoachProfile != null;
+
+    // get program templates from the server
+    let resp = await fetch("/api/me/program-templates");
+    let data = await resp.json();
+
+    if (data.error) {
+      console.log("der skete en fejl:", data);
+      return;
+    }
+
+    console.log(workouts)
+    workouts = data;
+  });
+
+  async function start_workout(id: number) {
+    if (localStorage.getItem('workout_inprogress')) {
+      console.log('workout is already')
+      return;
+    };
+
+    let resp = await fetch("/api/me/workout-logs/start", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ template_id: id }),
     });
 
+    let data = await resp.json();
+    localStorage.setItem('workout_inprogress', JSON.stringify(data));
+
+    if (data.error) {
+      console.log("der skete en fejl:", data);
+      return;
+    }
+
+    goto(`/workouts/${id}`);
+  }
+
+  async function open_editor() {
+    let resp = await fetch("api/coach/program-templates", {
+      headers: { "Content-Type": "application/json" },
+      method: "POST",
+      body: JSON.stringify({
+        name: "Empty template",
+        description: "",
+      }),
+    });
 
     let data = await resp.json();
     console.log(data);
@@ -34,44 +80,60 @@
     <p class="text-muted-foreground">Assigned plans from a coach will show up here first.</p>
   </div>
 
-  <Card.Root>
-    <Card.Header>
-      <Card.Title class="flex items-center gap-2">
-        <GraduationCap class="size-5" />
-        Coach assigned workouts
-      </Card.Title>
-      <Card.Description>Placeholder space for workout plans your coach will assign.</Card.Description>
-    </Card.Header>
-    <Card.Content class="flex flex-col gap-4">
-      <div class="border-border bg-muted/20 rounded-lg border p-4">
-        <div class="mb-2 flex items-start justify-between gap-3">
-          <div>
-            <div class="font-medium">Assigned workout placeholder</div>
-            <div class="text-muted-foreground mt-1 text-sm">
-              When your coach starts assigning workouts, each plan will appear here with its exercise list, progress, and latest update time.
+  {#if is_coach === false}
+    <Card.Root>
+      <Card.Header>
+        <Card.Title class="flex items-center gap-2">
+          <GraduationCap class="size-5" />
+          Coach assigned workouts
+        </Card.Title>
+        <Card.Description>Placeholder space for workout plans your coach will assign.</Card.Description>
+      </Card.Header>
+      <Card.Content class="flex flex-col gap-4">
+        {#each workouts as w}
+          <div class="border-border bg-muted/20 rounded-lg border p-4 flex justify-between">
+            <div>
+              <h1 class="flex gap-2 text-muted-foreground">
+                Routine: <p class="text-foreground">{w.name}</p>
+              </h1>
+              <h1 class="flex gap-2 text-muted-foreground">
+                Exercise amount: <p class="text-foreground">{w.exercises.length}</p>
+              </h1>
             </div>
+            <Button onclick={() => start_workout(w.id)} class="cursor-pointer">Start</Button>
           </div>
-          <span class="bg-secondary text-secondary-foreground rounded-full px-2 py-1 text-xs font-medium"> Placeholder </span>
-        </div>
+        {/each}
+      </Card.Content>
+    </Card.Root>
+  {/if}
 
-        <div class="text-muted-foreground grid gap-2 text-sm sm:grid-cols-2">
-          <div>Exercises: TBD</div>
-          <div>Updated: Ready when assigned</div>
-        </div>
+  {#if is_coach}
+    <div class="border-border flex flex-col items-center gap-4 rounded-lg border border-dashed p-12 text-center">
+      <Dumbbell class="text-muted-foreground size-12" />
+      <div>
+        <h2 class="text-lg font-semibold">Program builder</h2>
+        <p class="text-muted-foreground mt-1 max-w-md text-sm">
+          Build your own program here.
+        </p>
+
+        <br />
+        <Button onclick={open_editor}>Go to the editor</Button>
       </div>
-    </Card.Content>
-  </Card.Root>
-
-  <div class="border-border flex flex-col items-center gap-4 rounded-lg border border-dashed p-12 text-center">
-    <Dumbbell class="text-muted-foreground size-12" />
-    <div>
-      <h2 class="text-lg font-semibold">Program builder placeholder</h2>
-      <p class="text-muted-foreground mt-1 max-w-md text-sm">
-        This page is standing in for the workout list until the existing backend exposes full program assignment flows.
-      </p>
-
-      <br />
-      <Button onclick={open_editor}>Go to the editor</Button>
     </div>
-  </div>
+
+    <!-- Display workouts -->
+    {#each workouts as w}
+      <div class="border-border bg-muted/20 rounded-lg border p-4 flex justify-between">
+        <div>
+          <h1 class="flex gap-2 text-muted-foreground">
+            Routine: <p class="text-foreground">{w.name}</p>
+          </h1>
+          <h1 class="flex gap-2 text-muted-foreground">
+            Exercise amount: <p class="text-foreground">{w.exercises.length}</p>
+          </h1>
+        </div>
+        <Button onclick={() => start_workout(w.id)} class="cursor-pointer">Start</Button>
+      </div>
+    {/each}
+  {/if}
 </div>
