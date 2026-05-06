@@ -3,11 +3,10 @@ import type { PageProps } from './$types';
 
 
 export async function upload() {
-  let state_str = localStorage.getItem("routine_data");
   let routine_str = localStorage.getItem("routine");
   let routine_name = localStorage.getItem("routine_name");
   let routine_id = localStorage.getItem('routine_id');
-  if (!state_str || !routine_str || !routine_name) return;
+  if (!routine_str || !routine_name) return;
 
   let routine = JSON.parse(routine_str);
 

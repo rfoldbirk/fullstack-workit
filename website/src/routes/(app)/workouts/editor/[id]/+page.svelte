@@ -32,12 +32,6 @@
 
 
   onMount(async () => {
-    // load initial name, if we just made the routine
-    if (page.state.id != undefined) {
-      localStorage.setItem("routine_data", JSON.stringify(page.state));
-      routine_name = page.state.name;
-    }
-
     // load all exercises
     const response = await fetch('/api/exercises');
     all_exercises = await response.json();

@@ -14,14 +14,12 @@
 
   onMount(async () => {
     current_workout = JSON.parse(localStorage.getItem("workout_inprogress") ?? "null");
-    console.log(current_workout);
 
     let me = await fetch("/api/me/coach");
     me = await me.json();
     is_coach = me?.myCoachProfile != null;
 
-    // get program templates from the server
-    let resp = await fetch("/api/me/program-templates");
+    let resp = await fetch(is_coach ? "/api/coach/program-templates" : "/api/me/program-templates");
     let data = await resp.json();
 
     if (data.error) {
@@ -31,6 +29,15 @@
 
     workouts = data;
   });
+
+  async function delete_workout(id: number) {
+    fetch(`api/coach/program-templates/${id}`, {
+      method: "DELETE",
+    })
+
+    // delete from workouts
+    workouts = workouts.filter((w) => w.id !== id);
+  }
 
   async function start_workout(id: number) {
     if (localStorage.getItem("workout_inprogress")) {
@@ -55,7 +62,12 @@
     goto(`/workouts/${id}`);
   }
 
-  async function open_editor() {
+  async function open_editor(id: number | null) {
+    if (id) {
+      goto(`/workouts/editor/${id}`);
+      return;
+    }
+
     let resp = await fetch("api/coach/program-templates", {
       headers: { "Content-Type": "application/json" },
       method: "POST",
@@ -132,7 +144,7 @@
         <p class="text-muted-foreground mt-1 max-w-md text-sm">Build your own program here.</p>
 
         <br />
-        <Button onclick={open_editor}>Go to the editor</Button>
+        <Button onclick={() => open_editor(null)}>Go to the editor</Button>
       </div>
     </div>
 
@@ -147,7 +159,10 @@
             Exercise amount: <p class="text-foreground">{w.exercises.length}</p>
           </h1>
         </div>
-        <Button onclick={() => start_workout(w.id)} class="cursor-pointer"> Start </Button>
+        <div>
+          <Button onclick={() => open_editor(w.id)} class="cursor-pointer">Edit</Button>
+          <Button onclick={() => delete_workout(w.id)} variant="destructive" class="cursor-pointer">Delete</Button>
+        </div>
       </div>
     {/each}
   {/if}
