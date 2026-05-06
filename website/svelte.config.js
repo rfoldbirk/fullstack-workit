@@ -8,6 +8,7 @@ const config = {
 	},
 	kit: {
 		adapter: adapter(),
+		csp: { directives: { 'connect-src': ["'self'"], }, },
 		alias: {
 			'@/*': './src/lib/*',
 		},
