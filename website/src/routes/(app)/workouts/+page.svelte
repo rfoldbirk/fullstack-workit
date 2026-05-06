@@ -19,7 +19,7 @@
     me = await me.json();
     is_coach = me?.myCoachProfile != null;
 
-    let resp = await fetch(is_coach ? "/api/coachr/program-templates" : "/api/me/program-templates");
+    let resp = await fetch(is_coach ? "/api/coach/program-templates" : "/api/me/program-templates");
     let data = await resp.json();
 
     if (data.error) {
