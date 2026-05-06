@@ -81,6 +81,8 @@ describe("coach program templates", () => {
       const templateExerciseId = 1;
       const templateExerciseOrder = 1;
       const restTimer = 90;
+      const exerciseReps = 10;
+      const exerciseweight = 100;
 
       // ADD EXERCISE TO TEMPLATE
       const addExercise = await coachAgent
@@ -89,8 +91,8 @@ describe("coach program templates", () => {
           exercise_id: templateExerciseId,
           order_nr: templateExerciseOrder,
           rest_timer: restTimer,
-          reps: 10,
-          weight_kg: 100,
+          reps: exerciseReps,
+          weight_kg: exerciseweight,
         });
       expect(addExercise.status).toBe(201);
       expect(addExercise.body.template_id).toBe(templateId);
@@ -102,6 +104,8 @@ describe("coach program templates", () => {
       const newTemplateExerciseId = 2;
       const newTemplateExerciseOrder = 2;
       const newRestTimer = 120;
+      const newExerciseReps = 12;
+      const newExerciseweight = 120;
 
       // CHANGE EXERCISE
       const changeExercise = await coachAgent
@@ -112,6 +116,8 @@ describe("coach program templates", () => {
           exercise_id: newTemplateExerciseId,
           order_nr: newTemplateExerciseOrder,
           rest_timer: newRestTimer,
+          reps: newExerciseReps,
+          weight_kg: newExerciseweight,
         });
       expect(changeExercise.status).toBe(200);
       expect(changeExercise.body.template_id).toBe(templateId);

@@ -110,9 +110,9 @@ export async function sendSignupOtpMail(args: {
     args.fullName.trim().split(/\s+/)[0] ?? args.fullName.trim();
 
   if (process.env.NODE_ENV === "test" || !resend) {
-    console.log(
-      `[signup otp] to=${args.email} firstName=${firstName} code=${args.otp}`,
-    );
+    // console.log(
+    //   `[signup otp] to=${args.email} firstName=${firstName} code=${args.otp}`,
+    // );
     return { success: true };
   }
 

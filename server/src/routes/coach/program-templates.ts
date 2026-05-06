@@ -256,10 +256,19 @@ router.post(
       const templateId = parseId(req.params.templateId);
       const exerciseId = parseId(String(req.body.exercise_id));
       const orderNr = Number(req.body.order_nr);
-      const restTimer = Number(req.body.rest_timer);
-      const weight_kg = Number(req.body.weight_kg);
-      const reps = Number(req.body.reps);
 
+      const restTimer =
+        req.body.rest_timer !== undefined
+          ? Number(req.body.rest_timer)
+          : undefined;
+
+      const weightKg =
+        req.body.weight_kg !== undefined
+          ? Number(req.body.weight_kg)
+          : undefined;
+
+      const reps =
+        req.body.reps !== undefined ? Number(req.body.reps) : undefined;
 
       if (!templateId) {
         return res.status(400).json({ error: "Invalid templateId" });
@@ -278,6 +287,17 @@ router.post(
         (!Number.isInteger(restTimer) || restTimer < 0)
       ) {
         return res.status(400).json({ error: "Invalid rest_timer" });
+      }
+
+      if (
+        weightKg !== undefined &&
+        (!Number.isFinite(weightKg) || weightKg < 0)
+      ) {
+        return res.status(400).json({ error: "Invalid weight_kg" });
+      }
+
+      if (reps !== undefined && (!Number.isInteger(reps) || reps <= 0)) {
+        return res.status(400).json({ error: "Invalid reps" });
       }
 
       const template = await prisma.program_template.findFirst({
@@ -299,21 +319,6 @@ router.post(
         return res.status(404).json({ error: "Exercise not found" });
       }
 
-
-      // const templateExercise = await prisma.program_template_exercise.create({
-      //   data: {
-      //     template_id: templateId,
-      //     exercise_id: exerciseId,
-      //     order_nr: orderNr,
-      //     rest_timer: restTimer,
-      //     weight_kg: weight_kg,
-      //     reps: reps,
-      //   },
-      //   include: {
-      //     exercise: true,
-      //   },
-      // });
-
       const templateExercise = await prisma.program_template_exercise.create({
         data: {
           order_nr: orderNr,
@@ -323,11 +328,14 @@ router.post(
           template: {
             connect: { id: templateId },
           },
-          rest_timer: restTimer,
-          weight_kg: weight_kg,
-          reps: reps,
-        }
-      })
+          ...(restTimer !== undefined ? { rest_timer: restTimer } : {}),
+          ...(weightKg !== undefined ? { weight_kg: weightKg } : {}),
+          ...(reps !== undefined ? { reps } : {}),
+        },
+        include: {
+          exercise: true,
+        },
+      });
 
       return res.status(201).json(templateExercise);
     } catch (error) {
@@ -381,6 +389,8 @@ router.patch(
         exercise_id?: number;
         order_nr?: number;
         rest_timer?: number;
+        weight_kg?: number;
+        reps?: number;
       } = {};
 
       if (req.body.exercise_id !== undefined) {
@@ -419,6 +429,26 @@ router.patch(
         }
 
         data.rest_timer = restTimer;
+      }
+
+      if (req.body.weight_kg !== undefined) {
+        const weightKg = Number(req.body.weight_kg);
+
+        if (!Number.isFinite(weightKg) || weightKg < 0) {
+          return res.status(400).json({ error: "Invalid weight_kg" });
+        }
+
+        data.weight_kg = weightKg;
+      }
+
+      if (req.body.reps !== undefined) {
+        const reps = Number(req.body.reps);
+
+        if (!Number.isInteger(reps) || reps <= 0) {
+          return res.status(400).json({ error: "Invalid reps" });
+        }
+
+        data.reps = reps;
       }
 
       const updated = await prisma.program_template_exercise.update({
