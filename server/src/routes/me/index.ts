@@ -4,8 +4,6 @@ import { requireAuth, AuthenticatedRequest } from "../../middleware/auth";
 import { getUserId, parseDate } from "./utils";
 
 import weightLogsRouter from "./weight-logs";
-import programsRouter from "./programs";
-import programLogsRouter from "./program-logs";
 import coachRouter from "./coach";
 import profilePictureRouter from "./profile-picture";
 import programTemplatesRouter from "./program-templates";
@@ -69,9 +67,7 @@ meRouter.patch("/", async (req: AuthenticatedRequest, res: Response) => {
     }
 
     if ("date_of_birth" in req.body) {
-      updateData.date_of_birth = req.body.date_of_birth
-        ? parseDate(req.body.date_of_birth)
-        : null;
+      updateData.date_of_birth = req.body.date_of_birth ? parseDate(req.body.date_of_birth) : null;
 
       if (req.body.date_of_birth && !updateData.date_of_birth) {
         return res.status(400).json({ error: "Invalid date_of_birth" });
@@ -79,21 +75,15 @@ meRouter.patch("/", async (req: AuthenticatedRequest, res: Response) => {
     }
 
     if ("weight_kg" in req.body) {
-      updateData.weight_kg =
-        req.body.weight_kg === null ? null : Number(req.body.weight_kg);
+      updateData.weight_kg = req.body.weight_kg === null ? null : Number(req.body.weight_kg);
     }
 
     if ("height_cm" in req.body) {
-      updateData.height_cm =
-        req.body.height_cm === null ? null : Number(req.body.height_cm);
+      updateData.height_cm = req.body.height_cm === null ? null : Number(req.body.height_cm);
     }
 
     if ("gender" in req.body) {
-      if (
-        req.body.gender !== null &&
-        req.body.gender !== "male" &&
-        req.body.gender !== "female"
-      ) {
+      if (req.body.gender !== null && req.body.gender !== "male" && req.body.gender !== "female") {
         return res.status(400).json({ error: "Invalid gender" });
       }
 
@@ -152,8 +142,6 @@ meRouter.delete("/", async (req: AuthenticatedRequest, res: Response) => {
 });
 
 meRouter.use("/weight-logs", weightLogsRouter);
-meRouter.use("/programs", programsRouter);
-meRouter.use("/program-logs", programLogsRouter);
 meRouter.use("/coach", coachRouter);
 meRouter.use("/profile-picture", profilePictureRouter);
 meRouter.use("/program-templates", programTemplatesRouter);
