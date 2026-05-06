@@ -9,10 +9,14 @@
 
   let is_coach: undefined | true | false = $state(undefined);
 
+  let current_workout = $state(null);
   let workouts = $state([]);
 
   onMount(async () => {
-    let me = await fetch('/api/me/coach')
+    current_workout = JSON.parse(localStorage.getItem("workout_inprogress") ?? "null");
+    console.log(current_workout);
+
+    let me = await fetch("/api/me/coach");
     me = await me.json();
     is_coach = me?.myCoachProfile != null;
 
@@ -25,15 +29,14 @@
       return;
     }
 
-    console.log(workouts)
     workouts = data;
   });
 
   async function start_workout(id: number) {
-    if (localStorage.getItem('workout_inprogress')) {
-      console.log('workout is already')
+    if (localStorage.getItem("workout_inprogress")) {
+      console.log("workout is already");
       return;
-    };
+    }
 
     let resp = await fetch("/api/me/workout-logs/start", {
       method: "POST",
@@ -42,7 +45,7 @@
     });
 
     let data = await resp.json();
-    localStorage.setItem('workout_inprogress', JSON.stringify(data));
+    localStorage.setItem("workout_inprogress", JSON.stringify(data));
 
     if (data.error) {
       console.log("der skete en fejl:", data);
@@ -81,6 +84,20 @@
   </div>
 
   {#if is_coach === false}
+    {#if current_workout}
+      <div class="border-border bg-muted/20 rounded-lg border p-4 flex justify-between">
+        <div>
+          <h1 class="flex gap-2 text-muted-foreground">
+            Routine: <p class="text-foreground">{current_workout.template.name}</p>
+          </h1>
+          <h1 class="flex gap-2 text-muted-foreground">
+            Exercise amount: <p class="text-foreground">{current_workout.template.exercises.length}</p>
+          </h1>
+        </div>
+        <Button onclick={() => goto(`/workouts/${current_workout.template_id}`)} class="cursor-pointer">Continue Workout</Button>
+      </div>
+    {/if}
+
     <Card.Root>
       <Card.Header>
         <Card.Title class="flex items-center gap-2">
@@ -100,7 +117,7 @@
                 Exercise amount: <p class="text-foreground">{w.exercises.length}</p>
               </h1>
             </div>
-            <Button onclick={() => start_workout(w.id)} class="cursor-pointer">Start</Button>
+            <Button disabled={current_workout != null} onclick={() => start_workout(w.id)} class="cursor-pointer">Start</Button>
           </div>
         {/each}
       </Card.Content>
@@ -112,9 +129,7 @@
       <Dumbbell class="text-muted-foreground size-12" />
       <div>
         <h2 class="text-lg font-semibold">Program builder</h2>
-        <p class="text-muted-foreground mt-1 max-w-md text-sm">
-          Build your own program here.
-        </p>
+        <p class="text-muted-foreground mt-1 max-w-md text-sm">Build your own program here.</p>
 
         <br />
         <Button onclick={open_editor}>Go to the editor</Button>
@@ -132,7 +147,7 @@
             Exercise amount: <p class="text-foreground">{w.exercises.length}</p>
           </h1>
         </div>
-        <Button onclick={() => start_workout(w.id)} class="cursor-pointer">Start</Button>
+        <Button onclick={() => start_workout(w.id)} class="cursor-pointer"> Start </Button>
       </div>
     {/each}
   {/if}
