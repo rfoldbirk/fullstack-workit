@@ -150,14 +150,13 @@
     });
 
     let data = await resp.json();
-    console.log(data);
 
     if (data.error) {
       console.log("der skete en fejl:", data);
       return;
     }
 
-    goto(`/workouts/editor/${data.id}`, { state: data });
+    goto(`/workouts/editor/${data.id}`);
   }
 </script>
 

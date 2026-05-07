@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Button, buttonVariants } from "@/components/ui/button";
+  import { Button } from "@/components/ui/button";
   import Input from "@/components/ui/input/input.svelte";
   import Label from "@/components/ui/label/label.svelte";
   import Dumbbell from "@lucide/svelte/icons/dumbbell";
@@ -11,10 +11,14 @@
   import type { Exercise, SimpleSet } from "@/api/types";
   import AddExercise from "../components/add_exercise.svelte";
   import { page } from "$app/state";
-  import { upload } from "./upload.svelte.ts";
-  import type { PageProps } from './$types';
+  import { upload, update_routine_name } from "./upload.svelte.ts";
+  import type { PageProps } from "./$types";
+  import { Spinner } from "@/components/ui/spinner/";
 
   let { params }: PageProps = $props();
+
+  let uploading = $state(false);
+  let error_during_upload = $state("");
 
   type SetExercise = {
     uuid: number;
@@ -24,20 +28,18 @@
     sets: SimpleSet[];
   };
 
-
   // binded values
   let all_exercises: Exercise[] = $state([]);
   let routine: SetExercise[] = $state([]);
   let routine_name = $state("");
 
-
   onMount(async () => {
     // load all exercises
-    const response = await fetch('/api/exercises');
+    const response = await fetch("/api/exercises");
     all_exercises = await response.json();
 
     // load routine from server
-    const routine_response = await fetch('/api/coach/program-templates/' + params.id);
+    const routine_response = await fetch("/api/coach/program-templates/" + params.id);
     let routine_data = await routine_response.json();
 
     routine_name = routine_data.name;
@@ -45,7 +47,7 @@
     let current_exercise: SetExercise = {
       id: 0,
       uuid: 0,
-      note: '',
+      note: "",
       rest_timer: 0,
       sets: [],
     };
@@ -68,12 +70,10 @@
         current_exercise = {
           id: set.exercise.id,
           uuid: set.order_nr,
-          note: '',
+          note: "",
           sets: [{ reps: set.reps, weight: set.weight_kg }],
           rest_timer: set.rest_timer,
-        }
-
-        // console.table(current_exercise.sets)
+        };
 
         continue;
       }
@@ -86,23 +86,49 @@
     }
   });
 
-  let timeout_ids: NodeJS.Timeout[] = [];
+  let update_name_tids: number[] = [];
+  let update_routine_tids: number[] = [];
 
   $effect(() => {
-    let id = setTimeout(upload, 300)
-    for (const tid of timeout_ids) { clearTimeout(tid); }
-    timeout_ids.push(id);
+    for (const tid of update_name_tids) {
+      clearInterval(tid);
+    }
 
-    localStorage.setItem('routine_id', params.id);
+    // only update if routine_name is valid
+    if (routine_name.length == 0) {
+      return;
+    }
 
-    if (routine.length == 0) return;
-    localStorage.setItem('routine', JSON.stringify(routine));
-    console.log('Routine was saved!')
+    let id = setTimeout(async () => {
+      uploading = true;
+      await update_routine_name(params.id, routine_name);
+      uploading = false;
+    }, 300); // vi bruger en timer, for at undgå at sennde for mange requests afsted!
+    update_name_tids.push(id);
+  });
 
-    if (routine_name.length == 0) return;
-    localStorage.setItem('routine_name', routine_name);
+  $effect(() => {
+    for (const tid of update_routine_tids) {
+      clearInterval(tid);
+    }
 
-  })
+    // nødvendigt, ellers reagerer den ikke :/
+    const _rc = JSON.stringify(routine); // lad vær med at slette! :))
+    // hold dig væk!
+
+    let id = setTimeout(async () => {
+      uploading = true;
+      const resp = await upload(params.id, routine);
+      uploading = false;
+
+      if (resp === true) {
+        error_during_upload = "";
+        return;
+      }
+      error_during_upload = resp;
+    }, 300); // vi bruger en timer, for at undgå at sennde for mange requests afsted!
+    update_routine_tids.push(id);
+  });
 
   function display_min(raw_number: number): string {
     const val = Math.floor(raw_number / 60);
@@ -165,7 +191,13 @@
 
 <div class="flex w-full flex-col gap-2">
   <Label for="routine-id">Routine Title</Label>
-  <Input bind:value={routine_name} class="w-full" type="text" id="routine-id" placeholder="Workout Routine Title" />
+  <Input
+    bind:value={routine_name}
+    class="w-full"
+    type="text"
+    id="routine-id"
+    placeholder="Workout Routine Title"
+  />
 </div>
 
 <br />
@@ -190,16 +222,20 @@
       </div>
 
       <!-- Note  -->
+      <!--
       <div class="flex w-full flex-col gap-2">
         <Label for="note-{e_index}">Note:</Label>
         <Input bind:value={exercise.note} class="w-full" type="text" id="note-{e_index}" placeholder="Add pinned note" />
       </div>
+      -->
 
       <br />
 
       <!-- Rest timer -->
       <div class="flex w-full flex-col gap-4 pt-2 pb-2">
-        <Label for="note-{e_index}">Rest timer: {display_min(exercise.rest_timer)}:{display_sec(exercise.rest_timer)}</Label>
+        <Label for="note-{e_index}"
+          >Rest timer: {display_min(exercise.rest_timer)}:{display_sec(exercise.rest_timer)}</Label
+        >
         <Slider class="" type="single" bind:value={exercise.rest_timer} max={300} step={1} />
       </div>
 
@@ -216,19 +252,24 @@
       {#each exercise.sets as set, set_index}
         <div class="flex justify-between gap-2">
           <Input disabled class="text-xs w-12 text-center" value={set_index} />
-          <Input bind:value={set.weight} type="number" min="0" max="500" class="text-xs text-center w-1/2"></Input>
-          <Input bind:value={set.reps} type="number" min="0" max="500" class="text-xs text-center w-1/2"></Input>
+          <Input bind:value={set.weight} type="number" min="0" max="500" class="text-xs text-center w-1/2"
+          ></Input>
+          <Input bind:value={set.reps} type="number" min="0" max="500" class="text-xs text-center w-1/2"
+          ></Input>
 
           {#if exercise.sets.length > 1}
-            <Button onclick={() => remove_set(exercise, set_index)} class="cursor-pointer w-6 bg-accent hover:bg-accent text-muted-foreground"
-              ><X /></Button
+            <Button
+              onclick={() => remove_set(exercise, set_index)}
+              class="cursor-pointer w-6 bg-accent hover:bg-accent text-muted-foreground"><X /></Button
             >
           {/if}
         </div>
       {/each}
 
       <!-- Add set button -->
-      <Button onclick={() => add_set(exercise)} class="bg-secondary cursor-pointer hover:bg-accent text-secondary-foreground"><Plus /> Add Set</Button
+      <Button
+        onclick={() => add_set(exercise)}
+        class="bg-secondary cursor-pointer hover:bg-accent text-secondary-foreground"><Plus /> Add Set</Button
       >
     </div>
   {/each}
@@ -241,5 +282,19 @@
 <br />
 
 <div class="w-full flex justify-center">
-  <Button onclick={ upload } class="w-1/3 cursor-pointer hover:bg-blue-400 bg-blue-500 dark:text-white"> Upload </Button>
+  <Button
+    disabled={uploading}
+    variant={error_during_upload.length != 0 ? "destructive" : "default"}
+    onclick={async () => {
+      uploading = true;
+      await upload(params.id, routine);
+      uploading = false;
+    }}
+    class="w-1/3 cursor-pointer hover:bg-blue-400 bg-blue-500 dark:text-white"
+  >
+    Upload
+    {#if uploading}
+      <Spinner />
+    {/if}
+  </Button>
 </div>
