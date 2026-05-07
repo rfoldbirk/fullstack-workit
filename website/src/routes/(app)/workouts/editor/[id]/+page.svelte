@@ -17,6 +17,7 @@
 
   let { params }: PageProps = $props();
 
+  let loaded = $state(false);
   let uploading = $state(false);
   let error_during_upload = $state("");
 
@@ -84,12 +85,17 @@
     if (current_exercise.sets.length != 0) {
       routine.push(current_exercise);
     }
+
+    loaded = true;
   });
 
   let update_name_tids: number[] = [];
   let update_routine_tids: number[] = [];
 
+
   $effect(() => {
+    if (!loaded) return;
+
     for (const tid of update_name_tids) {
       clearInterval(tid);
     }
@@ -108,6 +114,8 @@
   });
 
   $effect(() => {
+    if (!loaded) return;
+
     for (const tid of update_routine_tids) {
       clearInterval(tid);
     }
@@ -126,7 +134,7 @@
         return;
       }
       error_during_upload = resp;
-    }, 300); // vi bruger en timer, for at undgå at sennde for mange requests afsted!
+    }, 800); // vi bruger en timer, for at undgå at sennde for mange requests afsted!
     update_routine_tids.push(id);
   });
 
