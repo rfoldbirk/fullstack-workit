@@ -14,6 +14,9 @@
   import type { PageProps } from "./$types";
   import { Checkbox } from "@/components/ui/checkbox";
   import { goto } from "$app/navigation";
+  import * as Dialog from "$lib/components/ui/dialog/index.js";
+  import { upload } from "../editor/[id]/upload.svelte";
+    import Spinner from "@/components/ui/spinner/spinner.svelte";
 
   let { params }: PageProps = $props();
 
@@ -30,6 +33,8 @@
   let workout_in_progress = $state({ id: -1 });
   let routine: SetExercise[] = $state([]);
   let routine_name = $state("");
+  let workout_note = $state("Good Workout 💪");
+  let uploading = $state(false);
 
   let logs: {
     id: number;
@@ -45,8 +50,6 @@
       equipment: String;
     };
   }[] = $state([]);
-
-  function upload() {}
 
   onMount(async () => {
     if (localStorage.getItem("workout_inprogress") === null) {
@@ -168,6 +171,7 @@
   }
 
   function finish_workout() {
+    uploading = true;
     localStorage.removeItem("routine");
     localStorage.removeItem("routine_name");
     localStorage.removeItem("routine_id");
@@ -177,8 +181,12 @@
     fetch(`/api/me/workout-logs/${workout_in_progress.id}/finish`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ note: "Good workout, felt strong" }),
+      body: JSON.stringify({ note: workout_note || 'Completed workout' }),
     });
+
+    setTimeout(() => {
+      goto("/workouts");
+    }, 800);
   }
 
   function display_min(raw_number: number): string {
@@ -260,5 +268,31 @@
 <br />
 
 <div class="flex justify-center">
-  <Button class="cursor-pointer p-2 w-1/2" onclick={finish_workout}>Finish workout</Button>
+  <!-- <Button class="cursor-pointer p-2 w-1/2" onclick={finish_workout}>Finish workout</Button> -->
+
+  <Dialog.Root>
+    <form>
+      <Dialog.Trigger type="button" class="cursor-pointer {buttonVariants({ variant: "default" })}">Finish Workout</Dialog.Trigger>
+      <Dialog.Content class="sm:max-w-106.25">
+        <Dialog.Header>
+          <Dialog.Title>Finish Workout</Dialog.Title>
+          <Dialog.Description>How did the workout go?</Dialog.Description>
+        </Dialog.Header>
+        <div class="grid gap-4">
+          <div class="grid gap-3">
+            <Label for="workout-note">Workout Note:</Label>
+            <Input bind:value={workout_note} id="workout-note" name="workout-note" defaultValue="Good Workout, felt strong! 💪" />
+          </div>
+        </div>
+        <Dialog.Footer>
+          <Dialog.Close type="button" class="cursor-pointer {buttonVariants({ variant: "outline" })}">Cancel</Dialog.Close>
+          {#if uploading}
+            <Button disabled>Uploading... <Spinner /></Button>
+          {:else}
+            <Button class="cursor-pointer" onclick={finish_workout}>Upload Workout</Button>
+          {/if}
+        </Dialog.Footer>
+      </Dialog.Content>
+    </form>
+  </Dialog.Root>
 </div>
