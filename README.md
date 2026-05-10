@@ -1,4 +1,4 @@
-# WorkIT setup
+# Work It setup
 Fordi vi har en backend og en webserver som begge modtager traffik på samme domæne, bruger vi nginx til at dele det op.
 
 Installér nginx og indsæt følgende konfiguration:
